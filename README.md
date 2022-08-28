@@ -18,6 +18,13 @@ Getting you 90% of the way to top-tier reproducibility.
 - [Ablation Studies](#ablation-studies)
 - [Conclusion](#conclusion)
 
+## Front Matter
+This is a tutorial for [Euroscipy 2022](https://www.euroscipy.org/2022/), the official [schedule and announcement are here](https://pretalx.com/euroscipy-2022/talk/E7Z3VY/).
+
+This tutorial is available here: https://github.com/JesperDramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial
+
+This proposal has received funding through the [2022 fellowship of the Software Sustainability Institute](https://www.software.ac.uk/).
+
 ## Abstract
 
 Every scientific conference has seen a massive uptick in applications that use some type of machine learning. Whether it’s a linear regression using scikit-learn, a transformer from Hugging Face, or a custom convolutional neural network in Jax, the breadth of applications is as vast as the quality of contributions.
@@ -77,6 +84,18 @@ So how do we actually go about obtaining these goals?
 
 
 | ▲ [Top](#table-of-contents) |
+
+
+## Data
+
+This tutorial uses the [Palmer Penguins dataset](https://allisonhorst.github.io/palmerpenguins/).
+
+Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/).
+
+![Artwork by @allison_horst](img/lter_penguins.png)
+*Artwork by [@allison_horst](https://www.allisonhorst.com/)*
+
+
 
 ## Model Evaluation
 
@@ -156,7 +175,6 @@ In this section, we’ll finally discuss how to present complex machine learning
 [Explore ablation study Jupyter notebook](notebooks/ablation-study.ipynb)
 
 | ▲ [Top](#table-of-contents) |
-
 ## Conclusion
 
 Overall, this tutorial is aimed at applied scientists that want to explore machine learning solutions for their problems.
