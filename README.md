@@ -8,6 +8,7 @@ Getting you 90% of the way to top-tier reproducibility.
 ## Table of Contents
 
 - [Abstract](#abstract)
+- [Installation](#installation)
 - [Why make it reproducible?](#why-make-it-reproducible)
 - [Model Evaluation](#model-evaluation)
 - [Benchmarking](#benchmarking)
@@ -24,6 +25,38 @@ Every scientific conference has seen a massive uptick in applications that use s
 This tutorial aims to provide easy ways to increase the quality of scientific contributions that use machine learning methods. The reproducible aspect will make it easy for fellow researchers to use and iterate on a publication, increasing citations of published work. The use of appropriate validation techniques and increase in code quality accelerates the review process during publication and avoids possible rejection due to deficiencies in the methodology. Making models, code and possibly data available increases the visibility of work and enables easier collaboration on future work.
 
 This work to make machine learning applications reproducible has an outsized impact compared to the limited additional work that is required using existing Python libraries.
+
+## Installation
+
+Both `requirements.txt` and `environment.yml` are provided to install packages.
+
+### Using PIP
+
+You can install the packages using `pip`:
+
+```
+$ pip install -r requirements.txt
+```
+### Using Conda
+
+You can create an `euroscipy-2022-ml-repro` conda environment executing:
+
+```
+$ conda env create -f environment.yml
+```
+
+and later activate the environment:
+
+```
+$ conda activate euroscipy-2022-ml-repro
+```
+
+You might also only update your current environment using:
+
+```
+$ conda env update --prefix ./env --file environment.yml  --prune
+```
+
 ## Why make it reproducible?
 
 One of the tenets of science is to be reproducible. 
@@ -42,6 +75,9 @@ These benefits, and a few others, like making iteration, and therefore frequent 
 
 So how do we actually go about obtaining these goals?
 
+
+| ▲ [Top](#table-of-contents) |
+
 ## Model Evaluation
 
 Applying machine learning in an applied science context is often method work. We build a prototype model and expect want to show that this method can be applied to our specific problem. This means that we have to guarantee that the insights we glean from this application generalize to new data from the same problem set.
@@ -54,6 +90,8 @@ So we’ll go into some methods to properly evaluate machine learning models eve
 
 [Explore model evaluation Jupyter notebook](notebooks/model-evaluation.ipynb)
 
+| ▲ [Top](#table-of-contents) |
+
 ## Benchmarking
 
 Another common reason for rejections of machine learning papers in applied science is the lack of proper benchmarks. This section will be fairly short, as it differs from discipline to discipline.
@@ -61,6 +99,8 @@ Another common reason for rejections of machine learning papers in applied scien
 However, any time we apply a superfancy deep neural network, we need to supply a benchmark to compare the relative performance of our model to. These models should be established methods in the field and simpler machine learning methods like a linear model, support-vector machine or a random forest.
 
 [Explore benchmarking Jupyter notebook](notebooks/benchmarking.ipynb)
+
+| ▲ [Top](#table-of-contents) |
 
 ## Model Sharing
 
@@ -77,6 +117,8 @@ In this section, we explore how we can export models and make our training codes
 
 [Explore model sharing Jupyter notebook](notebooks/model-sharing.ipynb)
 
+| ▲ [Top](#table-of-contents) |
+
 ## Testing
 
 Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.
@@ -88,6 +130,9 @@ Writing software tests in science, is already incredibly hard, so in this sectio
 - some strategies to probe our models
 
 [Explore testing Jupyter notebook](notebooks/testing.ipynb)
+
+| ▲ [Top](#table-of-contents) |
+
 ## Interpretability
 
 One way to probe the models we build is to test them against the established knowledge of domain experts. In this final section, we’ll explore how to build intuitions about our machine learning model and avoid pitfalls like spurious correlations. These methods for model interpretability increase our trust into models, but they can also serve as an additional level of reproducibility in our research and a valuable research artefact that can be discussed in a publication.
@@ -98,6 +143,8 @@ This section will introduce tools like `shap`, discuss feature importance, and m
 
 [Explore interpretability Jupyter notebook](notebooks/interpretability.ipynb)
 
+| ▲ [Top](#table-of-contents) |
+
 ## Ablation Studies
 
 Finally, the gold standard in building complex machine learning models is proving that each constituent part of the model contributes something to the proposed solution. 
@@ -107,6 +154,9 @@ Ablation studies serve to dissect machine learning models and evaluate their imp
 In this section, we’ll finally discuss how to present complex machine learning models in publications and ensure the viability of each part we engineered to solve our particular problem set.
 
 [Explore ablation study Jupyter notebook](notebooks/ablation-study.ipynb)
+
+| ▲ [Top](#table-of-contents) |
+
 ## Conclusion
 
 Overall, this tutorial is aimed at applied scientists that want to explore machine learning solutions for their problems.
