@@ -5,6 +5,18 @@ A collection of "easy wins" to make machine learning in research reproducible.
 This tutorial focuses on basics that work. 
 Getting you 90% of the way to top-tier reproducibility.
 
+## Table of Contents
+
+- [Abstract](#abstract)
+- [Why make it reproducible?](#why-make-it-reproducible)
+- [Model Evaluation](#model-evaluation)
+- [Benchmarking](#benchmarking)
+- [Model Sharing](#model-sharing)
+- [Testing](#testing)
+- [Interpretability](#interpretability)
+- [Ablation Studies](#ablation-studies)
+- [Conclusion](#conclusion)
+
 ## Abstract
 
 Every scientific conference has seen a massive uptick in applications that use some type of machine learning. Whether it’s a linear regression using scikit-learn, a transformer from Hugging Face, or a custom convolutional neural network in Jax, the breadth of applications is as vast as the quality of contributions.
@@ -12,8 +24,7 @@ Every scientific conference has seen a massive uptick in applications that use s
 This tutorial aims to provide easy ways to increase the quality of scientific contributions that use machine learning methods. The reproducible aspect will make it easy for fellow researchers to use and iterate on a publication, increasing citations of published work. The use of appropriate validation techniques and increase in code quality accelerates the review process during publication and avoids possible rejection due to deficiencies in the methodology. Making models, code and possibly data available increases the visibility of work and enables easier collaboration on future work.
 
 This work to make machine learning applications reproducible has an outsized impact compared to the limited additional work that is required using existing Python libraries.
-
-## Overview
+## Why make it reproducible?
 
 One of the tenets of science is to be reproducible. 
 
@@ -65,6 +76,7 @@ In this section, we explore how we can export models and make our training codes
 - Docker and containerization for ultimate reproducibility
 
 [Explore model sharing Jupyter notebook](notebooks/model-sharing.ipynb)
+
 ## Testing
 
 Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.
