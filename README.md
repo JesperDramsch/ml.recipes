@@ -10,10 +10,11 @@ Getting you 90% of the way to top-tier reproducibility.
 - [Abstract](#abstract)
 - [Installation](#installation)
 - [Why make it reproducible?](#why-make-it-reproducible)
+- [Data](#data)
 - [Model Evaluation](#model-evaluation)
 - [Benchmarking](#benchmarking)
 - [Model Sharing](#model-sharing)
-- [Testing](#testing)
+- [Testing ML Code](#testing)
 - [Interpretability](#interpretability)
 - [Ablation Studies](#ablation-studies)
 - [Conclusion](#conclusion)
@@ -95,7 +96,7 @@ Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.e
 ![Artwork by @allison_horst](img/lter_penguins.png)
 *Artwork by [@allison_horst](https://www.allisonhorst.com/)*
 
-
+| ▲ [Top](#table-of-contents) |
 
 ## Model Evaluation
 
