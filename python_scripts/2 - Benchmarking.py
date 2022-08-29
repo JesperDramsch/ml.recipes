@@ -69,6 +69,14 @@ clf.score(X_test, y_test)
 # - [ChestX-ray8](https://paperswithcode.com/dataset/chestx-ray8) in medical imaging
 
 # %% [markdown]
+# ## Domain Methods
+# Any method is stronger if it is verified against standard methods in the field.
+#
+# A weather forecast post-processing method should be evaluated against a standard for forecast post-processing.
+#
+# This is where domain expertise is important.
+
+# %% [markdown]
 # ## Linear and Standard Models
 # In addition to the Dummy methods, we also want to evaluate our fancy solutions against very simple models.
 #
