@@ -30,7 +30,7 @@
 
 # %% [markdown]
 # ## Model Export
-# Scikit learn uses the Python `pickle` module to persist models in storage.
+# Scikit learn uses the Python `pickle` (or rather `joblib`) module to persist models in storage.
 # More information [here](https://scikit-learn.org/stable/model_persistence.html)
 # %%
 import pandas as pd
@@ -44,7 +44,7 @@ cat_features = ["Sex"]
 features = num_features + cat_features
 target = ["Species"]
 
-X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target], stratify=penguins[target[0]], train_size=.7, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target[0]], stratify=penguins[target[0]], train_size=.7, random_state=42)
 
 # %%
 from sklearn.svm import SVC
@@ -69,9 +69,9 @@ model.fit(X_train, y_train)
 model.score(X_test, y_test)
 
 # %%
-import pickle
-s = pickle.dumps(model)
-clf = pickle.loads(s)
+from joblib import dump, load
+dump(model, "../model/svc.joblib")
+clf = load("../model/svc.joblib")
 clf.score(X_test, y_test)
 
 # %% [markdown]
@@ -88,9 +88,11 @@ clf.score(X_test, y_test)
 # %%
 from sklearn.model_selection import cross_val_score
 
-clf = SVC(random_state=42)
-clf.fit(X_train, y_train)
-scores = cross_val_score(model, X_train, y_train, cv=5, random_state=42)
+clf = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', SVC(random_state=42)),
+])
+scores = cross_val_score(clf, X_train, y_train, cv=5)
 scores
 
 # %% [markdown]
@@ -172,5 +174,3 @@ SVC()
 #
 # CMD python train.py
 # ```
-
-# %%
