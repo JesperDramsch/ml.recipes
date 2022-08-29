@@ -67,7 +67,7 @@ clf.score(X_test, y_test)
 #
 
 # %%
-def test_adelie(clf):
+def test_penguins(clf):
     # Define data you definitely know the answer to
     test_data = pd.DataFrame([[34.6, 21.1, 198.0, "MALE"],
                               [46.1, 18.2, 178.0, "FEMALE"],
@@ -82,7 +82,52 @@ def test_adelie(clf):
 
 
 # %%
-test_adelie(clf)
+test_penguins(clf)
+
+
+# %% [markdown]
+# ## Automated Testing of Docstring Examples
+#
+# There is an even easier way to run simple tests. This can be useful when we write specific functions to pre-process our data.
+# In the Model Sharing notebook, we looked into auto-generating docstrings.
+#
+# We can upgrade our docstring and get free software tests out of it!
+#
+# This is called doctest and usually useful to keep docstring examples up to date and write quick unit tests for a function.
+#
+# This makes future users (including yourself from the future) quite happy.
+
+# %%
+def shorten_class_name(df: pd.DataFrame) -> pd.DataFrame:
+    """Shorten the class names of the penguins to the shortest version
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Dataframe containing the Species column with penguins
+
+    Returns
+    -------
+    pd.DataFrame
+        Normalised dataframe with shortened names
+    
+    Examples
+    --------
+    >>> shorten_class_name(pd.DataFrame([[1,2,3,"Adelie Penguin (Pygoscelis adeliae)"]], columns=["1","2","3","Species"]))
+       1  2  3 Species
+    0  1  2  3  Adelie
+    """
+    df["Species"] = df.Species.str.split(r" [Pp]enguin", n=1, expand=True)[0]
+
+    return df
+
+import doctest
+doctest.testmod()
+
+# %%
+shorten_class_name(penguins).head()
+
+# %%
 
 # %% [markdown]
 # ## Input Data Validation
