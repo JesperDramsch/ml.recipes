@@ -1,0 +1,12 @@
+name: euroscipy-2022-ml-repro
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - python
+  - jupyter
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - pandas
+prefix: C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro
