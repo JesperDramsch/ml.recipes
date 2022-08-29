@@ -156,4 +156,21 @@ SVC()
 #
 # (It's also great practice for the business world)
 #
-# A 
+# Docker containers are build using the `docker build` command using a `Dockerfile`, an example docker file for Python looks like this:
+#
+# ```docker
+# # syntax=docker/dockerfile:1
+#
+# FROM python:3.8-slim-buster
+#
+# WORKDIR /
+#
+# COPY requirements.txt requirements.txt
+# RUN pip3 install -r requirements.txt
+#
+# COPY . .
+#
+# CMD python train.py
+# ```
+
+# %%
