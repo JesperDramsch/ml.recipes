@@ -1,0 +1,127 @@
+# ---
+# jupyter:
+#   jupytext:
+#     formats: notebooks//ipynb,python_scripts//py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.14.1
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
+# ---
+
+# %% [markdown]
+# # Testing
+#
+# Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.
+#
+# Writing software tests in science, is already incredibly hard, so in this section we’ll touch on 
+#
+# - some fairly simple tests we can implement to ensure consistency of our input data
+# - avoid bad bugs in data loading procedures
+# - some strategies to probe our models
+#
+
+# %%
+import pandas as pd
+penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins.head()
+
+# %%
+from sklearn.model_selection import train_test_split
+num_features = ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"]
+cat_features = ["Sex"]
+features = num_features + cat_features
+target = ["Species"]
+
+X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target], stratify=penguins[target[0]], train_size=.7, random_state=42)
+
+# %%
+from sklearn.svm import SVC
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+import joblib
+from joblib import load
+
+clf = load("../model/svc.joblib")
+clf.score(X_test, y_test)
+
+# %% [markdown]
+# ## Deterministic Tests
+# When I work with neural networks, implementing a new layer, method, or fancy thing, I try to write a test for that layer. The `Conv2D` layer in Keras and Pytorch for example should always do the same exact thing, when they convole a kernel with an image.
+#
+# Consider writing a small `pytest` test that takes a simple numpy array and tests against a known output.
+#
+# You can check out the `keras` test suite [here](https://github.com/keras-team/keras/tree/master/keras/tests) and an example how they validate the [input and output shapes](https://github.com/keras-team/keras/blob/18248b084f932e294402f0b772b49ed162c25208/keras/testing_infra/test_utils.py#L217).
+#
+# Admittedly this isn't always easy to do and can go beyond the need for research scripts.
+
+# %% [markdown]
+# ## Data Tests for Models
+#
+# An even easier test is by essentially reusing the notebook from the Model Evaluation and writing a test function for it.
+#
+
+# %%
+def test_adelie(clf):
+    # Define data you definitely know the answer to
+    test_data = pd.DataFrame([[34.6, 21.1, 198.0, "MALE"],
+                              [46.1, 18.2, 178.0, "FEMALE"],
+                              [52.5, 15.6, 221.0, "MALE"]], 
+             columns=["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)", "Sex"])
+    # Define target to the data
+    test_target = ['Adelie Penguin (Pygoscelis adeliae)',
+                   'Chinstrap penguin (Pygoscelis antarctica)',
+                   'Gentoo penguin (Pygoscelis papua)']
+    # Assert the model should get these right.
+    assert clf.score(test_data, test_target) == 1
+
+
+# %%
+test_adelie(clf)
+
+# %% [markdown]
+# ## Input Data Validation
+# You validate that the data that users are providing matches what your model is expecting.
+#
+# These tools are often used in production systems to determine whether APIs usage and user inputs are formatted correctly.
+#
+# Example tools are:
+# - [Great Expectations](https://greatexpectations.io/)
+# - [Pandera](https://pandera.readthedocs.io/)
+
+# %%
+import pandera as pa
+
+# data to validate
+X_train.describe()
+
+# %%
+# define schema
+schema = pa.DataFrameSchema({
+    "Culmen Length (mm)": pa.Column(float, checks=[pa.Check.ge(30),
+                                                   pa.Check.le(60)]),
+    "Culmen Depth (mm)": pa.Column(float, checks=[pa.Check.ge(13),
+                                                  pa.Check.le(22)]),
+    "Flipper Length (mm)": pa.Column(float, checks=[pa.Check.ge(170),
+                                                    pa.Check.le(235)]),
+    "Sex": pa.Column(str, checks=pa.Check.isin(["MALE","FEMALE"])),
+})
+
+validated_test = schema(X_test)
+
+# %%
+X_test.Sex.unique()
+
+# %%
+X_test.loc[259]
+
+# %% [markdown]
+# Can you fix the data to conform to the schema?
+
+# %%
+
