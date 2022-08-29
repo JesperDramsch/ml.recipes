@@ -127,7 +127,8 @@ doctest.testmod()
 # %%
 shorten_class_name(penguins).head()
 
-# %%
+# %% [markdown]
+# So these give a nice example of usage in the docstring, an expected output and a first test case that is validated by our test suite.
 
 # %% [markdown]
 # ## Input Data Validation
