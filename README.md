@@ -108,7 +108,7 @@ Not taking care of proper validation, will often lead to additional review cycle
 
 So we’ll go into some methods to properly evaluate machine learning models even when our data is not “independent and identically distributed”.
 
-[Explore model evaluation Jupyter notebook](notebooks/model-evaluation.ipynb)
+[Explore model evaluation Jupyter notebook](notebooks/1%20-%20Model%20Evaluation.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 
@@ -118,7 +118,7 @@ Another common reason for rejections of machine learning papers in applied scien
 
 However, any time we apply a superfancy deep neural network, we need to supply a benchmark to compare the relative performance of our model to. These models should be established methods in the field and simpler machine learning methods like a linear model, support-vector machine or a random forest.
 
-[Explore benchmarking Jupyter notebook](notebooks/benchmarking.ipynb)
+[Explore benchmarking Jupyter notebook](notebooks/2%20-%20Benchmarking.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 
@@ -135,7 +135,7 @@ In this section, we explore how we can export models and make our training codes
 - Automatic Docstrings and Documentation
 - Docker and containerization for ultimate reproducibility
 
-[Explore model sharing Jupyter notebook](notebooks/model-sharing.ipynb)
+[Explore model sharing Jupyter notebook](notebooks/3%20-%20Model%20Sharing.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 
@@ -149,7 +149,7 @@ Writing software tests in science, is already incredibly hard, so in this sectio
 - avoid bad bugs in data loading procedures
 - some strategies to probe our models
 
-[Explore testing Jupyter notebook](notebooks/testing.ipynb)
+[Explore testing Jupyter notebook](notebooks/4%20-%20Testing.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 
@@ -161,7 +161,7 @@ This part of the tutorial will also go into some considerations why the feature 
 
 This section will introduce tools like `shap`, discuss feature importance, and manual inspection of models.
 
-[Explore interpretability Jupyter notebook](notebooks/interpretability.ipynb)
+[Explore interpretability Jupyter notebook](notebooks/5%20-%20Interpretability.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 
@@ -173,7 +173,7 @@ Ablation studies serve to dissect machine learning models and evaluate their imp
 
 In this section, we’ll finally discuss how to present complex machine learning models in publications and ensure the viability of each part we engineered to solve our particular problem set.
 
-[Explore ablation study Jupyter notebook](notebooks/ablation-study.ipynb)
+[Explore ablation study Jupyter notebook](notebooks/6%20-%20Ablation%20Study.ipynb)
 
 | ▲ [Top](#table-of-contents) |
 ## Conclusion
@@ -181,3 +181,4 @@ In this section, we’ll finally discuss how to present complex machine learning
 Overall, this tutorial is aimed at applied scientists that want to explore machine learning solutions for their problems.
 
 This tutorial focuses on a collection of “easy wins” that scientists can implement in their research to avoid catastrophic failures and increase reproducibility with all its benefits.
+
