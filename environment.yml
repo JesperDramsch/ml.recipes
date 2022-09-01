@@ -9,4 +9,4 @@ dependencies:
   - matplotlib
   - seaborn
   - pandas
-prefix: C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro
+  - shap

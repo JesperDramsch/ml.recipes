@@ -22,26 +22,116 @@
 #
 # This section will introduce tools like `shap`, discuss feature importance, and manual inspection of models.
 
+# %%
+import pandas as pd
+penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins.head()
+
+# %%
+from sklearn.model_selection import train_test_split
+num_features = ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"]
+cat_features = ["Sex"]
+features = num_features + cat_features
+target = ["Species"]
+
+X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target[0]], stratify=penguins[target[0]], train_size=.7, random_state=42)
+
+# %%
+from sklearn.svm import SVC
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from joblib import dump, load
+
+model = load("../model/svc.joblib")
+model.score(X_test, y_test)
 
 # %% [markdown]
 # ## Scikit-Learn Inspection
-# 
+#
 
 # %%
+from sklearn.inspection import PartialDependenceDisplay, partial_dependence, plot_partial_dependence
+
+pd_results = partial_dependence(model, X_train.sample(20), num_features)
+pd_results
+
+
+# %%
+PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[0])
+
+# %%
+PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[1])
+
+# %%
+PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[2])
 
 # %% [markdown]
 # Tree importance vs Permutation importance
 
 # %%
+from sklearn.ensemble import RandomForestClassifier
+
+num_transformer = StandardScaler()
+cat_transformer = OneHotEncoder(handle_unknown='ignore')
+
+preprocessor = ColumnTransformer(transformers=[
+    ('num', num_transformer, num_features),
+    ('cat', cat_transformer, cat_features)
+])
+
+rf = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', RandomForestClassifier()),
+])
+
+rf.fit(X_train, y_train)
+rf.score(X_test, y_test)
+
+# %%
+pd.Series(rf.named_steps["classifier"].feature_importances_, index=num_features+['F', 'M']).plot.bar()
+
+# %%
+from sklearn.inspection import permutation_importance
+
+result = permutation_importance(
+    rf, X_test, y_test, n_repeats=10, random_state=42
+)
+
+pd.Series(result.importances_mean, index=features).plot.bar()
+
+# %%
+result = permutation_importance(
+    model, X_test, y_test, n_repeats=10, random_state=42
+)
+
+pd.Series(result.importances_mean, index=features).plot.bar()
 
 # %% [markdown]
 # ## Shap Inspection
 #
-#
-# Limitations
 
 # %%
+import shap
 
+rf = RandomForestClassifier()
+rf.fit(X_train[num_features], y_train)
+
+explainer = shap.Explainer(rf)
+explainer
+
+
+# %%
+shap_values = explainer.shap_values(X_test[num_features])
+
+# %%
+shap.initjs()
+
+# %%
+shap.force_plot(explainer.expected_value[0], shap_values[0][0], feature_names=num_features)
+
+# %%
+shap.force_plot(explainer.expected_value[0], shap_values[0], feature_names=num_features)
 
 # %% [markdown]
 # ## Model Inspection
