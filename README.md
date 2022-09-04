@@ -1,4 +1,6 @@
-# Increase citations, ease review & collaboration  
+# Increase citations, ease review & collaboration
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JesperDramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/HEAD)
 
 A collection of "easy wins" to make machine learning in research reproducible.  
 
@@ -37,6 +39,16 @@ This work to make machine learning applications reproducible has an outsized imp
 ## Installation
 
 Both `requirements.txt` and `environment.yml` are provided to install packages.
+
+### Avoid installation
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JesperDramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/HEAD)
+
+You can run these notebooks in cloud computing. This button to binder will automagically install the dependencies for you and let you explore online!
+
+Simply launch Binder: https://mybinder.org/v2/gh/JesperDramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/HEAD
+
+In addition, every notebook below also has a link to Colab, Paperspace Gradient, and AWS Studio that can run your notebooks in the cloud. These might not have the requirements installed (but honestly they often have the standard ML stack, so you should be good.)
 
 ### Using PIP
 
@@ -89,6 +101,8 @@ So how do we actually go about obtaining these goals?
 
 ## Data
 
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/0%20-%20Basic%20Data%20Prep%20and%20Model.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/0%20-%20Basic%20Data%20Prep%20and%20Model.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/0%20-%20Basic%20Data%20Prep%20and%20Model.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/0%20-%20Basic%20Data%20Prep%20and%20Model.ipynb)
+
 This tutorial uses the [Palmer Penguins dataset](https://allisonhorst.github.io/palmerpenguins/).
 
 Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/).
@@ -99,6 +113,8 @@ Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.e
 | ▲ [Top](#table-of-contents) |
 
 ## Model Evaluation
+
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/1%20-%20Model%20Evaluation.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/1%20-%20Model%20Evaluation.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/1%20-%20Model%20Evaluation.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/1%20-%20Model%20Evaluation.ipynb)
 
 Applying machine learning in an applied science context is often method work. We build a prototype model and expect want to show that this method can be applied to our specific problem. This means that we have to guarantee that the insights we glean from this application generalize to new data from the same problem set.
 
@@ -114,6 +130,8 @@ So we’ll go into some methods to properly evaluate machine learning models eve
 
 ## Benchmarking
 
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/2%20-%20Benchmarking.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/2%20-%20Benchmarking.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/2%20-%20Benchmarking.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/2%20-%20Benchmarking.ipynb)
+
 Another common reason for rejections of machine learning papers in applied science is the lack of proper benchmarks. This section will be fairly short, as it differs from discipline to discipline.
 
 However, any time we apply a superfancy deep neural network, we need to supply a benchmark to compare the relative performance of our model to. These models should be established methods in the field and simpler machine learning methods like a linear model, support-vector machine or a random forest.
@@ -123,6 +141,8 @@ However, any time we apply a superfancy deep neural network, we need to supply a
 | ▲ [Top](#table-of-contents) |
 
 ## Model Sharing
+
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/3%20-%20Model%20Sharing.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/3%20-%20Model%20Sharing.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/3%20-%20Model%20Sharing.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/3%20-%20Model%20Sharing.ipynb)
 
 Some journals will require the sharing of code or models, but even if they don’t we might benefit from it.
 
@@ -141,6 +161,8 @@ In this section, we explore how we can export models and make our training codes
 
 ## Testing
 
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/4%20-%20Testing.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/4%20-%20Testing.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/4%20-%20Testing.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/4%20-%20Testing.ipynb)
+
 Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.
 
 Writing software tests in science, is already incredibly hard, so in this section we’ll touch on 
@@ -155,6 +177,8 @@ Writing software tests in science, is already incredibly hard, so in this sectio
 
 ## Interpretability
 
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/5%20-%20Interpretability.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/5%20-%20Interpretability.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/5%20-%20Interpretability.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/5%20-%20Interpretability.ipynb)
+
 One way to probe the models we build is to test them against the established knowledge of domain experts. In this final section, we’ll explore how to build intuitions about our machine learning model and avoid pitfalls like spurious correlations. These methods for model interpretability increase our trust into models, but they can also serve as an additional level of reproducibility in our research and a valuable research artefact that can be discussed in a publication.
 
 This part of the tutorial will also go into some considerations why the feature importance of tree-based methods can serve as a start but often shouldn’t be used as the sole source of truth regarding feature interpretation of our applied research.
@@ -166,6 +190,8 @@ This section will introduce tools like `shap`, discuss feature importance, and m
 | ▲ [Top](#table-of-contents) |
 
 ## Ablation Studies
+
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/6%20-%20Ablation%20Study.ipynb) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/6%20-%20Ablation%20Study.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/6%20-%20Ablation%20Study.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/euroscipy-2022-ml-for-science-reproducibility-tutorial/blob/master/notebooks/6%20-%20Ablation%20Study.ipynb)
 
 Finally, the gold standard in building complex machine learning models is proving that each constituent part of the model contributes something to the proposed solution. 
 
