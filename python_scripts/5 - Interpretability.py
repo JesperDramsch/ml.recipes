@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -23,8 +23,14 @@
 # This section will introduce tools like `shap`, discuss feature importance, and manual inspection of models.
 
 # %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+# %%
 import pandas as pd
-penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins = pd.read_csv(DATA_FILEPATH)
 penguins.head()
 
 # %%
@@ -43,7 +49,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from joblib import dump, load
 
-model = load("../model/svc.joblib")
+MODEL_FOLDER = Path("..") / "model"
+MODEL_EXPORT_FILE = MODEL_FOLDER / "svc.joblib"
+
+model = load(MODEL_EXPORT_FILE)
 model.score(X_test, y_test)
 
 # %% [markdown]
@@ -58,16 +67,21 @@ pd_results
 
 
 # %%
+from matplotlib import pyplot as plt
+
 PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[0])
+plt.show()
 
 # %%
 PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[1])
+plt.show()
 
 # %%
 PartialDependenceDisplay.from_estimator(model, X_train, [0,1,2], target=list(y_train.unique())[2])
+plt.show()
 
 # %% [markdown]
-# Tree importance vs Permutation importance
+# ### Tree importance vs Permutation importance
 
 # %%
 from sklearn.ensemble import RandomForestClassifier
@@ -90,6 +104,7 @@ rf.score(X_test, y_test)
 
 # %%
 pd.Series(rf.named_steps["classifier"].feature_importances_, index=num_features+['F', 'M']).plot.bar()
+plt.show()
 
 # %%
 from sklearn.inspection import permutation_importance
@@ -99,6 +114,7 @@ result = permutation_importance(
 )
 
 pd.Series(result.importances_mean, index=features).plot.bar()
+plt.show()
 
 # %%
 result = permutation_importance(
@@ -106,6 +122,7 @@ result = permutation_importance(
 )
 
 pd.Series(result.importances_mean, index=features).plot.bar()
+plt.show()
 
 # %% [markdown]
 # ## Shap Inspection

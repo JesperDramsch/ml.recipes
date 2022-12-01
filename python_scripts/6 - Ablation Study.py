@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -23,8 +23,18 @@
 # In this section, we’ll finally discuss how to present complex machine learning models in publications and ensure the viability of each part we engineered to solve our particular problem set.
 
 # %%
+import warnings
+warnings.filterwarnings('ignore')
+
+# %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+# %%
 import pandas as pd
-penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins = pd.read_csv(DATA_FILEPATH)
 penguins.head()
 
 # %%
@@ -114,11 +124,3 @@ scores = cross_val_score(model2, X_test, y_test, cv=10)
 
 scoring.loc["Single Column Sex",:] = [scores.mean(), scores.std()]
 scoring
-
-# %% [markdown]
-# We can see that the standardization has an important effect on our model performance.
-#
-# Ideally, we would switch components of the final model of iteratively to obtain the individual impact of each component.
-# This works best, if the score initially doesn't finish at 100%, but we can still see if anything is catastrophic with regards to the model performance.
-#
-# Simply using cross-validation is the simplest way. Alternatively, model-selection metrics like the AIC or BIC can be appropriate to evaluate the actual information that is processed by the model.

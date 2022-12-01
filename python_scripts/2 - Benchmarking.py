@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -21,8 +21,14 @@
 # However, any time we apply a superfancy deep neural network, we need to supply a benchmark to compare the relative performance of our model to. These models should be established methods in the field and simpler machine learning methods like a linear model, support-vector machine or a random forest.
 
 # %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+# %%
 import pandas as pd
-penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins = pd.read_csv(DATA_FILEPATH)
 penguins.head()
 
 # %%
@@ -85,5 +91,3 @@ clf.score(X_test, y_test)
 # - [Random Forests](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 #
 # As an exercise try implementing baseline models to compare against the support-vector machine with preprocessing.
-
-# %%
