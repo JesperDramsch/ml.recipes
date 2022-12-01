@@ -14559,12 +14559,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14590,7 +14590,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14598,8 +14598,27 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"data"</span>
+<span class="n">DATA_FILEPATH</span> <span class="o">=</span> <span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s2">"penguins_clean.csv"</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">penguins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/penguins_clean.csv&#39;</span><span class="p">)</span>
+<span class="n">penguins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">DATA_FILEPATH</span><span class="p">)</span>
 <span class="n">penguins</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -14618,7 +14637,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[1]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 
 
 
@@ -14705,14 +14724,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Culmen Depth (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Flipper Length (mm)&quot;</span><span class="p">]</span>
-<span class="n">cat_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span>
+<span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Culmen Length (mm)"</span><span class="p">,</span> <span class="s2">"Culmen Depth (mm)"</span><span class="p">,</span> <span class="s2">"Flipper Length (mm)"</span><span class="p">]</span>
+<span class="n">cat_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Sex"</span><span class="p">]</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">num_features</span> <span class="o">+</span> <span class="n">cat_features</span>
-<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Species"</span><span class="p">]</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">penguins</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="n">stratify</span><span class="o">=</span><span class="n">penguins</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
@@ -14727,7 +14746,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
@@ -14737,7 +14756,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="kn">import</span> <span class="nn">joblib</span>
 <span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">load</span>
 
-<span class="n">clf</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="s2">&quot;../model/svc.joblib&quot;</span><span class="p">)</span>
+<span class="n">MODEL_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"model"</span>
+<span class="n">MODEL_EXPORT_FILE</span> <span class="o">=</span> <span class="n">MODEL_FOLDER</span> <span class="o">/</span> <span class="s2">"svc.joblib"</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">MODEL_EXPORT_FILE</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 
@@ -14756,7 +14778,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
@@ -14803,19 +14825,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">test_penguins</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
     <span class="c1"># Define data you definitely know the answer to</span>
-    <span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mf">34.6</span><span class="p">,</span> <span class="mf">21.1</span><span class="p">,</span> <span class="mf">198.0</span><span class="p">,</span> <span class="s2">&quot;MALE&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">46.1</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">,</span> <span class="mf">178.0</span><span class="p">,</span> <span class="s2">&quot;FEMALE&quot;</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">52.5</span><span class="p">,</span> <span class="mf">15.6</span><span class="p">,</span> <span class="mf">221.0</span><span class="p">,</span> <span class="s2">&quot;MALE&quot;</span><span class="p">]],</span> 
-             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Culmen Depth (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Flipper Length (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Sex&quot;</span><span class="p">])</span>
+    <span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mf">34.6</span><span class="p">,</span> <span class="mf">21.1</span><span class="p">,</span> <span class="mf">198.0</span><span class="p">,</span> <span class="s2">"MALE"</span><span class="p">],</span>
+                              <span class="p">[</span><span class="mf">46.1</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">,</span> <span class="mf">178.0</span><span class="p">,</span> <span class="s2">"FEMALE"</span><span class="p">],</span>
+                              <span class="p">[</span><span class="mf">52.5</span><span class="p">,</span> <span class="mf">15.6</span><span class="p">,</span> <span class="mf">221.0</span><span class="p">,</span> <span class="s2">"MALE"</span><span class="p">]],</span> 
+             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Culmen Length (mm)"</span><span class="p">,</span> <span class="s2">"Culmen Depth (mm)"</span><span class="p">,</span> <span class="s2">"Flipper Length (mm)"</span><span class="p">,</span> <span class="s2">"Sex"</span><span class="p">])</span>
     <span class="c1"># Define target to the data</span>
-    <span class="n">test_target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Adelie Penguin (Pygoscelis adeliae)&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;Chinstrap penguin (Pygoscelis antarctica)&#39;</span><span class="p">,</span>
-                   <span class="s1">&#39;Gentoo penguin (Pygoscelis papua)&#39;</span><span class="p">]</span>
+    <span class="n">test_target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Adelie Penguin (Pygoscelis adeliae)'</span><span class="p">,</span>
+                   <span class="s1">'Chinstrap penguin (Pygoscelis antarctica)'</span><span class="p">,</span>
+                   <span class="s1">'Gentoo penguin (Pygoscelis papua)'</span><span class="p">]</span>
     <span class="c1"># Assert the model should get these right.</span>
     <span class="k">assert</span> <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
 </pre></div>
@@ -14830,7 +14852,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_penguins</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
@@ -14862,11 +14884,11 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">shorten_class_name</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Shorten the class names of the penguins to the shortest version</span>
+    <span class="sd">"""Shorten the class names of the penguins to the shortest version</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -14880,11 +14902,11 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <span class="sd">    </span>
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; shorten_class_name(pd.DataFrame([[1,2,3,&quot;Adelie Penguin (Pygoscelis adeliae)&quot;]], columns=[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;Species&quot;]))</span>
+<span class="sd">    &gt;&gt;&gt; shorten_class_name(pd.DataFrame([[1,2,3,"Adelie Penguin (Pygoscelis adeliae)"]], columns=["1","2","3","Species"]))</span>
 <span class="sd">       1  2  3 Species</span>
 <span class="sd">    0  1  2  3  Adelie</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Species</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; [Pp]enguin&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="sd">    """</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">"Species"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Species</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">" [Pp]enguin"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">df</span>
 
@@ -14907,7 +14929,7 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 
 
 
@@ -14927,7 +14949,7 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">shorten_class_name</span><span class="p">(</span><span class="n">penguins</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -14948,7 +14970,7 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
@@ -15060,17 +15082,31 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandera</span> <span class="k">as</span> <span class="nn">pa</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandera</span> <span class="k">as</span> <span class="nn">pa</span>
-
-<span class="c1"># data to validate</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data to validate</span>
 <span class="n">X_train</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
@@ -15089,7 +15125,7 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 
 
 
@@ -15177,26 +15213,26 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define schema</span>
 <span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataFrameSchema</span><span class="p">({</span>
-    <span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="s2">"Culmen Length (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
                                                    <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">60</span><span class="p">)]),</span>
-    <span class="s2">&quot;Culmen Depth (mm)&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span>
+    <span class="s2">"Culmen Depth (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span>
                                                   <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">22</span><span class="p">)]),</span>
-    <span class="s2">&quot;Flipper Length (mm)&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">170</span><span class="p">),</span>
+    <span class="s2">"Flipper Length (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">170</span><span class="p">),</span>
                                                     <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">235</span><span class="p">)]),</span>
-    <span class="s2">&quot;Sex&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;MALE&quot;</span><span class="p">,</span><span class="s2">&quot;FEMALE&quot;</span><span class="p">])),</span>
+    <span class="s2">"Sex"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"MALE"</span><span class="p">,</span><span class="s2">"FEMALE"</span><span class="p">])),</span>
 <span class="p">})</span>
 
-<span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15204,201 +15240,12 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">SchemaError</span>                               Traceback (most recent call last)
-Input <span class="ansi-green-intense-fg ansi-bold">In [9]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 12&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># define schema</span>
-<span class="ansi-green-fg">      2</span> schema <span style="color: rgb(98,98,98)">=</span> pa<span style="color: rgb(98,98,98)">.</span>DataFrameSchema({
-<span class="ansi-green-fg">      3</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Culmen Length (mm)</span><span style="color: rgb(175,0,0)">&#34;</span>: pa<span style="color: rgb(98,98,98)">.</span>Column(<span style="color: rgb(0,135,0)">float</span>, checks<span style="color: rgb(98,98,98)">=</span>[pa<span style="color: rgb(98,98,98)">.</span>Check<span style="color: rgb(98,98,98)">.</span>ge(<span style="color: rgb(98,98,98)">30</span>),
-<span class="ansi-green-fg">      4</span>                                                    pa<span style="color: rgb(98,98,98)">.</span>Check<span style="color: rgb(98,98,98)">.</span>le(<span style="color: rgb(98,98,98)">60</span>)]),
-<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">      9</span>     <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Sex</span><span style="color: rgb(175,0,0)">&#34;</span>: pa<span style="color: rgb(98,98,98)">.</span>Column(<span style="color: rgb(0,135,0)">str</span>, checks<span style="color: rgb(98,98,98)">=</span>pa<span style="color: rgb(98,98,98)">.</span>Check<span style="color: rgb(98,98,98)">.</span>isin([<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">MALE</span><span style="color: rgb(175,0,0)">&#34;</span>,<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">FEMALE</span><span style="color: rgb(175,0,0)">&#34;</span>])),
-<span class="ansi-green-fg">     10</span> })
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 12</span> validated_test <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">schema</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">X_test</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:810</span>, in <span class="ansi-cyan-fg">DataFrameSchema.__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, dataframe, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">    782</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__call__</span>(
-<span class="ansi-green-fg">    783</span>     <span style="color: rgb(0,135,0)">self</span>,
-<span class="ansi-green-fg">    784</span>     dataframe: pd<span style="color: rgb(98,98,98)">.</span>DataFrame,
-<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">    790</span>     inplace: <span style="color: rgb(0,135,0)">bool</span> <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>,
-<span class="ansi-green-fg">    791</span> ):
-<span class="ansi-green-fg">    792</span>     <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Alias for :func:`DataFrameSchema.validate` method.</span>
-<span class="ansi-green-fg">    793</span> 
-<span class="ansi-green-fg">    794</span> <span style="color: rgb(175,0,0)">    :param pd.DataFrame dataframe: the dataframe to be validated.</span>
-<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">    808</span> <span style="color: rgb(175,0,0)">        otherwise creates a copy of the data.</span>
-<span class="ansi-green-fg">    809</span> <span style="color: rgb(175,0,0)">    &#34;&#34;&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 810</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">validate</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    811</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">dataframe</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">head</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">tail</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">sample</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">random_state</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">inplace</span>
-<span class="ansi-green-fg">    812</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:518</span>, in <span class="ansi-cyan-fg">DataFrameSchema.validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">    505</span>     check_obj <span style="color: rgb(98,98,98)">=</span> check_obj<span style="color: rgb(98,98,98)">.</span>map_partitions(
-<span class="ansi-green-fg">    506</span>         <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_validate,
-<span class="ansi-green-fg">    507</span>         head<span style="color: rgb(98,98,98)">=</span>head,
-<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">    513</span>         meta<span style="color: rgb(98,98,98)">=</span>check_obj,
-<span class="ansi-green-fg">    514</span>     )
-<span class="ansi-green-fg">    516</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> check_obj<span style="color: rgb(98,98,98)">.</span>pandera<span style="color: rgb(98,98,98)">.</span>add_schema(<span style="color: rgb(0,135,0)">self</span>)
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 518</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_validate</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    519</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    520</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">head</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">head</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    521</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">tail</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">tail</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    522</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">sample</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">sample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    523</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">random_state</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">random_state</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    524</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    525</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">inplace</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">inplace</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    526</span> <span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:716</span>, in <span class="ansi-cyan-fg">DataFrameSchema._validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">    714</span>     check_results<span style="color: rgb(98,98,98)">.</span>append(check_utils<span style="color: rgb(98,98,98)">.</span>is_table(result))
-<span class="ansi-green-fg">    715</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 716</span>     <span class="ansi-yellow-bg">error_handler</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">collect_error</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">schema_component_check</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">err</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    717</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaErrors <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-<span class="ansi-green-fg">    718</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> schema_error_dict <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> err<span style="color: rgb(98,98,98)">.</span>schema_errors:
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\error_handlers.py:32</span>, in <span class="ansi-cyan-fg">SchemaErrorHandler.collect_error</span><span class="ansi-blue-intense-fg ansi-bold">(self, reason_code, schema_error, original_exc)</span>
-<span class="ansi-green-fg">     26</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Collect schema error, raising exception if lazy is False.</span>
-<span class="ansi-green-fg">     27</span> 
-<span class="ansi-green-fg">     28</span> <span style="color: rgb(175,0,0)">:param reason_code: string representing reason for error</span>
-<span class="ansi-green-fg">     29</span> <span style="color: rgb(175,0,0)">:param schema_error: ``SchemaError`` object.</span>
-<span class="ansi-green-fg">     30</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
-<span class="ansi-green-fg">     31</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_lazy:
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 32</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> schema_error <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">original_exc</span>
-<span class="ansi-green-fg">     34</span> <span style="color: rgb(95,135,135)"># delete data of validated object from SchemaError object to prevent</span>
-<span class="ansi-green-fg">     35</span> <span style="color: rgb(95,135,135)"># storing copies of the validated DataFrame/Series for every</span>
-<span class="ansi-green-fg">     36</span> <span style="color: rgb(95,135,135)"># SchemaError collected.</span>
-<span class="ansi-green-fg">     37</span> <span class="ansi-bold" style="color: rgb(0,135,0)">del</span> schema_error<span style="color: rgb(98,98,98)">.</span>data
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:708</span>, in <span class="ansi-cyan-fg">DataFrameSchema._validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">    706</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> schema_component <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> schema_components:
-<span class="ansi-green-fg">    707</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 708</span>         result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">schema_component</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    709</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">df_to_validate</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    710</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    711</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg" style="color: rgb(95,135,135)"># don&#39;t make a copy of the data</span>
-<span class="ansi-green-fg">    712</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">inplace</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    713</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    714</span>         check_results<span style="color: rgb(98,98,98)">.</span>append(check_utils<span style="color: rgb(98,98,98)">.</span>is_table(result))
-<span class="ansi-green-fg">    715</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:2074</span>, in <span class="ansi-cyan-fg">SeriesSchemaBase.__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">   2063</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">__call__</span>(
-<span class="ansi-green-fg">   2064</span>     <span style="color: rgb(0,135,0)">self</span>,
-<span class="ansi-green-fg">   2065</span>     check_obj: Union[pd<span style="color: rgb(98,98,98)">.</span>DataFrame, pd<span style="color: rgb(98,98,98)">.</span>Series],
-<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
-<span class="ansi-green-fg">   2071</span>     inplace: <span style="color: rgb(0,135,0)">bool</span> <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>,
-<span class="ansi-green-fg">   2072</span> ) <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">&gt;</span> Union[pd<span style="color: rgb(98,98,98)">.</span>DataFrame, pd<span style="color: rgb(98,98,98)">.</span>Series]:
-<span class="ansi-green-fg">   2073</span>     <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Alias for ``validate`` method.&#34;&#34;&#34;</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2074</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">validate</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   2075</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">head</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">tail</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">sample</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">random_state</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">inplace</span>
-<span class="ansi-green-fg">   2076</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schema_components.py:215</span>, in <span class="ansi-cyan-fg">Column.validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">    211</span>             validate_column(
-<span class="ansi-green-fg">    212</span>                 check_obj[column_name]<span style="color: rgb(98,98,98)">.</span>iloc[:, [i]], column_name
-<span class="ansi-green-fg">    213</span>             )
-<span class="ansi-green-fg">    214</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 215</span>         <span class="ansi-yellow-bg">validate_column</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">column_name</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    217</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> check_obj
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schema_components.py:188</span>, in <span class="ansi-cyan-fg">Column.validate.&lt;locals&gt;.validate_column</span><span class="ansi-blue-intense-fg ansi-bold">(check_obj, column_name)</span>
-<span class="ansi-green-fg">    187</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">validate_column</span>(check_obj, column_name):
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 188</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">super</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">Column</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">set_name</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">column_name</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">validate</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    189</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    190</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">head</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    191</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">tail</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    192</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">sample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    193</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">random_state</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    194</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">lazy</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    195</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">inplace</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">inplace</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    196</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:2032</span>, in <span class="ansi-cyan-fg">SeriesSchemaBase.validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">   2026</span>     check_results<span style="color: rgb(98,98,98)">.</span>append(
-<span class="ansi-green-fg">   2027</span>         _handle_check_results(
-<span class="ansi-green-fg">   2028</span>             <span style="color: rgb(0,135,0)">self</span>, check_index, check, check_obj, <span style="color: rgb(98,98,98)">*</span>check_args
-<span class="ansi-green-fg">   2029</span>         )
-<span class="ansi-green-fg">   2030</span>     )
-<span class="ansi-green-fg">   2031</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2032</span>     <span class="ansi-yellow-bg">error_handler</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">collect_error</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">dataframe_check</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">&#34;</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">err</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   2033</span> <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> <span class="ansi-bold" style="color: rgb(215,95,95)">Exception</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:  <span style="color: rgb(95,135,135)"># pylint: disable=broad-except</span>
-<span class="ansi-green-fg">   2034</span>     <span style="color: rgb(95,135,135)"># catch other exceptions that may occur when executing the</span>
-<span class="ansi-green-fg">   2035</span>     <span style="color: rgb(95,135,135)"># Check</span>
-<span class="ansi-green-fg">   2036</span>     err_msg <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">&#34;</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>err<span style="color: rgb(98,98,98)">.</span>args[<span style="color: rgb(98,98,98)">0</span>]<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">&#39;</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">len</span>(err<span style="color: rgb(98,98,98)">.</span>args) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">0</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">&#34;</span>
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\error_handlers.py:32</span>, in <span class="ansi-cyan-fg">SchemaErrorHandler.collect_error</span><span class="ansi-blue-intense-fg ansi-bold">(self, reason_code, schema_error, original_exc)</span>
-<span class="ansi-green-fg">     26</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;Collect schema error, raising exception if lazy is False.</span>
-<span class="ansi-green-fg">     27</span> 
-<span class="ansi-green-fg">     28</span> <span style="color: rgb(175,0,0)">:param reason_code: string representing reason for error</span>
-<span class="ansi-green-fg">     29</span> <span style="color: rgb(175,0,0)">:param schema_error: ``SchemaError`` object.</span>
-<span class="ansi-green-fg">     30</span> <span style="color: rgb(175,0,0)">&#34;&#34;&#34;</span>
-<span class="ansi-green-fg">     31</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_lazy:
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 32</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> schema_error <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">original_exc</span>
-<span class="ansi-green-fg">     34</span> <span style="color: rgb(95,135,135)"># delete data of validated object from SchemaError object to prevent</span>
-<span class="ansi-green-fg">     35</span> <span style="color: rgb(95,135,135)"># storing copies of the validated DataFrame/Series for every</span>
-<span class="ansi-green-fg">     36</span> <span style="color: rgb(95,135,135)"># SchemaError collected.</span>
-<span class="ansi-green-fg">     37</span> <span class="ansi-bold" style="color: rgb(0,135,0)">del</span> schema_error<span style="color: rgb(98,98,98)">.</span>data
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:2027</span>, in <span class="ansi-cyan-fg">SeriesSchemaBase.validate</span><span class="ansi-blue-intense-fg ansi-bold">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
-<span class="ansi-green-fg">   2024</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> check_index, check <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>checks):
-<span class="ansi-green-fg">   2025</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">   2026</span>         check_results<span style="color: rgb(98,98,98)">.</span>append(
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2027</span>             <span class="ansi-yellow-bg">_handle_check_results</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   2028</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">check_index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">check</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">check_obj</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">check_args</span>
-<span class="ansi-green-fg">   2029</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   2030</span>         )
-<span class="ansi-green-fg">   2031</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">except</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaError <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> err:
-<span class="ansi-green-fg">   2032</span>         error_handler<span style="color: rgb(98,98,98)">.</span>collect_error(<span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">dataframe_check</span><span style="color: rgb(175,0,0)">&#34;</span>, err)
-
-File <span class="ansi-green-intense-fg ansi-bold">C:\tools\Anaconda3\envs\euroscipy-2022-ml-repro\lib\site-packages\pandera\schemas.py:2413</span>, in <span class="ansi-cyan-fg">_handle_check_results</span><span class="ansi-blue-intense-fg ansi-bold">(schema, check_index, check, check_obj, *check_args)</span>
-<span class="ansi-green-fg">   2411</span>         warnings<span style="color: rgb(98,98,98)">.</span>warn(error_msg, <span class="ansi-bold" style="color: rgb(215,95,95)">UserWarning</span>)
-<span class="ansi-green-fg">   2412</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-bold" style="color: rgb(0,135,0)">True</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2413</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> errors<span style="color: rgb(98,98,98)">.</span>SchemaError(
-<span class="ansi-green-fg">   2414</span>         schema,
-<span class="ansi-green-fg">   2415</span>         check_obj,
-<span class="ansi-green-fg">   2416</span>         error_msg,
-<span class="ansi-green-fg">   2417</span>         failure_cases<span style="color: rgb(98,98,98)">=</span>failure_cases,
-<span class="ansi-green-fg">   2418</span>         check<span style="color: rgb(98,98,98)">=</span>check,
-<span class="ansi-green-fg">   2419</span>         check_index<span style="color: rgb(98,98,98)">=</span>check_index,
-<span class="ansi-green-fg">   2420</span>         check_output<span style="color: rgb(98,98,98)">=</span>check_result<span style="color: rgb(98,98,98)">.</span>check_output,
-<span class="ansi-green-fg">   2421</span>     )
-<span class="ansi-green-fg">   2422</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> check_result<span style="color: rgb(98,98,98)">.</span>check_passed
-
-<span class="ansi-red-intense-fg ansi-bold">SchemaError</span>: &lt;Schema Column(name=Sex, type=DataType(str))&gt; failed element-wise validator 0:
-&lt;Check isin: isin({&#39;FEMALE&#39;, &#39;MALE&#39;})&gt;
-failure cases:
-   index failure_case
-0    259            .</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">Sex</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -15419,7 +15266,7 @@ failure cases:
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 
 
 
@@ -15439,7 +15286,7 @@ failure cases:
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">259</span><span class="p">]</span>
@@ -15460,7 +15307,7 @@ failure cases:
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
 
 
 

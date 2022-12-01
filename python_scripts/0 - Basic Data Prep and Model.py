@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -23,10 +23,16 @@
 # Let's dive into some quick exploration of the data!
 
 # %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins.csv"
+
+# %%
 import pandas as pd
 
 # %%
-penguins_raw = pd.read_csv("../data/penguins.csv")
+penguins_raw = pd.read_csv(DATA_FILEPATH)
 penguins_raw.head()
 
 # %% [markdown]
@@ -62,7 +68,9 @@ penguins = penguins.dropna(axis='rows')
 penguins
 
 # %%
-penguins.to_csv('../data/penguins_clean.csv', index=False)
+DATA_CLEAN_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+penguins.to_csv(DATA_CLEAN_FILEPATH, index=False)
 
 # %% [markdown]
 # Not too bad it looks like we lost two rows. That's manageable, it's a toy dataset after all.
@@ -150,5 +158,3 @@ model.score(X_train, y_train)
 
 # %%
 model.score(X_test, y_test)
-
-# %%

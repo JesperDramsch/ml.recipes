@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -33,8 +33,14 @@
 # Scikit learn uses the Python `pickle` (or rather `joblib`) module to persist models in storage.
 # More information [here](https://scikit-learn.org/stable/model_persistence.html)
 # %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+# %%
 import pandas as pd
-penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins = pd.read_csv(DATA_FILEPATH)
 penguins.head()
 
 # %%
@@ -69,9 +75,17 @@ model.fit(X_train, y_train)
 model.score(X_test, y_test)
 
 # %%
+MODEL_FOLDER = Path("..") / "model"
+MODEL_FOLDER.mkdir(exist_ok=True)
+
+MODEL_EXPORT_FILE = MODEL_FOLDER / "svc.joblib"
+
+# %%
 from joblib import dump, load
-dump(model, "../model/svc.joblib")
-clf = load("../model/svc.joblib")
+
+dump(model, MODEL_EXPORT_FILE)
+
+clf = load(MODEL_EXPORT_FILE)
 clf.score(X_test, y_test)
 
 # %% [markdown]

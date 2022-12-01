@@ -8,7 +8,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.14.1
 #   kernelspec:
-#     display_name: Python 3 (ipykernel)
+#     display_name: Python 3.10.8 ('pydata-global-2022-ml-repro')
 #     language: python
 #     name: python3
 # ---
@@ -25,8 +25,14 @@
 # So we’ll go into some methods to properly evaluate machine learning models even when our data is not “independent and identically distributed”.
 
 # %%
+from pathlib import Path
+
+DATA_FOLDER = Path("..") / "data"
+DATA_FILEPATH = DATA_FOLDER / "penguins_clean.csv"
+
+# %%
 import pandas as pd
-penguins = pd.read_csv('../data/penguins_clean.csv')
+penguins = pd.read_csv(DATA_FILEPATH)
 penguins.head()
 
 
