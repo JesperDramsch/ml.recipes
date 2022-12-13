@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>6 - Ablation Study</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>3-model-sharing</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -36,6 +36,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14579,9 +14580,28 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Ablation-Studies">Ablation Studies<a class="anchor-link" href="#Ablation-Studies">&#182;</a></h1><p>Finally, the gold standard in building complex machine learning models is proving that each constituent part of the model contributes something to the proposed solution.</p>
-<p>Ablation studies serve to dissect machine learning models and evaluate their impact.</p>
-<p>In this section, we’ll finally discuss how to present complex machine learning models in publications and ensure the viability of each part we engineered to solve our particular problem set.</p>
+<h1 id="Model-Sharing">Model Sharing<a class="anchor-link" href="#Model-Sharing">&#182;</a></h1><p>Some journals will require the sharing of code or models, but even if they don’t we might benefit from it.</p>
+<p>Anytime we share a model, we give other researchers the opportunity to replicate our studies and iterate upon them. Altruistically, this advances science, which in and of itself is a noble pursuit. However, this also increases the citations of our original research, a core metric for most researchers in academia.</p>
+<p>In this section, we explore how we can export models and make our training codes reproducible. Saving a model from scikit-learn is easy enough. But what tools can we use to easily make our training code adaptable for others to import and try out that model? Specifically, I want to talk about:</p>
+<ul>
+<li>Automatic Linters</li>
+<li>Automatic Formatting</li>
+<li>Automatic Docstrings and Documentation</li>
+<li>Docker and containerization for ultimate reproducibility</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Model-Export">Model Export<a class="anchor-link" href="#Model-Export">&#182;</a></h2><p>Scikit learn uses the Python <code>pickle</code> (or rather <code>joblib</code>) module to persist models in storage.
+More information <a href="https://scikit-learn.org/stable/model_persistence.html">here</a></p>
 
 </div>
 </div>
@@ -14594,26 +14614,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"data"</span>
+<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">,</span> <span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"data"</span>
 <span class="n">DATA_FILEPATH</span> <span class="o">=</span> <span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s2">"penguins_clean.csv"</span>
 </pre></div>
 
@@ -14627,7 +14630,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14650,7 +14653,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 
 
 
@@ -14737,7 +14740,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -14759,15 +14762,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
 
 <span class="n">num_transformer</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 <span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
@@ -14777,12 +14778,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <span class="p">(</span><span class="s1">'cat'</span><span class="p">,</span> <span class="n">cat_transformer</span><span class="p">,</span> <span class="n">cat_features</span><span class="p">)</span>
 <span class="p">])</span>
 
-
 <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s1">'preprocessor'</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">'classifier'</span><span class="p">,</span> <span class="n">SVC</span><span class="p">()),</span>
 <span class="p">])</span>
-<span class="n">model</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14800,32 +14802,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
-                 ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
-                                                  [&#x27;Culmen Length (mm)&#x27;,
-                                                   &#x27;Culmen Depth (mm)&#x27;,
-                                                   &#x27;Flipper Length (mm)&#x27;]),
-                                                 (&#x27;cat&#x27;,
-                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
-                                                  [&#x27;Sex&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
-                 ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
-                                                  [&#x27;Culmen Length (mm)&#x27;,
-                                                   &#x27;Culmen Depth (mm)&#x27;,
-                                                   &#x27;Flipper Length (mm)&#x27;]),
-                                                 (&#x27;cat&#x27;,
-                                                  OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
-                                                  [&#x27;Sex&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
-                                 [&#x27;Culmen Length (mm)&#x27;, &#x27;Culmen Depth (mm)&#x27;,
-                                  &#x27;Flipper Length (mm)&#x27;]),
-                                (&#x27;cat&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
-                                 [&#x27;Sex&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>[&#x27;Culmen Length (mm)&#x27;, &#x27;Culmen Depth (mm)&#x27;, &#x27;Flipper Length (mm)&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler()</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>[&#x27;Sex&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div></div></div></div></div>
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>1.0</pre>
 </div>
 
 </div>
@@ -14839,15 +14822,64 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MODEL_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">,</span> <span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"model"</span>
+<span class="n">MODEL_FOLDER</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">MODEL_EXPORT_FILE</span> <span class="o">=</span> <span class="n">MODEL_FOLDER</span> <span class="o">/</span> <span class="s2">"svc.joblib"</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">dump</span><span class="p">,</span> <span class="n">load</span>
+
+<span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MODEL_EXPORT_FILE</span><span class="p">)</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">MODEL_EXPORT_FILE</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>1.0</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14857,7 +14889,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Let's compare this to a model that doesn't scale the numeric inputs.</p>
+<h2 id="Sources-of-Randomness">Sources of Randomness<a class="anchor-link" href="#Sources-of-Randomness">&#182;</a></h2><p>You may have noticed that I used <code>random_state</code> in some arguments.</p>
+<p>This fixes all sources of random initialization in a model or method to this particular random seed.</p>
+<div class="alert alert-block alert-info">
+<b>Tip:</b> Always Google the latest way to fix randomness in machine learning code. It differs from library to library and version to version.<br>It's easy to forget one, which defeats the entire purpose.</div><p>This works in making models reproducible. Try changing the random seed below!</p>
 
 </div>
 </div>
@@ -14870,9 +14905,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scoring</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Average"</span><span class="p">,</span> <span class="s2">"Deviation"</span><span class="p">])</span>
-<span class="n">scoring</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Full"</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
-<span class="n">scoring</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">(</span><span class="s1">'preprocessor'</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'classifier'</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+<span class="p">])</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">scores</span>
 </pre></div>
 
      </div>
@@ -14894,38 +14934,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Average</th>
-      <th>Deviation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Full</th>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>array([1.        , 1.        , 0.9787234 , 0.97826087, 0.97826087])</pre>
 </div>
 
 </div>
@@ -14934,7 +14945,26 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Good-code-practices">Good code practices<a class="anchor-link" href="#Good-code-practices">&#182;</a></h2><h3 id="Linting">Linting<a class="anchor-link" href="#Linting">&#182;</a></h3><p>Tools like linters are amazing at cleaning up code. <code>flake8</code> and editors like VSCode can find unused variables, trailing white-space and lines that are way too long.</p>
+<p>They immediately show some typos that you would otherwise have to pain-stakingly search.</p>
+<p><a href="https://flake8.pycqa.org/en/latest/">Flake8</a> tries to be as close to the PEP8 style-guide as possible and find bugs before even running the code.</p>
+<h3 id="Formatters">Formatters<a class="anchor-link" href="#Formatters">&#182;</a></h3><p>There are automatic formatters like <code>black</code> that will take your code and change the formatting to comply with formatting rules.</p>
+<p>Formatters like <a href="https://github.com/psf/black">black</a> don't check the code itself for bugs, but they're great at presenting a common code style.</p>
+<p>They're my shortcut to make good-looking code and make collaboration 100 times easier as the formatting is done by an automated tool.</p>
+<h3 id="Docstrings">Docstrings<a class="anchor-link" href="#Docstrings">&#182;</a></h3><p>Python has documentation built into its core.
+For example, below is the SVC model, if you put the cursor in the brackets, you can hit <code>Shift + Tab</code> in Jupyter to read the documentation that is written in the docstring.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14942,39 +14972,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># num_transformer = StandardScaler()</span>
-<span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
-
-<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span><span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
-    <span class="c1"># ('num', num_transformer, num_features),</span>
-    <span class="p">(</span><span class="s1">'cat'</span><span class="p">,</span> <span class="n">cat_transformer</span><span class="p">,</span> <span class="n">cat_features</span><span class="p">)</span>
-<span class="p">])</span>
-
-
-<span class="n">model2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s1">'preprocessor'</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">'classifier'</span><span class="p">,</span> <span class="n">SVC</span><span class="p">()),</span>
-<span class="p">])</span>
-
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">scoring</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"No Standardisation"</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scoring</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SVC</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14992,47 +14990,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Average</th>
-      <th>Deviation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Full</th>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>No Standardisation</th>
-      <td>0.435455</td>
-      <td>0.045172</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div></div></div>
 </div>
 
 </div>
@@ -15041,103 +15004,77 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_transformer</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="s1">'if_binary'</span><span class="p">)</span>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>In VSCode for example there are tools that <a href="https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring">autogenerate a docstring</a> based on a function footprint:</p>
+<p><div class="alert alert-block alert-info">
+<b>Tip:</b> Docstrings are an essential part in telling users what a function does and what input and outputs are expected.</div>
+I see docstrings as the minimum documentation one should provide when sharing code, and the auto-generators make it extremely easy to do so.</p>
+<p>This docstrin was automatically generated. Just fill in the summary and description and people are happy!</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;_summary_</span>
 
-<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span><span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s1">'num'</span><span class="p">,</span> <span class="n">num_transformer</span><span class="p">,</span> <span class="n">num_features</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">'cat'</span><span class="p">,</span> <span class="n">cat_transformer</span><span class="p">,</span> <span class="n">cat_features</span><span class="p">)</span>
-<span class="p">])</span>
-
-
-<span class="n">model2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s1">'preprocessor'</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">'classifier'</span><span class="p">,</span> <span class="n">SVC</span><span class="p">()),</span>
-<span class="p">])</span>
-
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-
-<span class="n">scoring</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"Single Column Sex"</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
-<span class="n">scoring</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        _description_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;&quot;)</span>
 </pre></div>
 
-     </div>
 </div>
 </div>
 </div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Dependencies">Dependencies<a class="anchor-link" href="#Dependencies">&#182;</a></h2><p>This repository comes with a <code>requirements.txt</code> and a <code>environment.yml</code> for <code>pip</code> and <code>conda</code>.</p>
+<p>A <code>requirements.txt</code> can consist of simply the package names. But ideally you want to add the version number, so people can automatically install the exact version you used in your code.
+This looks like <code>pandas==1.0</code></p>
+<p>The conda <code>environment.yml</code> can be auto-exported from your conda environment:</p>
+<p><code>conda env export --from-history &gt; environment.yml</code>
+The <code>--from-history</code> makes it cross-platform but eliminates the version numbers.</p>
 
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Average</th>
-      <th>Deviation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Full</th>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>No Standardisation</th>
-      <td>0.435455</td>
-      <td>0.045172</td>
-    </tr>
-    <tr>
-      <th>Single Column Sex</th>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-  </tbody>
-</table>
 </div>
 </div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Docker-for-ultimate-reproducibility">Docker for ultimate reproducibility<a class="anchor-link" href="#Docker-for-ultimate-reproducibility">&#182;</a></h2><p>Docker is container that can ship an entire operating system with installed packages and data.</p>
+<p>It makes the environment you used for your computation almost entirely reproducible.</p>
+<p>(It's also great practice for the business world)</p>
+<p>Docker containers are build using the <code>docker build</code> command using a <code>Dockerfile</code>, an example docker file for Python looks like this:</p>
+<div class="highlight"><pre><span></span><span class="c"># syntax=docker/dockerfile:1</span>
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8-slim-buster</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/</span>
+
+<span class="k">COPY</span><span class="w"> </span>requirements.txt requirements.txt
+<span class="k">RUN</span><span class="w"> </span>pip3 install -r requirements.txt
+
+<span class="k">COPY</span><span class="w"> </span>. .
+
+<span class="k">CMD</span><span class="w"> </span>python train.py
+</pre></div>
 
 </div>
-
 </div>
-
 </div>
-
 </div>
 </body>
 

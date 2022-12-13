@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>4 - Testing</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2-benchmarking</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -36,6 +36,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
+.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -14579,13 +14580,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Testing">Testing<a class="anchor-link" href="#Testing">&#182;</a></h1><p>Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.</p>
-<p>Writing software tests in science, is already incredibly hard, so in this section we’ll touch on</p>
-<ul>
-<li>some fairly simple tests we can implement to ensure consistency of our input data</li>
-<li>avoid bad bugs in data loading procedures</li>
-<li>some strategies to probe our models</li>
-</ul>
+<h1 id="Benchmarking">Benchmarking<a class="anchor-link" href="#Benchmarking">&#182;</a></h1><p>Another common reason for rejections of machine learning papers in applied science is the lack of proper benchmarks. This section will be fairly short, as it differs from discipline to discipline.</p>
+<p>However, any time we apply a superfancy deep neural network, we need to supply a benchmark to compare the relative performance of our model to. These models should be established methods in the field and simpler machine learning methods like a linear model, support-vector machine or a random forest.</p>
 
 </div>
 </div>
@@ -14600,7 +14596,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"data"</span>
+<span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">,</span> <span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"data"</span>
 <span class="n">DATA_FILEPATH</span> <span class="o">=</span> <span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s2">"penguins_clean.csv"</span>
 </pre></div>
 
@@ -14719,7 +14715,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14734,33 +14730,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Species"</span><span class="p">]</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">penguins</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="n">stratify</span><span class="o">=</span><span class="n">penguins</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
-<span class="kn">import</span> <span class="nn">joblib</span>
-<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">load</span>
-
-<span class="n">MODEL_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"model"</span>
-<span class="n">MODEL_EXPORT_FILE</span> <span class="o">=</span> <span class="n">MODEL_FOLDER</span> <span class="o">/</span> <span class="s2">"svc.joblib"</span>
-
-<span class="n">clf</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">MODEL_EXPORT_FILE</span><span class="p">)</span>
-<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">X_train</span>
 </pre></div>
 
      </div>
@@ -14778,199 +14748,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>1.0</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Deterministic-Tests">Deterministic Tests<a class="anchor-link" href="#Deterministic-Tests">&#182;</a></h2><p>When I work with neural networks, implementing a new layer, method, or fancy thing, I try to write a test for that layer. The <code>Conv2D</code> layer in Keras and Pytorch for example should always do the same exact thing, when they convole a kernel with an image.</p>
-<p>Consider writing a small <code>pytest</code> test that takes a simple numpy array and tests against a known output.</p>
-<p>You can check out the <code>keras</code> test suite <a href="https://github.com/keras-team/keras/tree/master/keras/tests">here</a> and an example how they validate the <a href="https://github.com/keras-team/keras/blob/18248b084f932e294402f0b772b49ed162c25208/keras/testing_infra/test_utils.py#L217">input and output shapes</a>.</p>
-<p>Admittedly this isn't always easy to do and can go beyond the need for research scripts.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Data-Tests-for-Models">Data Tests for Models<a class="anchor-link" href="#Data-Tests-for-Models">&#182;</a></h2><p>An even easier test is by essentially reusing the notebook from the Model Evaluation and writing a test function for it.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">test_penguins</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
-    <span class="c1"># Define data you definitely know the answer to</span>
-    <span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mf">34.6</span><span class="p">,</span> <span class="mf">21.1</span><span class="p">,</span> <span class="mf">198.0</span><span class="p">,</span> <span class="s2">"MALE"</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">46.1</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">,</span> <span class="mf">178.0</span><span class="p">,</span> <span class="s2">"FEMALE"</span><span class="p">],</span>
-                              <span class="p">[</span><span class="mf">52.5</span><span class="p">,</span> <span class="mf">15.6</span><span class="p">,</span> <span class="mf">221.0</span><span class="p">,</span> <span class="s2">"MALE"</span><span class="p">]],</span> 
-             <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"Culmen Length (mm)"</span><span class="p">,</span> <span class="s2">"Culmen Depth (mm)"</span><span class="p">,</span> <span class="s2">"Flipper Length (mm)"</span><span class="p">,</span> <span class="s2">"Sex"</span><span class="p">])</span>
-    <span class="c1"># Define target to the data</span>
-    <span class="n">test_target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Adelie Penguin (Pygoscelis adeliae)'</span><span class="p">,</span>
-                   <span class="s1">'Chinstrap penguin (Pygoscelis antarctica)'</span><span class="p">,</span>
-                   <span class="s1">'Gentoo penguin (Pygoscelis papua)'</span><span class="p">]</span>
-    <span class="c1"># Assert the model should get these right.</span>
-    <span class="k">assert</span> <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_penguins</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Automated-Testing-of-Docstring-Examples">Automated Testing of Docstring Examples<a class="anchor-link" href="#Automated-Testing-of-Docstring-Examples">&#182;</a></h2><p>There is an even easier way to run simple tests. This can be useful when we write specific functions to pre-process our data.
-In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
-<p>We can upgrade our docstring and get free software tests out of it!</p>
-<p>This is called doctest and usually useful to keep docstring examples up to date and write quick unit tests for a function.</p>
-<p>This makes future users (including yourself from the future) quite happy.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">shorten_class_name</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sd">"""Shorten the class names of the penguins to the shortest version</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    df : pd.DataFrame</span>
-<span class="sd">        Dataframe containing the Species column with penguins</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    pd.DataFrame</span>
-<span class="sd">        Normalised dataframe with shortened names</span>
-<span class="sd">    </span>
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; shorten_class_name(pd.DataFrame([[1,2,3,"Adelie Penguin (Pygoscelis adeliae)"]], columns=["1","2","3","Species"]))</span>
-<span class="sd">       1  2  3 Species</span>
-<span class="sd">    0  1  2  3  Adelie</span>
-<span class="sd">    """</span>
-    <span class="n">df</span><span class="p">[</span><span class="s2">"Species"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">Species</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">" [Pp]enguin"</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">df</span>
-
-<span class="kn">import</span> <span class="nn">doctest</span>
-<span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>TestResults(failed=0, attempted=1)</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shorten_class_name</span><span class="p">(</span><span class="n">penguins</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
 
 
 
@@ -14997,52 +14775,89 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
       <th>Culmen Depth (mm)</th>
       <th>Flipper Length (mm)</th>
       <th>Sex</th>
-      <th>Species</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>39.1</td>
-      <td>18.7</td>
-      <td>181.0</td>
+      <th>221</th>
+      <td>51.1</td>
+      <td>16.3</td>
+      <td>220.0</td>
       <td>MALE</td>
-      <td>Adelie</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>39.5</td>
-      <td>17.4</td>
-      <td>186.0</td>
+      <th>315</th>
+      <td>49.8</td>
+      <td>17.3</td>
+      <td>198.0</td>
       <td>FEMALE</td>
-      <td>Adelie</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>40.3</td>
-      <td>18.0</td>
-      <td>195.0</td>
+      <th>262</th>
+      <td>46.8</td>
+      <td>14.3</td>
+      <td>215.0</td>
       <td>FEMALE</td>
-      <td>Adelie</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>36.7</td>
-      <td>19.3</td>
-      <td>193.0</td>
+      <th>191</th>
+      <td>45.5</td>
+      <td>13.9</td>
+      <td>210.0</td>
       <td>FEMALE</td>
-      <td>Adelie</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>39.3</td>
-      <td>20.6</td>
+      <th>8</th>
+      <td>38.6</td>
+      <td>21.2</td>
+      <td>191.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>34.6</td>
+      <td>21.1</td>
+      <td>198.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>37.7</td>
+      <td>16.0</td>
+      <td>183.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>184</th>
+      <td>48.7</td>
+      <td>15.7</td>
+      <td>208.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>212</th>
+      <td>43.5</td>
+      <td>14.2</td>
+      <td>220.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>33.5</td>
+      <td>19.0</td>
       <td>190.0</td>
-      <td>MALE</td>
-      <td>Adelie</td>
+      <td>FEMALE</td>
     </tr>
   </tbody>
 </table>
+<p>233 rows × 4 columns</p>
 </div>
 </div>
 
@@ -15059,55 +14874,23 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>So these give a nice example of usage in the docstring, an expected output and a first test case that is validated by our test suite.</p>
+<h2 id="Dummy-Classifiers">Dummy Classifiers<a class="anchor-link" href="#Dummy-Classifiers">&#182;</a></h2><p>One of the easiest way to build a benchmark is ensuring that our model performs better than random.</p>
+<p><div class="alert alert-block alert-info">
+<b>Tip:</b> If our model is effectively as good as a coin flip, it's a bad model.</div>
+However, sometimes it isn't obvious how good or bad a model is. Take our penguin data. What counts as "random classification" on 3 classes that aren't equally distributed?</p>
 
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Input-Data-Validation">Input Data Validation<a class="anchor-link" href="#Input-Data-Validation">&#182;</a></h2><p>You validate that the data that users are providing matches what your model is expecting.</p>
-<p>These tools are often used in production systems to determine whether APIs usage and user inputs are formatted correctly.</p>
-<p>Example tools are:</p>
-<ul>
-<li><a href="https://greatexpectations.io/">Great Expectations</a></li>
-<li><a href="https://pandera.readthedocs.io/">Pandera</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandera</span> <span class="k">as</span> <span class="nn">pa</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># data to validate</span>
-<span class="n">X_train</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"Species"</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -15125,7 +14908,7 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
@@ -15148,176 +14931,29 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Culmen Length (mm)</th>
-      <th>Culmen Depth (mm)</th>
-      <th>Flipper Length (mm)</th>
+      <th>index</th>
+    </tr>
+    <tr>
+      <th>Species</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>count</th>
-      <td>233.000000</td>
-      <td>233.000000</td>
-      <td>233.000000</td>
+      <th>Adelie Penguin (Pygoscelis adeliae)</th>
+      <td>102</td>
     </tr>
     <tr>
-      <th>mean</th>
-      <td>43.982403</td>
-      <td>17.228755</td>
-      <td>201.412017</td>
+      <th>Chinstrap penguin (Pygoscelis antarctica)</th>
+      <td>47</td>
     </tr>
     <tr>
-      <th>std</th>
-      <td>5.537146</td>
-      <td>1.994191</td>
-      <td>13.929695</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>33.500000</td>
-      <td>13.100000</td>
-      <td>172.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>39.000000</td>
-      <td>15.700000</td>
-      <td>190.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>44.400000</td>
-      <td>17.300000</td>
-      <td>198.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>48.800000</td>
-      <td>18.800000</td>
-      <td>213.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>59.600000</td>
-      <td>21.200000</td>
-      <td>231.000000</td>
+      <th>Gentoo penguin (Pygoscelis papua)</th>
+      <td>84</td>
     </tr>
   </tbody>
 </table>
 </div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define schema</span>
-<span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataFrameSchema</span><span class="p">({</span>
-    <span class="s2">"Culmen Length (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
-                                                   <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">60</span><span class="p">)]),</span>
-    <span class="s2">"Culmen Depth (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span>
-                                                  <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">22</span><span class="p">)]),</span>
-    <span class="s2">"Flipper Length (mm)"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">170</span><span class="p">),</span>
-                                                    <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">235</span><span class="p">)]),</span>
-    <span class="s2">"Sex"</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">"MALE"</span><span class="p">,</span><span class="s2">"FEMALE"</span><span class="p">])),</span>
-<span class="p">})</span>
-
-<span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">Sex</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([&#39;FEMALE&#39;, &#39;MALE&#39;, &#39;.&#39;], dtype=object)</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">259</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>Culmen Length (mm)      44.5
-Culmen Depth (mm)       15.7
-Flipper Length (mm)    217.0
-Sex                        .
-Name: 259, dtype: object</pre>
 </div>
 
 </div>
@@ -15333,20 +14969,23 @@ Name: 259, dtype: object</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Can you fix the data to conform to the schema?</p>
+<p>We can use the <code>DummyClassifier</code> and <code>DummyRegressor</code> to show what a random model would predict.</p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <span class="n">DummyClassifier</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">DummyClassifier</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15354,6 +14993,84 @@ Name: 259, dtype: object</pre>
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0.43564356435643564</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Benchmark-Datasets">Benchmark Datasets<a class="anchor-link" href="#Benchmark-Datasets">&#182;</a></h2><p>Another great tool to use is benchmark datasets.</p>
+<p>Most fields have started creating benchmark datasets to test new methods in a controlled environment.
+Unfortunately, it still happens that results are over-reported because models weren't adequately evaluated as seen in <a href="1-model-evaluation.ipynb">notebook 1</a>.
+Nevertheless, it's easy to reproduce the results as both the code and data are available, so we can quickly see how legitimate reported scores are.</p>
+<p>Examples:</p>
+<ul>
+<li><a href="https://www.image-net.org/">Imagenet</a> in computer vision</li>
+<li><a href="https://github.com/pangeo-data/WeatherBench">WeatherBench</a> in meteorology</li>
+<li><a href="https://paperswithcode.com/dataset/chestx-ray8">ChestX-ray8</a> in medical imaging</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Domain-Methods">Domain Methods<a class="anchor-link" href="#Domain-Methods">&#182;</a></h2><p>Any method is stronger if it is verified against standard methods in the field.</p>
+<p>A weather forecast post-processing method should be evaluated against a standard for forecast post-processing.</p>
+<p>This is where domain expertise is important.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Linear-and-Standard-Models">Linear and Standard Models<a class="anchor-link" href="#Linear-and-Standard-Models">&#182;</a></h2><p>In addition to the Dummy methods, we also want to evaluate our fancy solutions against very simple models.</p>
+<p>Personally, I like using:</p>
+<ul>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Linear Models</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">Random Forests</a></li>
+</ul>
+<p>As an exercise try implementing baseline models to compare against the support-vector machine with preprocessing.</p>
+
+</div>
+</div>
+</div>
 </div>
 </body>
 
