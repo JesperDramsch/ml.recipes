@@ -1,7 +1,6 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: notebooks//ipynb,python_scripts//py:percent
 #     text_representation:
 #       extension: .py
 #       format_name: percent
@@ -66,7 +65,7 @@ clf.score(X_test, y_test)
 # Another great tool to use is benchmark datasets.
 #
 # Most fields have started creating benchmark datasets to test new methods in a controlled environment.
-# Unfortunately, it still happens that results are over-reported because models weren't adequately evaluated as seen in [notebook 1](1 - Model Evaluation.ipynb).
+# Unfortunately, it still happens that results are over-reported because models weren't adequately evaluated as seen in [notebook 1](1-model-evaluation.ipynb).
 # Nevertheless, it's easy to reproduce the results as both the code and data are available, so we can quickly see how legitimate reported scores are.
 #
 # Examples:

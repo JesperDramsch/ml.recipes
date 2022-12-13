@@ -1,7 +1,6 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: notebooks//ipynb,python_scripts//py:percent
 #     text_representation:
 #       extension: .py
 #       format_name: percent
@@ -168,7 +167,11 @@ schema = pa.DataFrameSchema({
     "Sex": pa.Column(str, checks=pa.Check.isin(["MALE","FEMALE"])),
 })
 
-validated_test = schema(X_train)
+validated_test = schema(X_test)
+
+
+# %% [markdown]
+# This fails (intentionally), because the new data is not valid.
 
 # %%
 X_test.Sex.unique()
