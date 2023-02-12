@@ -6,6 +6,6 @@ seaborn
 pandas
 pandera
 pydantic
-pytorch
 shap
 surgeon-pytorch
+torch
