@@ -1,4 +1,4 @@
-## Installation
+# Installation
 
 Both `requirements.txt` and `environment.yml` are provided to install packages.
 
