@@ -1021,7 +1021,178 @@ In the Model Sharing notebook, we looked into auto-generating docstrings.</p>
     <span class="s2">&quot;Sex&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;MALE&quot;</span><span class="p">,</span><span class="s2">&quot;FEMALE&quot;</span><span class="p">])),</span>
 <span class="p">})</span>
 
-<span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">SchemaError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">12</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># define schema</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">schema</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">DataFrameSchema</span><span class="p">({</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="p">[</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">ge</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>                                                    <span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">le</span><span class="p">(</span><span class="mi">60</span><span class="p">)]),</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="s2">&quot;Sex&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">checks</span><span class="o">=</span><span class="n">pa</span><span class="o">.</span><span class="n">Check</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;MALE&quot;</span><span class="p">,</span><span class="s2">&quot;FEMALE&quot;</span><span class="p">])),</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="p">})</span>
+<span class="ne">---&gt; </span><span class="mi">12</span> <span class="n">validated_test</span> <span class="o">=</span> <span class="n">schema</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:829,</span> in <span class="ni">DataFrameSchema.__call__</span><span class="nt">(self, dataframe, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">801</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">802</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span>     <span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">809</span>     <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">810</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">811</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Alias for :func:`DataFrameSchema.validate` method.</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span><span class="sd">     :param pd.DataFrame dataframe: the dataframe to be validated.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">827</span><span class="sd">         otherwise creates a copy of the data.</span>
+<span class="g g-Whitespace">    </span><span class="mi">828</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">829</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">830</span>         <span class="n">dataframe</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">lazy</span><span class="p">,</span> <span class="n">inplace</span>
+<span class="g g-Whitespace">    </span><span class="mi">831</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:534,</span> in <span class="ni">DataFrameSchema.validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span>     <span class="n">check_obj</span> <span class="o">=</span> <span class="n">check_obj</span><span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span>         <span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">529</span>         <span class="n">meta</span><span class="o">=</span><span class="n">check_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="k">return</span> <span class="n">check_obj</span><span class="o">.</span><span class="n">pandera</span><span class="o">.</span><span class="n">add_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">534</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="n">check_obj</span><span class="o">=</span><span class="n">check_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="n">head</span><span class="o">=</span><span class="n">head</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>     <span class="n">tail</span><span class="o">=</span><span class="n">tail</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span>     <span class="n">sample</span><span class="o">=</span><span class="n">sample</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>     <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>     <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">542</span> <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:732,</span> in <span class="ni">DataFrameSchema._validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">730</span>     <span class="n">check_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">check_utils</span><span class="o">.</span><span class="n">is_table</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span> <span class="k">except</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">732</span>     <span class="n">error_handler</span><span class="o">.</span><span class="n">collect_error</span><span class="p">(</span><span class="s2">&quot;schema_component_check&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">733</span> <span class="k">except</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaErrors</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">734</span>     <span class="k">for</span> <span class="n">schema_error_dict</span> <span class="ow">in</span> <span class="n">err</span><span class="o">.</span><span class="n">schema_errors</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/error_handlers.py:32,</span> in <span class="ni">SchemaErrorHandler.collect_error</span><span class="nt">(self, reason_code, schema_error, original_exc)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Collect schema error, raising exception if lazy is False.</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd"> :param reason_code: string representing reason for error</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd"> :param schema_error: ``SchemaError`` object.</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazy</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">32</span>     <span class="k">raise</span> <span class="n">schema_error</span> <span class="kn">from</span> <span class="nn">original_exc</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="c1"># delete data of validated object from SchemaError object to prevent</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="c1"># storing copies of the validated DataFrame/Series for every</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="c1"># SchemaError collected.</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="k">del</span> <span class="n">schema_error</span><span class="o">.</span><span class="n">data</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:724,</span> in <span class="ni">DataFrameSchema._validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">722</span> <span class="k">for</span> <span class="n">schema_component</span> <span class="ow">in</span> <span class="n">schema_components</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">723</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">724</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">schema_component</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">725</span>             <span class="n">df_to_validate</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">726</span>             <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">727</span>             <span class="c1"># don&#39;t make a copy of the data</span>
+<span class="g g-Whitespace">    </span><span class="mi">728</span>             <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">729</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">730</span>         <span class="n">check_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">check_utils</span><span class="o">.</span><span class="n">is_table</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">731</span>     <span class="k">except</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:2138,</span> in <span class="ni">SeriesSchemaBase.__call__</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2127</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2128</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2129</span>     <span class="n">check_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2135</span>     <span class="n">inplace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2136</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2137</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Alias for ``validate`` method.&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">2138</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2139</span>         <span class="n">check_obj</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">lazy</span><span class="p">,</span> <span class="n">inplace</span>
+<span class="g g-Whitespace">   </span><span class="mi">2140</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schema_components.py:223,</span> in <span class="ni">Column.validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span>             <span class="n">validate_column</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span>                 <span class="n">check_obj</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">column_name</span>
+<span class="g g-Whitespace">    </span><span class="mi">221</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">223</span>         <span class="n">validate_column</span><span class="p">(</span><span class="n">check_obj</span><span class="p">,</span> <span class="n">column_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="k">return</span> <span class="n">check_obj</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schema_components.py:196,</span> in <span class="ni">Column.validate.&lt;locals&gt;.validate_column</span><span class="nt">(check_obj, column_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span> <span class="k">def</span> <span class="nf">validate_column</span><span class="p">(</span><span class="n">check_obj</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">196</span>     <span class="nb">super</span><span class="p">(</span><span class="n">Column</span><span class="p">,</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="n">column_name</span><span class="p">))</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>         <span class="n">check_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>         <span class="n">head</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">199</span>         <span class="n">tail</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>         <span class="n">sample</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">201</span>         <span class="n">random_state</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span>         <span class="n">lazy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span>         <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span>     <span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:2096,</span> in <span class="ni">SeriesSchemaBase.validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2090</span>     <span class="n">check_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2091</span>         <span class="n">_handle_check_results</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2092</span>             <span class="bp">self</span><span class="p">,</span> <span class="n">check_index</span><span class="p">,</span> <span class="n">check</span><span class="p">,</span> <span class="n">check_obj</span><span class="p">,</span> <span class="o">*</span><span class="n">check_args</span>
+<span class="g g-Whitespace">   </span><span class="mi">2093</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2094</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2095</span> <span class="k">except</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2096</span>     <span class="n">error_handler</span><span class="o">.</span><span class="n">collect_error</span><span class="p">(</span><span class="s2">&quot;dataframe_check&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2097</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+<span class="g g-Whitespace">   </span><span class="mi">2098</span>     <span class="c1"># catch other exceptions that may occur when executing the</span>
+<span class="g g-Whitespace">   </span><span class="mi">2099</span>     <span class="c1"># Check</span>
+<span class="g g-Whitespace">   </span><span class="mi">2100</span>     <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">err</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/error_handlers.py:32,</span> in <span class="ni">SchemaErrorHandler.collect_error</span><span class="nt">(self, reason_code, schema_error, original_exc)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Collect schema error, raising exception if lazy is False.</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span><span class="sd"> :param reason_code: string representing reason for error</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span><span class="sd"> :param schema_error: ``SchemaError`` object.</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lazy</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">32</span>     <span class="k">raise</span> <span class="n">schema_error</span> <span class="kn">from</span> <span class="nn">original_exc</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="c1"># delete data of validated object from SchemaError object to prevent</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="c1"># storing copies of the validated DataFrame/Series for every</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="c1"># SchemaError collected.</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="k">del</span> <span class="n">schema_error</span><span class="o">.</span><span class="n">data</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:2091,</span> in <span class="ni">SeriesSchemaBase.validate</span><span class="nt">(self, check_obj, head, tail, sample, random_state, lazy, inplace)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2088</span> <span class="k">for</span> <span class="n">check_index</span><span class="p">,</span> <span class="n">check</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checks</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2089</span>     <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2090</span>         <span class="n">check_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="ne">-&gt; </span><span class="mi">2091</span>             <span class="n">_handle_check_results</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2092</span>                 <span class="bp">self</span><span class="p">,</span> <span class="n">check_index</span><span class="p">,</span> <span class="n">check</span><span class="p">,</span> <span class="n">check_obj</span><span class="p">,</span> <span class="o">*</span><span class="n">check_args</span>
+<span class="g g-Whitespace">   </span><span class="mi">2093</span>             <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2094</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2095</span>     <span class="k">except</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2096</span>         <span class="n">error_handler</span><span class="o">.</span><span class="n">collect_error</span><span class="p">(</span><span class="s2">&quot;dataframe_check&quot;</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span>
+
+<span class="nn">File /opt/hostedtoolcache/Python/3.8.16/x64/lib/python3.8/site-packages/pandera/schemas.py:2482,</span> in <span class="ni">_handle_check_results</span><span class="nt">(schema, check_index, check, check_obj, *check_args)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2480</span>         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="ne">UserWarning</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2481</span>         <span class="k">return</span> <span class="kc">True</span>
+<span class="ne">-&gt; </span><span class="mi">2482</span>     <span class="k">raise</span> <span class="n">errors</span><span class="o">.</span><span class="n">SchemaError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2483</span>         <span class="n">schema</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2484</span>         <span class="n">check_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2485</span>         <span class="n">error_msg</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2486</span>         <span class="n">failure_cases</span><span class="o">=</span><span class="n">failure_cases</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2487</span>         <span class="n">check</span><span class="o">=</span><span class="n">check</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2488</span>         <span class="n">check_index</span><span class="o">=</span><span class="n">check_index</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2489</span>         <span class="n">check_output</span><span class="o">=</span><span class="n">check_result</span><span class="o">.</span><span class="n">check_output</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2490</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2491</span> <span class="k">return</span> <span class="n">check_result</span><span class="o">.</span><span class="n">check_passed</span>
+
+<span class="ne">SchemaError</span>: &lt;Schema Column(name=Sex, type=DataType(str))&gt; failed element-wise validator 0:
+<span class="o">&lt;</span><span class="n">Check</span> <span class="n">isin</span><span class="p">:</span> <span class="n">isin</span><span class="p">({</span><span class="s1">&#39;FEMALE&#39;</span><span class="p">,</span> <span class="s1">&#39;MALE&#39;</span><span class="p">})</span><span class="o">&gt;</span>
+<span class="n">failure</span> <span class="n">cases</span><span class="p">:</span>
+   <span class="n">index</span> <span class="n">failure_case</span>
+<span class="mi">0</span>    <span class="mi">259</span>            <span class="o">.</span>
 </pre></div>
 </div>
 </div>
