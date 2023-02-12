@@ -1,0 +1,71 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: welcome
+parts:
+- caption: Motivation
+  chapters:
+  - file: motivation/why
+  - file: motivation/increase-citations
+  - file: motivation/review
+  - file: motivation/collaboration
+- caption: Front Matter
+  chapters:
+  - file: frontmatter/installation
+    sections:
+    - file: frontmatter/conda
+    - file: frontmatter/conda-m1
+  - file: frontmatter/data
+    sections:
+    - file: notebooks/0-basic-data-prep-and-model
+      title: Data Preparation Notebook
+- caption: How to make ML Reproducible
+  numbered: True
+  chapters:
+  - file: tutorial/evaluation
+    sections:
+    - file: notebooks/1-model-evaluation
+      title: Evaluation Notebook
+    - file: resources/evaluation
+      title: Evaluation Resources
+  - file: tutorial/benchmarking
+    sections:
+    - file: notebooks/2-benchmarking
+      title: Benchmarking Notebook
+    - file: resources/benchmarking
+      title: Benchmarking Resources
+  - file: tutorial/sharing
+    sections:
+    - file: notebooks/3-model-sharing
+      title: Sharing Notebook
+    - file: resources/sharing
+      title: Sharing Resources
+  - file: tutorial/testing
+    sections:
+    - file: notebooks/4-testing
+      title: Testing Notebook
+    - file: resources/testing
+      title: Testing Resources
+  - file: tutorial/interpretability
+    sections:
+    - file: notebooks/5-interpretability
+      title: Interpretability Notebook
+    - file: resources/interpretability
+      title: Interpretability Resources
+  - file: tutorial/ablation
+    sections:
+    - file: notebooks/6-ablation-study
+      title: Ablation Notebook
+    - file: resources/ablation
+      title: Ablation Resources
+- caption: Talks & Workshops
+  chapters:
+  - file: workshops/euroscipy-2022
+  - file: workshops/pydata-global-2022
+- caption: Backmatter
+  chapters:
+  - file: backmatter/bibliography
+    title: References
+  - file: backmatter/cite
+    title: Cite this Book

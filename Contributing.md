@@ -1,37 +1,61 @@
 # Contributing
 
-This repo uses: [Jupytext doc](https://jupytext.readthedocs.io/)
+Contributions are welcome, and they are greatly appreciated! Every little bit
+helps, and credit will always be given. You can contribute in the ways listed below.
 
-To synchronize the notebooks and the Python scripts (based on filestamps, only
-input cells content is modified in the notebooks):
+## Report Bugs
 
-The idea and implementation for jupytext were copied from the [Euroscipy 2019 scikit-learn tutorial](https://github.com/lesteve/euroscipy-2019-scikit-learn-tutorial). Thanks for the great work!
+Report bugs using GitHub issues.
 
-```
-$ jupytext --sync notebooks/*.ipynb
-```
+If you are reporting a bug, please include:
 
-or simply use:
+* Your operating system name and version.
+* Any details about your local setup that might be helpful in troubleshooting.
+* Detailed steps to reproduce the bug.
 
-```
-$ make sync
-```
+## Fix Bugs
 
-If you create a new notebook, you need to set-up the text files it is going to
-be paired with:
+Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+wanted" is open to whoever wants to implement it.
 
-```
-$ jupytext --set-formats notebooks//ipynb,python_scripts//auto:percent notebooks/*.ipynb
-```
+## Implement Features
 
-or simply use:
+Look through the GitHub issues for features. Anything tagged with "enhancement"
+and "help wanted" is open to whoever wants to implement it.
 
-```
-$ make format
-```
+## Write Documentation
 
-To render all the notebooks (from time to time, slow to run):
+Increase citations, ease review & collaboration could always use more documentation, whether as part of the
+official Increase citations, ease review & collaboration docs, in docstrings, or even on the web in blog posts,
+articles, and such.
 
-```
-$ make render
-```
+## Submit Feedback
+
+The best way to send feedback is to file an issue on GitHub.
+
+If you are proposing a feature:
+
+* Explain in detail how it would work.
+* Keep the scope as narrow as possible, to make it easier to implement.
+* Remember that this is a volunteer-driven project, and that contributions
+  are welcome :)
+
+## Get Started
+
+Ready to contribute? Here's how to set up `Increase citations, ease review & collaboration` for local development.
+
+1. Fork the repo on GitHub.
+2. Clone your fork locally.
+3. Install your local copy into a virtualenv, e.g., using `conda`.
+4. Create a branch for local development and make changes locally.
+5. Commit your changes and push your branch to GitHub.
+6. Submit a pull request through the GitHub website.
+
+## Tech
+
+The notebooks are synced using `jupytext` and the book is built using `jupyter book`
+
+## Code of Conduct
+
+Please note that the Increase citations, ease review & collaboration project is released with a [Contributor Code of Conduct](CONDUCT.md). By contributing to this project you agree to abide by its terms.
+
