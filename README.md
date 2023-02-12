@@ -1,6 +1,6 @@
 # Increase citations, ease review & collaboration
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JesperDramsch/ml-for-science-reproducibility-tutorial/HEAD)
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](<YOUR URL HERE>) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JesperDramsch/ml-for-science-reproducibility-tutorial/HEAD)
 
 A collection of "easy wins" to make machine learning in research reproducible.  
 
@@ -11,9 +11,20 @@ Getting you 90% of the way to top-tier reproducibility.
 
 Every scientific conference has seen a massive uptick in applications that use some type of machine learning. Whether it’s a linear regression using scikit-learn, a transformer from Hugging Face, or a custom convolutional neural network in Jax, the breadth of applications is as vast as the quality of contributions.
 
-This tutorial aims to provide easy ways to increase the quality of scientific contributions that use machine learning methods. The reproducible aspect will make it easy for fellow researchers to use and iterate on a publication, increasing citations of published work. The use of appropriate validation techniques and increase in code quality accelerates the review process during publication and avoids possible rejection due to deficiencies in the methodology. Making models, code and possibly data available increases the visibility of work and enables easier collaboration on future work.
-
 This work to make machine learning applications reproducible has an outsized impact compared to the limited additional work that is required using existing Python libraries.
+
+## Data
+
+[![](https://img.shields.io/badge/view-notebook-orange)](notebooks/0-basic-data-prep-and-model) [![](https://img.shields.io/badge/open-colab-yellow)](https://colab.research.google.com/github/jesperdramsch/ml-for-science-reproducibility-tutorial/blob/main/book/notebooks/0-basic-data-prep-and-model.ipynb) [![Gradient](https://assets.paperspace.io/img/gradient-badge.svg)](https://console.paperspace.com/github/jesperdramsch/ml-for-science-reproducibility-tutorial/blob/main/book/notebooks/0-basic-data-prep-and-model.ipynb) [![Open%20In%20SageMaker%20Studio%20Lab](https://studiolab.sagemaker.aws/studiolab.svg)](https://studiolab.sagemaker.aws/import/github/jesperdramsch/ml-for-science-reproducibility-tutorial/blob/main/book/notebooks/0-basic-data-prep-and-model.ipynb)
+
+This tutorial uses the [Palmer Penguins dataset](https://allisonhorst.github.io/palmerpenguins/).
+
+Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/).
+
+![Artwork by @allison_horst](img/lter_penguins.png)
+*Artwork by [@allison_horst](https://www.allisonhorst.com/)*
+
+| ▲ [Top](#increase-citations-ease-review--collaboration) |
 
 ## Usage
 
@@ -68,6 +79,8 @@ To render all the notebooks (from time to time, slow to run):
 $ make render
 ```
 
+| ▲ [Top](#increase-citations-ease-review--collaboration) |
+
 ### Hosting the book
 
 Please see the [Jupyter Book documentation](https://jupyterbook.org/publish/web.html) to discover options for deploying a book online using services such as GitHub, GitLab, or Netlify.
@@ -81,3 +94,5 @@ We welcome and recognize all contributions. You can see a list of current contri
 ## Credits
 
 This project is created using the excellent open source [Jupyter Book project](https://jupyterbook.org/) and the [executablebooks/cookiecutter-jupyter-book template](https://github.com/executablebooks/cookiecutter-jupyter-book). Notebooks are synced with scripts using [jupytext](https://jupytext.readthedocs.io/) for version control.
+
+| ▲ [Top](#increase-citations-ease-review--collaboration) |
