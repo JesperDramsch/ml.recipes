@@ -5,7 +5,7 @@
 
 A collection of "easy wins" to make machine learning in research reproducible.  
 
-This tutorial focuses on basics that work. 
+This books focuses on basics that work. 
 Getting you 90% of the way to top-tier reproducibility.
 
 Every scientific conference has seen a massive uptick in applications that use some type of machine learning. Whether it’s a linear regression using scikit-learn, a transformer from Hugging Face, or a custom convolutional neural network in Jax, the breadth of applications is as vast as the quality of contributions.
