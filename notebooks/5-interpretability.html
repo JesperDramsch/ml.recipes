@@ -1,49 +1,57 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>5.3. Interpretability &amp; Model Inspection &#8212; Increase citations, ease review &amp; collaboration: Better ML in Science</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -51,61 +59,459 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-SK51NPBL7C"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-SK51NPBL7C');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/5-interpretability';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.4. Interpretability Resources" href="../resources/interpretability.html" />
     <link rel="prev" title="5. Interpretability" href="../tutorial/interpretability.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../welcome.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
         
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/why.html">
+                        Why make it reproducible?
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/increase-citations.html">
+                        Increase Citations
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/review.html">
+                        Ease Review
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/collaboration.html">
+                        Foster Collaboration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../frontmatter/installation.html">
+                        Installation
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../frontmatter/data.html">
+                        Data
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/evaluation.html">
+                        Model Evaluation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/benchmarking.html">
+                        Benchmarking
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/sharing.html">
+                        Model Sharing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/testing.html">
+                        Testing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../tutorial/interpretability.html">
+                        Interpretability
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/ablation.html">
+                        Ablation Studies
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../workshops/euroscipy-2022.html">
+                        Increase citations, ease review & collaboration – Making machine learning in research reproducible
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../workshops/pydata-global-2022.html">
+                        Real-world Perspectives to Avoid the Worst Mistakes using Machine Learning in Science
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../backmatter/bibliography.html">
+                        References
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../backmatter/cite.html">
+                        Cite this Book
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
       
       
-      <img src="../_static/logo.png" class="logo" alt="logo">
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
       
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
       
-      <h1 class="site-logo" id="site-title">Increase citations, ease review & collaboration: Better ML in Science</h1>
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/why.html">
+                        Why make it reproducible?
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/increase-citations.html">
+                        Increase Citations
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/review.html">
+                        Ease Review
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../motivation/collaboration.html">
+                        Foster Collaboration
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../frontmatter/installation.html">
+                        Installation
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../frontmatter/data.html">
+                        Data
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/evaluation.html">
+                        Model Evaluation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/benchmarking.html">
+                        Benchmarking
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/sharing.html">
+                        Model Sharing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/testing.html">
+                        Testing
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../tutorial/interpretability.html">
+                        Interpretability
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../tutorial/ablation.html">
+                        Ablation Studies
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../workshops/euroscipy-2022.html">
+                        Increase citations, ease review & collaboration – Making machine learning in research reproducible
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../workshops/pydata-global-2022.html">
+                        Real-world Perspectives to Avoid the Worst Mistakes using Machine Learning in Science
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../backmatter/bibliography.html">
+                        References
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../backmatter/cite.html">
+                        Cite this Book
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+  
+
+
+<a class="navbar-brand logo" href="../welcome.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    </div>
+    <div class="sidebar-start-items__item">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,514 +520,268 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Motivation
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Motivation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../motivation/why.html">
-   Why make it reproducible?
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../motivation/increase-citations.html">
-   Increase Citations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../motivation/review.html">
-   Ease Review
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../motivation/collaboration.html">
-   Foster Collaboration
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/why.html">Why make it reproducible?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/increase-citations.html">Increase Citations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/review.html">Ease Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../motivation/collaboration.html">Foster Collaboration</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Front Matter
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../frontmatter/installation.html">
-   Installation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../frontmatter/conda.html">
-     Using Conda
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../frontmatter/conda-m1.html">
-     Conda on Apple M1 Chip
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../frontmatter/data.html">
-   Data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="0-basic-data-prep-and-model.html">
-     Data Preparation Notebook
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../frontmatter/installation.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../frontmatter/conda.html">Using Conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../frontmatter/conda-m1.html">Conda on Apple M1 Chip</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  How to make ML Reproducible
- </span>
-</p>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../frontmatter/data.html">Data</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="0-basic-data-prep-and-model.html">Data Preparation Notebook</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">How to make ML Reproducible</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorial/evaluation.html">
-   1. Model Evaluation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="1-model-evaluation.html">
-     1.3. Evaluation Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/evaluation.html">
-     1.4. Evaluation Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorial/benchmarking.html">
-   2. Benchmarking
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2-benchmarking.html">
-     2.3. Benchmarking Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/benchmarking.html">
-     2.4. Benchmarking Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorial/sharing.html">
-   3. Model Sharing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3-model-sharing.html">
-     3.3. Sharing Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/sharing.html">
-     3.4. Sharing Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorial/testing.html">
-   4. Testing
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4-testing.html">
-     4.4. Testing Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/testing.html">
-     4.5. Testing Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../tutorial/interpretability.html">
-   5. Interpretability
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-  <label for="toctree-checkbox-7">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     5.3. Interpretability Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/interpretability.html">
-     5.4. Interpretability Resources
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../tutorial/ablation.html">
-   6. Ablation Studies
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-  <label for="toctree-checkbox-8">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="6-ablation-study.html">
-     6.2. Ablation Notebook
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../resources/ablation.html">
-     6.3. Ablation Resources
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/evaluation.html">1. Model Evaluation</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="1-model-evaluation.html">1.3. Evaluation Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/evaluation.html">1.4. Evaluation Resources</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Talks &amp; Workshops
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../workshops/euroscipy-2022.html">
-   Increase citations, ease review &amp; collaboration – Making machine learning in research reproducible
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../workshops/pydata-global-2022.html">
-   Real-world Perspectives to Avoid the Worst Mistakes using Machine Learning in Science
-  </a>
- </li>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/benchmarking.html">2. Benchmarking</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="2-benchmarking.html">2.3. Benchmarking Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/benchmarking.html">2.4. Benchmarking Resources</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Backmatter
- </span>
-</p>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/sharing.html">3. Model Sharing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="3-model-sharing.html">3.3. Sharing Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/sharing.html">3.4. Sharing Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/testing.html">4. Testing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="4-testing.html">4.4. Testing Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/testing.html">4.5. Testing Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../tutorial/interpretability.html">5. Interpretability</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">5.3. Interpretability Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/interpretability.html">5.4. Interpretability Resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tutorial/ablation.html">6. Ablation Studies</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="6-ablation-study.html">6.2. Ablation Notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../resources/ablation.html">6.3. Ablation Resources</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Talks &amp; Workshops</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../backmatter/bibliography.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../backmatter/cite.html">
-   Cite this Book
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../workshops/euroscipy-2022.html">Increase citations, ease review &amp; collaboration – Making machine learning in research reproducible</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workshops/pydata-global-2022.html">Real-world Perspectives to Avoid the Worst Mistakes using Machine Learning in Science</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Backmatter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../backmatter/bibliography.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backmatter/cite.html">Cite this Book</a></li>
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-        </div>
+</nav>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  </div>
+  
 
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
 
-          
+  
+  <div id="rtd-footer-container"></div>
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
+      </div>
+      <main id="main-content" class="bd-main">
         
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
 
 
 
 <div class="col py-1 d-flex header-article-main">
     <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+        <label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" data-toggle="tooltip" data-placement="right" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars"></span>
+        </label>
     </div>
     <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/jesperdramsch/ml-for-science-reproducibility-tutorial/main?urlpath=tree/book/notebooks/5-interpretability.ipynb"
-   class="headerbtn"
+  <ul class="dropdown-menu">
+      <li><a href="https://mybinder.org/v2/gh/jesperdramsch/ml-for-science-reproducibility-tutorial/main?urlpath=tree/book/notebooks/5-interpretability.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Launch on Binder"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</a>
       
-      <li>
-        <a href="https://colab.research.google.com/github/jesperdramsch/ml-for-science-reproducibility-tutorial/blob/main/book/notebooks/5-interpretability.ipynb"
-   class="headerbtn"
+      <li><a href="https://colab.research.google.com/github/jesperdramsch/ml-for-science-reproducibility-tutorial/blob/main/book/notebooks/5-interpretability.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Launch on Colab"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</a>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
+  class="btn btn-sm"
   data-toggle="tooltip"
 data-placement="bottom"
 title="Fullscreen mode"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
-<a href="https://github.com/jesperdramsch/ml-for-science-reproducibility-tutorial"
-   class="headerbtn"
+<a href="https://github.com/jesperdramsch/ml-for-science-reproducibility-tutorial" target="_blank"
+   class="btn btn-sm"
    data-toggle="tooltip"
 data-placement="bottom"
 title="Source repository"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/notebooks/5-interpretability.ipynb"
-   class="headerbtn"
+  <ul class="dropdown-menu">
+      <li><a href="../_sources/notebooks/5-interpretability.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
 title="Download source file"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</a>
       
       <li>
-        
 <button onclick="printPdf(this)"
-  class="headerbtn"
+  class="btn btn-sm dropdown-item"
   data-toggle="tooltip"
 data-placement="left"
 title="Print to PDF"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</a>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
-</div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn-inspection">
-   5.3.1. Scikit-Learn Inspection
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">
-     5.3.1.1. Tree importance vs Permutation importance
-    </a>
-   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#shap-inspection">
-   5.3.2. Shap Inspection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-inspection">
-   5.3.3. Model Inspection
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary" data-toggle="tooltip" data-placement="left" title="Toggle secondary sidebar">
+            <span class="fa-solid fa-list"></span>
+        </label>
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Interpretability & Model Inspection</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scikit-learn-inspection">
-   5.3.1. Scikit-Learn Inspection
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">
-     5.3.1.1. Tree importance vs Permutation importance
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#shap-inspection">
-   5.3.2. Shap Inspection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-inspection">
-   5.3.3. Model Inspection
-  </a>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
+</div>
             </div>
-            <main id="main-content" role="main">
-                
-              <div>
-                
+            
+            
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Interpretability & Model Inspection</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scikit-learn-inspection">
+   5.3.1. Scikit-Learn Inspection
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">
+     5.3.1.1. Tree importance vs Permutation importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#shap-inspection">
+   5.3.2. Shap Inspection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-inspection">
+   5.3.3. Model Inspection
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+            <article class="bd-article" role="main">
+              
   <section class="tex2jax_ignore mathjax_ignore" id="interpretability-model-inspection">
-<h1><span class="section-number">5.3. </span>Interpretability &amp; Model Inspection<a class="headerlink" href="#interpretability-model-inspection" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">5.3. </span>Interpretability &amp; Model Inspection<a class="headerlink" href="#interpretability-model-inspection" title="Permalink to this heading">#</a></h1>
 <p>One way to probe the models we build is to test them against the established knowledge of domain experts. In this final section, we’ll explore how to build intuitions about our machine learning model and avoid pitfalls like spurious correlations. These methods for model interpretability increase our trust into models, but they can also serve as an additional level of reproducibility in our research and a valuable research artefact that can be discussed in a publication.</p>
 <p>This part of the tutorial will also go into some considerations why the feature importance of tree-based methods can serve as a start but often shouldn’t be used as the sole source of truth regarding feature interpretation of our applied research.</p>
 <p>This section will introduce tools like <code class="docutils literal notranslate"><span class="pre">shap</span></code>, discuss feature importance, and manual inspection of models.</p>
@@ -750,7 +910,7 @@ title="Print to PDF"
 </div>
 </div>
 <section id="scikit-learn-inspection">
-<h2><span class="section-number">5.3.1. </span>Scikit-Learn Inspection<a class="headerlink" href="#scikit-learn-inspection" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.3.1. </span>Scikit-Learn Inspection<a class="headerlink" href="#scikit-learn-inspection" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">PartialDependenceDisplay</span><span class="p">,</span> <span class="n">partial_dependence</span><span class="p">,</span> <span class="n">plot_partial_dependence</span>
@@ -783,7 +943,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_7_0.png" src="../_images/5-interpretability_7_0.png" />
+<img alt="../_images/1b92d6e0fcb8bc4bc8939a44eef8978ac1ffe76aa72a064b088fe38c0258d493.png" src="../_images/1b92d6e0fcb8bc4bc8939a44eef8978ac1ffe76aa72a064b088fe38c0258d493.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -794,7 +954,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_8_0.png" src="../_images/5-interpretability_8_0.png" />
+<img alt="../_images/08b060c26aaac2bc077b66e8780ea5c1b8c8d5474d904b6a059e4c25498c1489.png" src="../_images/08b060c26aaac2bc077b66e8780ea5c1b8c8d5474d904b6a059e4c25498c1489.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -805,11 +965,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_9_0.png" src="../_images/5-interpretability_9_0.png" />
+<img alt="../_images/39b13e34301cb2714cb1dc8747e1ae83bed16edf0c0a777455f9e4ffc4f28c79.png" src="../_images/39b13e34301cb2714cb1dc8747e1ae83bed16edf0c0a777455f9e4ffc4f28c79.png" />
 </div>
 </div>
 <section id="tree-importance-vs-permutation-importance">
-<h3><span class="section-number">5.3.1.1. </span>Tree importance vs Permutation importance<a class="headerlink" href="#tree-importance-vs-permutation-importance" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">5.3.1.1. </span>Tree importance vs Permutation importance<a class="headerlink" href="#tree-importance-vs-permutation-importance" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
@@ -833,7 +993,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9900990099009901
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
 </pre></div>
 </div>
 </div>
@@ -846,7 +1006,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_12_0.png" src="../_images/5-interpretability_12_0.png" />
+<img alt="../_images/b5f40880dadb71f234924f83e409ac60ed576ce7a785fa40da010a0e7ae406cb.png" src="../_images/b5f40880dadb71f234924f83e409ac60ed576ce7a785fa40da010a0e7ae406cb.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -863,7 +1023,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_13_0.png" src="../_images/5-interpretability_13_0.png" />
+<img alt="../_images/e5df331494dbc8c905273df4048f6676156b1a7dc6f8183f76a11114375cef5d.png" src="../_images/e5df331494dbc8c905273df4048f6676156b1a7dc6f8183f76a11114375cef5d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -878,13 +1038,13 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5-interpretability_14_0.png" src="../_images/5-interpretability_14_0.png" />
+<img alt="../_images/30b4af3813e311f18b8520ba320ef48bed0eab447efe071156e436370224394f.png" src="../_images/30b4af3813e311f18b8520ba320ef48bed0eab447efe071156e436370224394f.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="shap-inspection">
-<h2><span class="section-number">5.3.2. </span>Shap Inspection<a class="headerlink" href="#shap-inspection" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.3.2. </span>Shap Inspection<a class="headerlink" href="#shap-inspection" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">shap</span>
@@ -898,7 +1058,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;shap.explainers._tree.Tree at 0x7f69ac7ffd90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;shap.explainers._tree.Tree at 0x7f477a858e50&gt;
 </pre></div>
 </div>
 </div>
@@ -957,7 +1117,7 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id='iJVE4TIVHMNI47N9T1U65'>
+<div id='iL316DHTHU5PH7E14JC1Y'>
 <div style='color: #900; text-align: center;'>
   <b>Visualization omitted, Javascript library not loaded!</b><br>
   Have you run `initjs()` in this notebook? If this notebook was from another
@@ -967,8 +1127,8 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 </div></div>
  <script>
    if (window.SHAP) SHAP.ReactDom.render(
-    SHAP.React.createElement(SHAP.AdditiveForceVisualizer, {"outNames": ["f(x)"], "baseValue": 0.43703862660944215, "outValue": 0.10999999999999938, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "features": {"0": {"effect": -0.43953574116013067, "value": ""}, "1": {"effect": 0.02652784278067408, "value": ""}, "2": {"effect": 0.08596927177001377, "value": ""}}, "plot_cmap": "RdBu", "labelMargin": 20}),
-    document.getElementById('iJVE4TIVHMNI47N9T1U65')
+    SHAP.React.createElement(SHAP.AdditiveForceVisualizer, {"outNames": ["f(x)"], "baseValue": 0.4400858369098713, "outValue": 0.12999999999999967, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "features": {"0": {"effect": -0.43856603681403816, "value": ""}, "1": {"effect": 0.02551232177228573, "value": ""}, "2": {"effect": 0.10296787813188081, "value": ""}}, "plot_cmap": "RdBu", "labelMargin": 20}),
+    document.getElementById('iL316DHTHU5PH7E14JC1Y')
   );
 </script></div></div>
 </div>
@@ -980,7 +1140,7 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id='iZ01F93XNR3UFSCXAZD4B'>
+<div id='iLXRFNQF9DVC8IKCI0UPZ'>
 <div style='color: #900; text-align: center;'>
   <b>Visualization omitted, Javascript library not loaded!</b><br>
   Have you run `initjs()` in this notebook? If this notebook was from another
@@ -990,14 +1150,14 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 </div></div>
  <script>
    if (window.SHAP) SHAP.ReactDom.render(
-    SHAP.React.createElement(SHAP.AdditiveForceArrayVisualizer, {"outNames": ["f(x)"], "baseValue": 0.43703862660944215, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "explanations": [{"outValue": 0.10999999999999938, "simIndex": 12.0, "features": {"0": {"effect": -0.43953574116013067, "value": ""}, "1": {"effect": 0.02652784278067408, "value": ""}, "2": {"effect": 0.08596927177001377, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 51.0, "features": {"0": {"effect": -0.24372780434874014, "value": ""}, "1": {"effect": -0.078232003501332, "value": ""}, "2": {"effect": -0.11507881875936962, "value": ""}}}, {"outValue": 4.996003610813204e-16, "simIndex": 49.0, "features": {"0": {"effect": -0.2339723197984648, "value": ""}, "1": {"effect": -0.08457783783309489, "value": ""}, "2": {"effect": -0.11848846897788194, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 36.0, "features": {"0": {"effect": -0.22659823185235878, "value": ""}, "1": {"effect": -0.10191509750441288, "value": ""}, "2": {"effect": -0.10852529725266999, "value": ""}}}, {"outValue": 0.5400000000000001, "simIndex": 59.0, "features": {"0": {"effect": -0.04246675926058576, "value": ""}, "1": {"effect": 0.022479536734856507, "value": ""}, "2": {"effect": 0.12294859591628725, "value": ""}}}, {"outValue": 0.050000000000000544, "simIndex": 57.0, "features": {"0": {"effect": -0.2370185950712473, "value": ""}, "1": {"effect": -0.13373800596244514, "value": ""}, "2": {"effect": -0.016282025575749152, "value": ""}}}, {"outValue": 0.18999999999999978, "simIndex": 4.0, "features": {"0": {"effect": -0.41820454901939436, "value": ""}, "1": {"effect": 0.15032939161944575, "value": ""}, "2": {"effect": 0.02083653079050625, "value": ""}}}, {"outValue": 0.9999999999999994, "simIndex": 82.0, "features": {"0": {"effect": 0.3669433345466192, "value": ""}, "1": {"effect": 0.06319174403184838, "value": ""}, "2": {"effect": 0.13282629481208977, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 92.0, "features": {"0": {"effect": 0.32664007691183145, "value": ""}, "1": {"effect": 0.10821232020655024, "value": ""}, "2": {"effect": 0.12810897627217577, "value": ""}}}, {"outValue": 3.885780586188048e-16, "simIndex": 55.0, "features": {"0": {"effect": -0.24896811071956038, "value": ""}, "1": {"effect": -0.06142767851145592, "value": ""}, "2": {"effect": -0.12664283737842547, "value": ""}}}, {"outValue": 0.81, "simIndex": 60.0, "features": {"0": {"effect": 0.05311601296539671, "value": ""}, "1": {"effect": 0.1910087332433059, "value": ""}, "2": {"effect": 0.12883662718185526, "value": ""}}}, {"outValue": 0.08999999999999997, "simIndex": 5.0, "features": {"0": {"effect": -0.31080960784880085, "value": ""}, "1": {"effect": -0.0739881733716871, "value": ""}, "2": {"effect": 0.03775915461104576, "value": ""}}}, {"outValue": 0.9999999999999999, "simIndex": 87.0, "features": {"0": {"effect": 0.3517823709419685, "value": ""}, "1": {"effect": 0.0875917915566699, "value": ""}, "2": {"effect": 0.12358721089191929, "value": ""}}}, {"outValue": 0.11999999999999916, "simIndex": 14.0, "features": {"0": {"effect": -0.4137311860422937, "value": ""}, "1": {"effect": 0.036010388868106195, "value": ""}, "2": {"effect": 0.06068217056474452, "value": ""}}}, {"outValue": 0.9899999999999997, "simIndex": 80.0, "features": {"0": {"effect": 0.3664689618321419, "value": ""}, "1": {"effect": 0.05187092087813345, "value": ""}, "2": {"effect": 0.13462149068028217, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 37.0, "features": {"0": {"effect": -0.22220233701636194, "value": ""}, "1": {"effect": -0.10464020606495393, "value": ""}, "2": {"effect": -0.11019608352812596, "value": ""}}}, {"outValue": 0.0999999999999992, "simIndex": 13.0, "features": {"0": {"effect": -0.4613435269001428, "value": ""}, "1": {"effect": 0.014142252035916208, "value": ""}, "2": {"effect": 0.11016264825478361, "value": ""}}}, {"outValue": 0.8699999999999994, "simIndex": 97.0, "features": {"0": {"effect": 0.3758124365114546, "value": ""}, "1": {"effect": -0.06021209130190744, "value": ""}, "2": {"effect": 0.11736102818101017, "value": ""}}}, {"outValue": 0.039999999999999314, "simIndex": 15.0, "features": {"0": {"effect": -0.4757907331993146, "value": ""}, "1": {"effect": 0.043426619097702394, "value": ""}, "2": {"effect": 0.03532548749216936, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 86.0, "features": {"0": {"effect": 0.3472226267550959, "value": ""}, "1": {"effect": 0.07966855226141441, "value": ""}, "2": {"effect": 0.13607019437404708, "value": ""}}}, {"outValue": 0.9899999999999999, "simIndex": 78.0, "features": {"0": {"effect": 0.37205027078901476, "value": ""}, "1": {"effect": 0.06418792872234788, "value": ""}, "2": {"effect": 0.11672317387919504, "value": ""}}}, {"outValue": 0.009999999999999731, "simIndex": 18.0, "features": {"0": {"effect": -0.4636772323449252, "value": ""}, "1": {"effect": 0.008125834827422287, "value": ""}, "2": {"effect": 0.028512770908060495, "value": ""}}}, {"outValue": 0.9999999999999997, "simIndex": 84.0, "features": {"0": {"effect": 0.3558711591605729, "value": ""}, "1": {"effect": 0.06853180626844253, "value": ""}, "2": {"effect": 0.13855840796154215, "value": ""}}}, {"outValue": 0.09999999999999931, "simIndex": 11.0, "features": {"0": {"effect": -0.43642007875759187, "value": ""}, "1": {"effect": 0.016036514795207863, "value": ""}, "2": {"effect": 0.0833449373529412, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 34.0, "features": {"0": {"effect": -0.23411383569277255, "value": ""}, "1": {"effect": -0.0992118422441616, "value": ""}, "2": {"effect": -0.10371294867250755, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 41.0, "features": {"0": {"effect": -0.2270394336468075, "value": ""}, "1": {"effect": -0.0913610788295844, "value": ""}, "2": {"effect": -0.1186381141330498, "value": ""}}}, {"outValue": 0.10999999999999988, "simIndex": 7.0, "features": {"0": {"effect": -0.3688497302728792, "value": ""}, "1": {"effect": -0.021714280567322167, "value": ""}, "2": {"effect": 0.06352538423075908, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 67.0, "features": {"0": {"effect": 0.32156732878190036, "value": ""}, "1": {"effect": 0.12037089225603816, "value": ""}, "2": {"effect": 0.12102315235261911, "value": ""}}}, {"outValue": 0.8699999999999997, "simIndex": 63.0, "features": {"0": {"effect": 0.17516750898470904, "value": ""}, "1": {"effect": 0.15184578856894415, "value": ""}, "2": {"effect": 0.1059480758369044, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 76.0, "features": {"0": {"effect": 0.3732944632648344, "value": ""}, "1": {"effect": 0.10071031545632766, "value": ""}, "2": {"effect": 0.08895659466939551, "value": ""}}}, {"outValue": 0.9699999999999994, "simIndex": 73.0, "features": {"0": {"effect": 0.38084662278449355, "value": ""}, "1": {"effect": 0.07481209991490345, "value": ""}, "2": {"effect": 0.0773026506911603, "value": ""}}}, {"outValue": 0.010000000000000009, "simIndex": 30.0, "features": {"0": {"effect": -0.16012142048398667, "value": ""}, "1": {"effect": -0.12410211935186696, "value": ""}, "2": {"effect": -0.14281508677358853, "value": ""}}}, {"outValue": 0.9799999999999999, "simIndex": 70.0, "features": {"0": {"effect": 0.2984156594756285, "value": ""}, "1": {"effect": 0.127522151713089, "value": ""}, "2": {"effect": 0.11702356220184022, "value": ""}}}, {"outValue": 0.009999999999999676, "simIndex": 24.0, "features": {"0": {"effect": -0.2967220228263628, "value": ""}, "1": {"effect": -0.013047137957499887, "value": ""}, "2": {"effect": -0.11726946582557976, "value": ""}}}, {"outValue": 3.885780586188048e-16, "simIndex": 54.0, "features": {"0": {"effect": -0.2516045857185858, "value": ""}, "1": {"effect": -0.06119913188731793, "value": ""}, "2": {"effect": -0.12423490900353801, "value": ""}}}, {"outValue": 0.05999999999999994, "simIndex": 58.0, "features": {"0": {"effect": -0.21538285244418418, "value": ""}, "1": {"effect": -0.16503927119777576, "value": ""}, "2": {"effect": 0.0033834970325177204, "value": ""}}}, {"outValue": 0.9899999999999993, "simIndex": 75.0, "features": {"0": {"effect": 0.36631293586978064, "value": ""}, "1": {"effect": 0.10052026772873349, "value": ""}, "2": {"effect": 0.08612816979204309, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 91.0, "features": {"0": {"effect": 0.3362901530540993, "value": ""}, "1": {"effect": 0.10187981833573759, "value": ""}, "2": {"effect": 0.12479140200072064, "value": ""}}}, {"outValue": 0.04000000000000026, "simIndex": 28.0, "features": {"0": {"effect": -0.1016526175419369, "value": ""}, "1": {"effect": -0.19195742799987164, "value": ""}, "2": {"effect": -0.10342858106763335, "value": ""}}}, {"outValue": 1.0, "simIndex": 85.0, "features": {"0": {"effect": 0.3454130407409452, "value": ""}, "1": {"effect": 0.07504438027169394, "value": ""}, "2": {"effect": 0.14250395237791869, "value": ""}}}, {"outValue": 4.996003610813204e-16, "simIndex": 35.0, "features": {"0": {"effect": -0.2301703966021104, "value": ""}, "1": {"effect": -0.10505448050972022, "value": ""}, "2": {"effect": -0.10181374949761106, "value": ""}}}, {"outValue": 0.79, "simIndex": 62.0, "features": {"0": {"effect": 0.06362343021578867, "value": ""}, "1": {"effect": 0.16053354116765814, "value": ""}, "2": {"effect": 0.12880440200711107, "value": ""}}}, {"outValue": 0.9799999999999994, "simIndex": 95.0, "features": {"0": {"effect": 0.36442045224527503, "value": ""}, "1": {"effect": 0.12886581474569142, "value": ""}, "2": {"effect": 0.049675106399590795, "value": ""}}}, {"outValue": 0.009999999999999787, "simIndex": 23.0, "features": {"0": {"effect": -0.32332064371921765, "value": ""}, "1": {"effect": 0.03209908485741479, "value": ""}, "2": {"effect": -0.1358170677476395, "value": ""}}}, {"outValue": 0.9699999999999995, "simIndex": 79.0, "features": {"0": {"effect": 0.3682594049154675, "value": ""}, "1": {"effect": 0.04733544506515049, "value": ""}, "2": {"effect": 0.11736652340993937, "value": ""}}}, {"outValue": 0.9399999999999995, "simIndex": 64.0, "features": {"0": {"effect": 0.3119608939818905, "value": ""}, "1": {"effect": 0.11282792228237123, "value": ""}, "2": {"effect": 0.07817255712629563, "value": ""}}}, {"outValue": 5.551115123125783e-16, "simIndex": 43.0, "features": {"0": {"effect": -0.23220933141183298, "value": ""}, "1": {"effect": -0.09137125906772608, "value": ""}, "2": {"effect": -0.11345803612988253, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 44.0, "features": {"0": {"effect": -0.23454485036743422, "value": ""}, "1": {"effect": -0.0879356025272865, "value": ""}, "2": {"effect": -0.11455817371472096, "value": ""}}}, {"outValue": 0.23999999999999935, "simIndex": 3.0, "features": {"0": {"effect": -0.3883579621437001, "value": ""}, "1": {"effect": 0.08818667264599778, "value": ""}, "2": {"effect": 0.10313266288825954, "value": ""}}}, {"outValue": 0.9299999999999997, "simIndex": 66.0, "features": {"0": {"effect": 0.2823152733557898, "value": ""}, "1": {"effect": 0.11092973797416346, "value": ""}, "2": {"effect": 0.09971636206060432, "value": ""}}}, {"outValue": 0.7900000000000001, "simIndex": 61.0, "features": {"0": {"effect": 0.047685772068961414, "value": ""}, "1": {"effect": 0.17610854758943506, "value": ""}, "2": {"effect": 0.12916705373216153, "value": ""}}}, {"outValue": 0.9999999999999989, "simIndex": 96.0, "features": {"0": {"effect": 0.4024498585586228, "value": ""}, "1": {"effect": -0.03342945108377148, "value": ""}, "2": {"effect": 0.19394096591570545, "value": ""}}}, {"outValue": 0.8699999999999999, "simIndex": 100.0, "features": {"0": {"effect": 0.3533277829982135, "value": ""}, "1": {"effect": -0.03331343446557479, "value": ""}, "2": {"effect": 0.11294702485791898, "value": ""}}}, {"outValue": 0.030000000000000304, "simIndex": 27.0, "features": {"0": {"effect": -0.06403233304458227, "value": ""}, "1": {"effect": -0.2072348917421824, "value": ""}, "2": {"effect": -0.13577140182267716, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 89.0, "features": {"0": {"effect": 0.3420982431517225, "value": ""}, "1": {"effect": 0.09768462563899542, "value": ""}, "2": {"effect": 0.12317850459983952, "value": ""}}}, {"outValue": 1.0, "simIndex": 71.0, "features": {"0": {"effect": 0.29320151720244253, "value": ""}, "1": {"effect": 0.12926376028851444, "value": ""}, "2": {"effect": 0.1404960958996009, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 83.0, "features": {"0": {"effect": 0.3608841384518004, "value": ""}, "1": {"effect": 0.061795360984057426, "value": ""}, "2": {"effect": 0.14028187395469965, "value": ""}}}, {"outValue": 0.9899999999999995, "simIndex": 81.0, "features": {"0": {"effect": 0.36488792429445494, "value": ""}, "1": {"effect": 0.05618573740280176, "value": ""}, "2": {"effect": 0.13188771169330077, "value": ""}}}, {"outValue": 0.16999999999999993, "simIndex": 6.0, "features": {"0": {"effect": -0.3364455277086319, "value": ""}, "1": {"effect": -0.030271076059720153, "value": ""}, "2": {"effect": 0.0996779771589098, "value": ""}}}, {"outValue": 0.09999999999999981, "simIndex": 22.0, "features": {"0": {"effect": -0.4343500274446614, "value": ""}, "1": {"effect": 0.09434140983093177, "value": ""}, "2": {"effect": 0.0029699910042873157, "value": ""}}}, {"outValue": 0.4099999999999997, "simIndex": 1.0, "features": {"0": {"effect": -0.29092496294338654, "value": ""}, "1": {"effect": 0.22673396166060517, "value": ""}, "2": {"effect": 0.037152374673338914, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 56.0, "features": {"0": {"effect": -0.2501550471438895, "value": ""}, "1": {"effect": -0.052131120426002965, "value": ""}, "2": {"effect": -0.13475245903954927, "value": ""}}}, {"outValue": 0.07999999999999963, "simIndex": 20.0, "features": {"0": {"effect": -0.43545936362593063, "value": ""}, "1": {"effect": 0.05738423186781045, "value": ""}, "2": {"effect": 0.021036505148677647, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 90.0, "features": {"0": {"effect": 0.3461483107006665, "value": ""}, "1": {"effect": 0.10123653009484367, "value": ""}, "2": {"effect": 0.11557653259504741, "value": ""}}}, {"outValue": 0.029999999999999583, "simIndex": 17.0, "features": {"0": {"effect": -0.45401484694352645, "value": ""}, "1": {"effect": 0.03332656642575773, "value": ""}, "2": {"effect": 0.013649653908326159, "value": ""}}}, {"outValue": 4.996003610813204e-16, "simIndex": 50.0, "features": {"0": {"effect": -0.23625591174300095, "value": ""}, "1": {"effect": -0.08193585320827765, "value": ""}, "2": {"effect": -0.11884686165816304, "value": ""}}}, {"outValue": 3.885780586188048e-16, "simIndex": 53.0, "features": {"0": {"effect": -0.2518406968296969, "value": ""}, "1": {"effect": -0.06108107633176238, "value": ""}, "2": {"effect": -0.12411685344798244, "value": ""}}}, {"outValue": 0.13999999999999924, "simIndex": 10.0, "features": {"0": {"effect": -0.4141828942954382, "value": ""}, "1": {"effect": 0.002798615919463227, "value": ""}, "2": {"effect": 0.11434565176653207, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 39.0, "features": {"0": {"effect": -0.21940107884783625, "value": ""}, "1": {"effect": -0.10005087244794397, "value": ""}, "2": {"effect": -0.11758667531366165, "value": ""}}}, {"outValue": 0.9099999999999997, "simIndex": 65.0, "features": {"0": {"effect": 0.2894500099757336, "value": ""}, "1": {"effect": 0.10760437720897364, "value": ""}, "2": {"effect": 0.07590698620585026, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 42.0, "features": {"0": {"effect": -0.2294382908634289, "value": ""}, "1": {"effect": -0.09259592683177707, "value": ""}, "2": {"effect": -0.11500440891423588, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 47.0, "features": {"0": {"effect": -0.231456599695959, "value": ""}, "1": {"effect": -0.08586148913305067, "value": ""}, "2": {"effect": -0.119720537780432, "value": ""}}}, {"outValue": 0.9999999999999997, "simIndex": 77.0, "features": {"0": {"effect": 0.3666095982927844, "value": ""}, "1": {"effect": 0.08791094283365886, "value": ""}, "2": {"effect": 0.10844083226411429, "value": ""}}}, {"outValue": 0.049999999999999656, "simIndex": 16.0, "features": {"0": {"effect": -0.4690675046469376, "value": ""}, "1": {"effect": 0.04948863321622563, "value": ""}, "2": {"effect": 0.03254024482126944, "value": ""}}}, {"outValue": 0.7999999999999996, "simIndex": 101.0, "features": {"0": {"effect": 0.3838228531071898, "value": ""}, "1": {"effect": -0.15376941823696028, "value": ""}, "2": {"effect": 0.13290793852032792, "value": ""}}}, {"outValue": 3.885780586188048e-16, "simIndex": 52.0, "features": {"0": {"effect": -0.24480661575032156, "value": ""}, "1": {"effect": -0.07497714678604368, "value": ""}, "2": {"effect": -0.11725486407307649, "value": ""}}}, {"outValue": 0.9899999999999997, "simIndex": 74.0, "features": {"0": {"effect": 0.38592452920508097, "value": ""}, "1": {"effect": 0.08399123466249028, "value": ""}, "2": {"effect": 0.08304560952298623, "value": ""}}}, {"outValue": 0.2399999999999997, "simIndex": 25.0, "features": {"0": {"effect": 0.204552154446227, "value": ""}, "1": {"effect": -0.24946798860142966, "value": ""}, "2": {"effect": -0.1521227924542398, "value": ""}}}, {"outValue": 0.10999999999999988, "simIndex": 26.0, "features": {"0": {"effect": 0.0974443832012975, "value": ""}, "1": {"effect": -0.2531273755984666, "value": ""}, "2": {"effect": -0.17135563421227318, "value": ""}}}, {"outValue": -2.7755575615628914e-16, "simIndex": 19.0, "features": {"0": {"effect": -0.4350753575047043, "value": ""}, "1": {"effect": 0.02397780132623914, "value": ""}, "2": {"effect": -0.025941070430977337, "value": ""}}}, {"outValue": 2.220446049250313e-16, "simIndex": 33.0, "features": {"0": {"effect": -0.21902811153933296, "value": ""}, "1": {"effect": -0.11958126555697975, "value": ""}, "2": {"effect": -0.09842924951312917, "value": ""}}}, {"outValue": 0.039999999999999036, "simIndex": 8.0, "features": {"0": {"effect": -0.41749207343502015, "value": ""}, "1": {"effect": -0.07252552093961333, "value": ""}, "2": {"effect": 0.0929789677651904, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 68.0, "features": {"0": {"effect": 0.31728375147744514, "value": ""}, "1": {"effect": 0.12124342140183468, "value": ""}, "2": {"effect": 0.12443420051127776, "value": ""}}}, {"outValue": 0.34999999999999976, "simIndex": 2.0, "features": {"0": {"effect": -0.295056056191675, "value": ""}, "1": {"effect": 0.1165100634768677, "value": ""}, "2": {"effect": 0.09150736610536495, "value": ""}}}, {"outValue": 4.996003610813204e-16, "simIndex": 48.0, "features": {"0": {"effect": -0.23363898646513148, "value": ""}, "1": {"effect": -0.08453021878547584, "value": ""}, "2": {"effect": -0.11886942135883431, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 31.0, "features": {"0": {"effect": -0.19822141848785488, "value": ""}, "1": {"effect": -0.11083198932316858, "value": ""}, "2": {"effect": -0.12798521879841857, "value": ""}}}, {"outValue": 0.010000000000000286, "simIndex": 29.0, "features": {"0": {"effect": -0.12613441990264646, "value": ""}, "1": {"effect": -0.19576753583104445, "value": ""}, "2": {"effect": -0.10513667087575096, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 40.0, "features": {"0": {"effect": -0.2197688600336305, "value": ""}, "1": {"effect": -0.09555426705903566, "value": ""}, "2": {"effect": -0.12171549951677561, "value": ""}}}, {"outValue": 0.8699999999999997, "simIndex": 99.0, "features": {"0": {"effect": 0.37411136209556195, "value": ""}, "1": {"effect": -0.04111668953663474, "value": ""}, "2": {"effect": 0.0999667008316303, "value": ""}}}, {"outValue": 0.8699999999999996, "simIndex": 98.0, "features": {"0": {"effect": 0.37765427408736096, "value": ""}, "1": {"effect": -0.04716872387812299, "value": ""}, "2": {"effect": 0.1024758231813194, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 46.0, "features": {"0": {"effect": -0.2306234448022717, "value": ""}, "1": {"effect": -0.08436113721220413, "value": ""}, "2": {"effect": -0.12205404459496604, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 45.0, "features": {"0": {"effect": -0.2342047661411202, "value": ""}, "1": {"effect": -0.0873318630874847, "value": ""}, "2": {"effect": -0.1155019973808369, "value": ""}}}, {"outValue": 0.9899999999999998, "simIndex": 69.0, "features": {"0": {"effect": 0.29895508977433755, "value": ""}, "1": {"effect": 0.12998641331852126, "value": ""}, "2": {"effect": 0.12401987029769881, "value": ""}}}, {"outValue": 0.039999999999999036, "simIndex": 9.0, "features": {"0": {"effect": -0.4145240310152929, "value": ""}, "1": {"effect": -0.05841831693859849, "value": ""}, "2": {"effect": 0.07590372134444826, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 94.0, "features": {"0": {"effect": 0.355931716515479, "value": ""}, "1": {"effect": 0.12181225760894471, "value": ""}, "2": {"effect": 0.08521739926613368, "value": ""}}}, {"outValue": 0.9999999999999994, "simIndex": 93.0, "features": {"0": {"effect": 0.3486629841270055, "value": ""}, "1": {"effect": 0.11773019291881377, "value": ""}, "2": {"effect": 0.09656819634473801, "value": ""}}}, {"outValue": 3.3306690738754696e-16, "simIndex": 38.0, "features": {"0": {"effect": -0.21673222655890173, "value": ""}, "1": {"effect": -0.10343890994076452, "value": ""}, "2": {"effect": -0.11686749010977562, "value": ""}}}, {"outValue": 0.049999999999999545, "simIndex": 21.0, "features": {"0": {"effect": -0.43957693419555266, "value": ""}, "1": {"effect": 0.05438000451787991, "value": ""}, "2": {"effect": -0.0018416969317698398, "value": ""}}}, {"outValue": 0.9999999999999997, "simIndex": 88.0, "features": {"0": {"effect": 0.34506660361054353, "value": ""}, "1": {"effect": 0.09465547134623692, "value": ""}, "2": {"effect": 0.1232392984337771, "value": ""}}}, {"outValue": 0.9699999999999995, "simIndex": 72.0, "features": {"0": {"effect": 0.2742072857139419, "value": ""}, "1": {"effect": 0.1187889276883937, "value": ""}, "2": {"effect": 0.13996515998822184, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 32.0, "features": {"0": {"effect": -0.2065682260444172, "value": ""}, "1": {"effect": -0.12637516782577313, "value": ""}, "2": {"effect": -0.10409523273925153, "value": ""}}}], "plot_cmap": "RdBu", "ordering_keys": null, "ordering_keys_time_format": null}),
-    document.getElementById('iZ01F93XNR3UFSCXAZD4B')
+    SHAP.React.createElement(SHAP.AdditiveForceArrayVisualizer, {"outNames": ["f(x)"], "baseValue": 0.4400858369098713, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "explanations": [{"outValue": 0.12999999999999967, "simIndex": 11.0, "features": {"0": {"effect": -0.43856603681403816, "value": ""}, "1": {"effect": 0.02551232177228573, "value": ""}, "2": {"effect": 0.10296787813188081, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 43.0, "features": {"0": {"effect": -0.255078399855581, "value": ""}, "1": {"effect": -0.060274490422806755, "value": ""}, "2": {"effect": -0.12473294663148357, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 37.0, "features": {"0": {"effect": -0.23842882011650346, "value": ""}, "1": {"effect": -0.0755152812713335, "value": ""}, "2": {"effect": -0.12614173552203414, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 30.0, "features": {"0": {"effect": -0.2332081181070192, "value": ""}, "1": {"effect": -0.088700727713635, "value": ""}, "2": {"effect": -0.11817699108921698, "value": ""}}}, {"outValue": 0.5900000000000002, "simIndex": 101.0, "features": {"0": {"effect": -0.025283845401861807, "value": ""}, "1": {"effect": 0.028942415780990757, "value": ""}, "2": {"effect": 0.14625559271099992, "value": ""}}}, {"outValue": 0.030000000000000193, "simIndex": 23.0, "features": {"0": {"effect": -0.2448279462741655, "value": ""}, "1": {"effect": -0.14005556795163987, "value": ""}, "2": {"effect": -0.02520232268406572, "value": ""}}}, {"outValue": 0.12999999999999956, "simIndex": 21.0, "features": {"0": {"effect": -0.42653449684088174, "value": ""}, "1": {"effect": 0.10268886087209537, "value": ""}, "2": {"effect": 0.013759799058914593, "value": ""}}}, {"outValue": 1.0, "simIndex": 78.0, "features": {"0": {"effect": 0.3547451541721998, "value": ""}, "1": {"effect": 0.050184857882909835, "value": ""}, "2": {"effect": 0.1549841510350191, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 88.0, "features": {"0": {"effect": 0.33641043385412933, "value": ""}, "1": {"effect": 0.08109161031657025, "value": ""}, "2": {"effect": 0.1424121189194293, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 45.0, "features": {"0": {"effect": -0.25625995647571514, "value": ""}, "1": {"effect": -0.05480439582518953, "value": ""}, "2": {"effect": -0.12902148460896667, "value": ""}}}, {"outValue": 0.7800000000000002, "simIndex": 100.0, "features": {"0": {"effect": 0.03285715985621859, "value": ""}, "1": {"effect": 0.15893358620164813, "value": ""}, "2": {"effect": 0.1481234170322623, "value": ""}}}, {"outValue": 0.05999999999999961, "simIndex": 22.0, "features": {"0": {"effect": -0.3312057341572146, "value": ""}, "1": {"effect": -0.06562535896760839, "value": ""}, "2": {"effect": 0.016745256214951345, "value": ""}}}, {"outValue": 0.9900000000000002, "simIndex": 85.0, "features": {"0": {"effect": 0.3411220080069807, "value": ""}, "1": {"effect": 0.06944511238940339, "value": ""}, "2": {"effect": 0.13934704269374487, "value": ""}}}, {"outValue": 0.16999999999999965, "simIndex": 9.0, "features": {"0": {"effect": -0.3970073020734443, "value": ""}, "1": {"effect": 0.04816789448705071, "value": ""}, "2": {"effect": 0.07875357067652197, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 80.0, "features": {"0": {"effect": 0.3607546469004337, "value": ""}, "1": {"effect": 0.04361007516507282, "value": ""}, "2": {"effect": 0.15554944102462237, "value": ""}}}, {"outValue": 2.220446049250313e-16, "simIndex": 29.0, "features": {"0": {"effect": -0.22989835686493088, "value": ""}, "1": {"effect": -0.08930311175193435, "value": ""}, "2": {"effect": -0.12088436829300586, "value": ""}}}, {"outValue": 0.10999999999999954, "simIndex": 12.0, "features": {"0": {"effect": -0.4616682284770668, "value": ""}, "1": {"effect": 0.007402093171084267, "value": ""}, "2": {"effect": 0.12418029839611079, "value": ""}}}, {"outValue": 0.88, "simIndex": 61.0, "features": {"0": {"effect": 0.36451974642884655, "value": ""}, "1": {"effect": -0.06559014358133568, "value": ""}, "2": {"effect": 0.14098456024261785, "value": ""}}}, {"outValue": 0.049999999999999434, "simIndex": 14.0, "features": {"0": {"effect": -0.46941376921926536, "value": ""}, "1": {"effect": 0.02746368664873823, "value": ""}, "2": {"effect": 0.05186424566065531, "value": ""}}}, {"outValue": 0.98, "simIndex": 76.0, "features": {"0": {"effect": 0.3513540851427485, "value": ""}, "1": {"effect": 0.04567417168962905, "value": ""}, "2": {"effect": 0.14288590625775122, "value": ""}}}, {"outValue": 1.0, "simIndex": 82.0, "features": {"0": {"effect": 0.3549883070474317, "value": ""}, "1": {"effect": 0.06329056945697298, "value": ""}, "2": {"effect": 0.1416352865857241, "value": ""}}}, {"outValue": 0.03999999999999937, "simIndex": 15.0, "features": {"0": {"effect": -0.45783855680061125, "value": ""}, "1": {"effect": 0.017174730628414927, "value": ""}, "2": {"effect": 0.040577989262324435, "value": ""}}}, {"outValue": 0.99, "simIndex": 77.0, "features": {"0": {"effect": 0.3516304188929595, "value": ""}, "1": {"effect": 0.047694087842945654, "value": ""}, "2": {"effect": 0.1505896563542236, "value": ""}}}, {"outValue": 0.09999999999999953, "simIndex": 10.0, "features": {"0": {"effect": -0.4320441792170833, "value": ""}, "1": {"effect": 0.012029285495322449, "value": ""}, "2": {"effect": 0.07992905681188911, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 31.0, "features": {"0": {"effect": -0.23884617680369805, "value": ""}, "1": {"effect": -0.08874581081052707, "value": ""}, "2": {"effect": -0.1124938492956459, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 39.0, "features": {"0": {"effect": -0.2326982201595686, "value": ""}, "1": {"effect": -0.08258526825444061, "value": ""}, "2": {"effect": -0.12480234849586193, "value": ""}}}, {"outValue": 0.16000000000000003, "simIndex": 7.0, "features": {"0": {"effect": -0.343459441785095, "value": ""}, "1": {"effect": -0.012175005523324012, "value": ""}, "2": {"effect": 0.07554861039854777, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 90.0, "features": {"0": {"effect": 0.31768730365985437, "value": ""}, "1": {"effect": 0.0910806720943063, "value": ""}, "2": {"effect": 0.14114618733596837, "value": ""}}}, {"outValue": 0.81, "simIndex": 97.0, "features": {"0": {"effect": 0.16632090115033302, "value": ""}, "1": {"effect": 0.11501630515184053, "value": ""}, "2": {"effect": 0.08857695678795532, "value": ""}}}, {"outValue": 0.9899999999999995, "simIndex": 72.0, "features": {"0": {"effect": 0.3727493131870296, "value": ""}, "1": {"effect": 0.07803086348957461, "value": ""}, "2": {"effect": 0.09913398641352396, "value": ""}}}, {"outValue": 0.9699999999999995, "simIndex": 74.0, "features": {"0": {"effect": 0.3778222599125749, "value": ""}, "1": {"effect": 0.05285756995780883, "value": ""}, "2": {"effect": 0.09923433321974447, "value": ""}}}, {"outValue": 4.440892098500626e-16, "simIndex": 53.0, "features": {"0": {"effect": -0.17139645822058885, "value": ""}, "1": {"effect": -0.11749410086989932, "value": ""}, "2": {"effect": -0.1511952778193827, "value": ""}}}, {"outValue": 0.99, "simIndex": 93.0, "features": {"0": {"effect": 0.3031487419276858, "value": ""}, "1": {"effect": 0.1025100849546938, "value": ""}, "2": {"effect": 0.144255336207749, "value": ""}}}, {"outValue": 0.010000000000000286, "simIndex": 49.0, "features": {"0": {"effect": -0.288878977951933, "value": ""}, "1": {"effect": -0.016426078493947522, "value": ""}, "2": {"effect": -0.12478078046399052, "value": ""}}}, {"outValue": -1.1102230246251565e-16, "simIndex": 47.0, "features": {"0": {"effect": -0.25798302239406007, "value": ""}, "1": {"effect": -0.04992621034829162, "value": ""}, "2": {"effect": -0.1321766041675197, "value": ""}}}, {"outValue": 0.07, "simIndex": 24.0, "features": {"0": {"effect": -0.20264730298200798, "value": ""}, "1": {"effect": -0.18407577687143775, "value": ""}, "2": {"effect": 0.016637242943574427, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 70.0, "features": {"0": {"effect": 0.36756871008056213, "value": ""}, "1": {"effect": 0.08205245555908233, "value": ""}, "2": {"effect": 0.11029299745048435, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 87.0, "features": {"0": {"effect": 0.33929237593085293, "value": ""}, "1": {"effect": 0.08339492933487151, "value": ""}, "2": {"effect": 0.1372268578244047, "value": ""}}}, {"outValue": 0.01000000000000012, "simIndex": 55.0, "features": {"0": {"effect": -0.1425646391948951, "value": ""}, "1": {"effect": -0.18019765537748228, "value": ""}, "2": {"effect": -0.10732354233749379, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 83.0, "features": {"0": {"effect": 0.3482344045951172, "value": ""}, "1": {"effect": 0.06761080296437366, "value": ""}, "2": {"effect": 0.14406895553063803, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 26.0, "features": {"0": {"effect": -0.24797528433097357, "value": ""}, "1": {"effect": -0.09359996627040855, "value": ""}, "2": {"effect": -0.09851058630848912, "value": ""}}}, {"outValue": 0.7700000000000004, "simIndex": 98.0, "features": {"0": {"effect": 0.06282133203532594, "value": ""}, "1": {"effect": 0.11054521281688438, "value": ""}, "2": {"effect": 0.15654761823791874, "value": ""}}}, {"outValue": 0.96, "simIndex": 65.0, "features": {"0": {"effect": 0.35028414923416235, "value": ""}, "1": {"effect": 0.10753866877789371, "value": ""}, "2": {"effect": 0.06209134507807252, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 50.0, "features": {"0": {"effect": -0.3160853398581482, "value": ""}, "1": {"effect": 0.027342034996933294, "value": ""}, "2": {"effect": -0.15134253204865641, "value": ""}}}, {"outValue": 0.97, "simIndex": 75.0, "features": {"0": {"effect": 0.36122053752104516, "value": ""}, "1": {"effect": 0.03549522917074012, "value": ""}, "2": {"effect": 0.1331983963983435, "value": ""}}}, {"outValue": 0.9499999999999995, "simIndex": 66.0, "features": {"0": {"effect": 0.3277252255079937, "value": ""}, "1": {"effect": 0.08067048171961962, "value": ""}, "2": {"effect": 0.10151845586251498, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 34.0, "features": {"0": {"effect": -0.23933848442771907, "value": ""}, "1": {"effect": -0.0778041950743042, "value": ""}, "2": {"effect": -0.1229431574078478, "value": ""}}}, {"outValue": 2.220446049250313e-16, "simIndex": 32.0, "features": {"0": {"effect": -0.23933848442771907, "value": ""}, "1": {"effect": -0.0783549819126447, "value": ""}, "2": {"effect": -0.12239237056950732, "value": ""}}}, {"outValue": 0.20999999999999994, "simIndex": 8.0, "features": {"0": {"effect": -0.3734640001940819, "value": ""}, "1": {"effect": 0.04956071888318078, "value": ""}, "2": {"effect": 0.09381744440102971, "value": ""}}}, {"outValue": 0.99, "simIndex": 91.0, "features": {"0": {"effect": 0.31070561224864507, "value": ""}, "1": {"effect": 0.11366981420119272, "value": ""}, "2": {"effect": 0.12553873664029086, "value": ""}}}, {"outValue": 0.8200000000000003, "simIndex": 99.0, "features": {"0": {"effect": 0.06029768808932546, "value": ""}, "1": {"effect": 0.16199942864546585, "value": ""}, "2": {"effect": 0.15761704635533774, "value": ""}}}, {"outValue": 0.98, "simIndex": 59.0, "features": {"0": {"effect": 0.36329869546268306, "value": ""}, "1": {"effect": -0.05081605510996716, "value": ""}, "2": {"effect": 0.22743152273741274, "value": ""}}}, {"outValue": 0.9200000000000004, "simIndex": 64.0, "features": {"0": {"effect": 0.3442285302454941, "value": ""}, "1": {"effect": -0.003416806395356487, "value": ""}, "2": {"effect": 0.13910243923999152, "value": ""}}}, {"outValue": 0.02000000000000035, "simIndex": 56.0, "features": {"0": {"effect": -0.0605776861658866, "value": ""}, "1": {"effect": -0.19804447427430666, "value": ""}, "2": {"effect": -0.16146367646967769, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 86.0, "features": {"0": {"effect": 0.3471756198268063, "value": ""}, "1": {"effect": 0.07602827867184388, "value": ""}, "2": {"effect": 0.13671026459147892, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 94.0, "features": {"0": {"effect": 0.2977688055499654, "value": ""}, "1": {"effect": 0.09965929254616394, "value": ""}, "2": {"effect": 0.16248606499399965, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 81.0, "features": {"0": {"effect": 0.34712331343151237, "value": ""}, "1": {"effect": 0.04956393610237358, "value": ""}, "2": {"effect": 0.16322691355624294, "value": ""}}}, {"outValue": 1.0, "simIndex": 79.0, "features": {"0": {"effect": 0.356527178294575, "value": ""}, "1": {"effect": 0.0483423822368328, "value": ""}, "2": {"effect": 0.15504460255872096, "value": ""}}}, {"outValue": 0.16999999999999965, "simIndex": 6.0, "features": {"0": {"effect": -0.3498485768089864, "value": ""}, "1": {"effect": -0.02959197629384019, "value": ""}, "2": {"effect": 0.10935471619295498, "value": ""}}}, {"outValue": 0.029999999999999194, "simIndex": 19.0, "features": {"0": {"effect": -0.43946513238748053, "value": ""}, "1": {"effect": 0.045995908978732576, "value": ""}, "2": {"effect": -0.01661661350112416, "value": ""}}}, {"outValue": 0.3799999999999999, "simIndex": 1.0, "features": {"0": {"effect": -0.2784999969433734, "value": ""}, "1": {"effect": 0.16760592470777147, "value": ""}, "2": {"effect": 0.05080823532573055, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 46.0, "features": {"0": {"effect": -0.25649348518671167, "value": ""}, "1": {"effect": -0.05165325238112765, "value": ""}, "2": {"effect": -0.13193909934203205, "value": ""}}}, {"outValue": 0.06999999999999917, "simIndex": 17.0, "features": {"0": {"effect": -0.45034179998519835, "value": ""}, "1": {"effect": 0.04828553012606461, "value": ""}, "2": {"effect": 0.031970432949261614, "value": ""}}}, {"outValue": 0.99, "simIndex": 68.0, "features": {"0": {"effect": 0.348164192617419, "value": ""}, "1": {"effect": 0.08247480607818551, "value": ""}, "2": {"effect": 0.11927516439452428, "value": ""}}}, {"outValue": 0.029999999999999527, "simIndex": 16.0, "features": {"0": {"effect": -0.4578184826308397, "value": ""}, "1": {"effect": 0.023756051961416665, "value": ""}, "2": {"effect": 0.023976593759551235, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 42.0, "features": {"0": {"effect": -0.2486219531637138, "value": ""}, "1": {"effect": -0.06532214822412324, "value": ""}, "2": {"effect": -0.12614173552203414, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 48.0, "features": {"0": {"effect": -0.25811279535587633, "value": ""}, "1": {"effect": -0.049824559161501115, "value": ""}, "2": {"effect": -0.13214848239249388, "value": ""}}}, {"outValue": 0.1499999999999998, "simIndex": 5.0, "features": {"0": {"effect": -0.39263962733739527, "value": ""}, "1": {"effect": -0.008174241114198583, "value": ""}, "2": {"effect": 0.11072803154172234, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 27.0, "features": {"0": {"effect": -0.22232213415239854, "value": ""}, "1": {"effect": -0.0952342273640505, "value": ""}, "2": {"effect": -0.12252947539342197, "value": ""}}}, {"outValue": 0.9500000000000002, "simIndex": 95.0, "features": {"0": {"effect": 0.29007932409039217, "value": ""}, "1": {"effect": 0.11662048576840753, "value": ""}, "2": {"effect": 0.10321435323132906, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 33.0, "features": {"0": {"effect": -0.23971048555405808, "value": ""}, "1": {"effect": -0.0780136842774201, "value": ""}, "2": {"effect": -0.12236166707839306, "value": ""}}}, {"outValue": 2.220446049250313e-16, "simIndex": 38.0, "features": {"0": {"effect": -0.23548610241820023, "value": ""}, "1": {"effect": -0.07666304257123402, "value": ""}, "2": {"effect": -0.12793669192043683, "value": ""}}}, {"outValue": 0.99, "simIndex": 69.0, "features": {"0": {"effect": 0.36007835243467573, "value": ""}, "1": {"effect": 0.07571919347209913, "value": ""}, "2": {"effect": 0.11411661718335385, "value": ""}}}, {"outValue": 0.059999999999999, "simIndex": 13.0, "features": {"0": {"effect": -0.4713018057780284, "value": ""}, "1": {"effect": 0.04103028887495894, "value": ""}, "2": {"effect": 0.05018567999319709, "value": ""}}}, {"outValue": 0.8900000000000001, "simIndex": 60.0, "features": {"0": {"effect": 0.36028889743916637, "value": ""}, "1": {"effect": -0.10364756775929347, "value": ""}, "2": {"effect": 0.19327283341025592, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 44.0, "features": {"0": {"effect": -0.25633798718836426, "value": ""}, "1": {"effect": -0.057947883530265414, "value": ""}, "2": {"effect": -0.12579996619124165, "value": ""}}}, {"outValue": 1.0, "simIndex": 73.0, "features": {"0": {"effect": 0.38380502637741454, "value": ""}, "1": {"effect": 0.06868481814678805, "value": ""}, "2": {"effect": 0.10742431856592602, "value": ""}}}, {"outValue": 0.2000000000000001, "simIndex": 58.0, "features": {"0": {"effect": 0.19310604753564417, "value": ""}, "1": {"effect": -0.21828164217877183, "value": ""}, "2": {"effect": -0.21491024226674355, "value": ""}}}, {"outValue": 0.11000000000000038, "simIndex": 57.0, "features": {"0": {"effect": 0.10224038673695232, "value": ""}, "1": {"effect": -0.23543530698228599, "value": ""}, "2": {"effect": -0.19689091666453729, "value": ""}}}, {"outValue": 0.009999999999999065, "simIndex": 20.0, "features": {"0": {"effect": -0.44151153218295064, "value": ""}, "1": {"effect": 0.029395556984610046, "value": ""}, "2": {"effect": -0.01796986171153164, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 25.0, "features": {"0": {"effect": -0.23710418934672328, "value": ""}, "1": {"effect": -0.10649375805355978, "value": ""}, "2": {"effect": -0.09648788950958818, "value": ""}}}, {"outValue": 0.0999999999999997, "simIndex": 4.0, "features": {"0": {"effect": -0.4232477920045149, "value": ""}, "1": {"effect": -0.02911324695656461, "value": ""}, "2": {"effect": 0.1122752020512079, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 89.0, "features": {"0": {"effect": 0.3315452522629616, "value": ""}, "1": {"effect": 0.08720237795232381, "value": ""}, "2": {"effect": 0.14116653287484346, "value": ""}}}, {"outValue": 0.3500000000000002, "simIndex": 2.0, "features": {"0": {"effect": -0.2852590826309058, "value": ""}, "1": {"effect": 0.0925472244508683, "value": ""}, "2": {"effect": 0.10262602127016641, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 36.0, "features": {"0": {"effect": -0.23842882011650346, "value": ""}, "1": {"effect": -0.0755152812713335, "value": ""}, "2": {"effect": -0.12614173552203414, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 52.0, "features": {"0": {"effect": -0.20597711090303686, "value": ""}, "1": {"effect": -0.09514210401782043, "value": ""}, "2": {"effect": -0.1389666219890137, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 54.0, "features": {"0": {"effect": -0.1596053061740285, "value": ""}, "1": {"effect": -0.1698453204157402, "value": ""}, "2": {"effect": -0.11063521032010247, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 40.0, "features": {"0": {"effect": -0.22849932176570995, "value": ""}, "1": {"effect": -0.0820651377501357, "value": ""}, "2": {"effect": -0.12952137739402547, "value": ""}}}, {"outValue": 0.9000000000000001, "simIndex": 63.0, "features": {"0": {"effect": 0.3585502889279969, "value": ""}, "1": {"effect": -0.010784326347610482, "value": ""}, "2": {"effect": 0.11214820050974245, "value": ""}}}, {"outValue": 0.8700000000000001, "simIndex": 62.0, "features": {"0": {"effect": 0.36213204133224236, "value": ""}, "1": {"effect": -0.06108362911891128, "value": ""}, "2": {"effect": 0.12886575087679783, "value": ""}}}, {"outValue": 0.0, "simIndex": 35.0, "features": {"0": {"effect": -0.2401846931588083, "value": ""}, "1": {"effect": -0.07300230404379009, "value": ""}, "2": {"effect": -0.1268988397072729, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 41.0, "features": {"0": {"effect": -0.24616825901426717, "value": ""}, "1": {"effect": -0.06968729327159977, "value": ""}, "2": {"effect": -0.12423028462400433, "value": ""}}}, {"outValue": 0.9700000000000002, "simIndex": 92.0, "features": {"0": {"effect": 0.2939766403247475, "value": ""}, "1": {"effect": 0.10319960602176384, "value": ""}, "2": {"effect": 0.13273791674361743, "value": ""}}}, {"outValue": 0.05999999999999944, "simIndex": 3.0, "features": {"0": {"effect": -0.40988436873290734, "value": ""}, "1": {"effect": -0.06129037880758863, "value": ""}, "2": {"effect": 0.09108891063062413, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 71.0, "features": {"0": {"effect": 0.366008607214825, "value": ""}, "1": {"effect": 0.09417003952784599, "value": ""}, "2": {"effect": 0.09973551634745763, "value": ""}}}, {"outValue": 0.99, "simIndex": 67.0, "features": {"0": {"effect": 0.3483750807020474, "value": ""}, "1": {"effect": 0.08593052900399359, "value": ""}, "2": {"effect": 0.11560855338408764, "value": ""}}}, {"outValue": 2.7755575615628914e-16, "simIndex": 28.0, "features": {"0": {"effect": -0.22232213415239854, "value": ""}, "1": {"effect": -0.09468344052571002, "value": ""}, "2": {"effect": -0.12308026223176245, "value": ""}}}, {"outValue": 0.02999999999999925, "simIndex": 18.0, "features": {"0": {"effect": -0.44995713563111583, "value": ""}, "1": {"effect": 0.03924324828876678, "value": ""}, "2": {"effect": 0.0006280504324769757, "value": ""}}}, {"outValue": 0.9900000000000002, "simIndex": 84.0, "features": {"0": {"effect": 0.33817346567528417, "value": ""}, "1": {"effect": 0.07218268877364219, "value": ""}, "2": {"effect": 0.13955800864120252, "value": ""}}}, {"outValue": 0.9200000000000002, "simIndex": 96.0, "features": {"0": {"effect": 0.2420025795282685, "value": ""}, "1": {"effect": 0.08994526609103778, "value": ""}, "2": {"effect": 0.1479663174708226, "value": ""}}}, {"outValue": 2.220446049250313e-16, "simIndex": 51.0, "features": {"0": {"effect": -0.20524440106097133, "value": ""}, "1": {"effect": -0.11563560612409286, "value": ""}, "2": {"effect": -0.11920582972480685, "value": ""}}}], "plot_cmap": "RdBu", "ordering_keys": null, "ordering_keys_time_format": null}),
+    document.getElementById('iLXRFNQF9DVC8IKCI0UPZ')
   );
 </script></div></div>
 </div>
 </section>
 <section id="model-inspection">
-<h2><span class="section-number">5.3.3. </span>Model Inspection<a class="headerlink" href="#model-inspection" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.3.3. </span>Model Inspection<a class="headerlink" href="#model-inspection" title="Permalink to this heading">#</a></h2>
 <p>There are several tools that work for figuring out that a model is doing what it’s supposed to do. Scikit-learn classifiers mostly work out of the box, which is why we don’t necessarily have to debug the models.</p>
 <p>Sometimes we have to switch off regularization in scikit-learn to achieve the model state we expect.</p>
 <p>In neural networks we are working with many moving parts. The first step is a practical step: Overfit a small batch of data on the network. This ensures that the model is capable of learning and all the connections are made as expected. This works as a first-order sense check that models are performing.</p>
@@ -1045,7 +1205,7 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.3752, 0.5828]], grad_fn=&lt;SigmoidBackward0&gt;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.6349, 0.4652]], grad_fn=&lt;SigmoidBackward0&gt;)
 </pre></div>
 </div>
 </div>
@@ -1073,53 +1233,125 @@ n===t._wrapperState.initialValue&&(e.value=n)}});t.exports=l},function(t,e,n){"u
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
-              
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
+            </article>
+            
+
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../tutorial/interpretability.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">5. </span>Interpretability</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../resources/interpretability.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5.4. </span>Interpretability Resources</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+  <a class='left-prev' id="prev-link" href="../tutorial/interpretability.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">5. </span>Interpretability</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../resources/interpretability.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">5.4. </span>Interpretability Resources</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
 </div>
             </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
   
-    By Jesper Dramsch<br/>
-  
-      &copy; Copyright 2022 – 2023.<br/>
-    <div class="extra_footer">
-      Maintained by <a href='https://dramsch.net'>Jesper Dramsch</a>, creator of <a href='https://pythondeadlin.es'>PythonDeadlin.es</a>.
-    </div>
-</p>
-        </footer>
-    </div>
-    
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scikit-learn-inspection">
+   5.3.1. Scikit-Learn Inspection
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">
+     5.3.1.1. Tree importance vs Permutation importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#shap-inspection">
+   5.3.2. Shap Inspection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-inspection">
+   5.3.3. Model Inspection
+  </a>
+ </li>
+</ul>
+
+</nav>
 </div>
 
-
-      </div>
-    </div>
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+<div class="bd-footer-content__inner container">
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jesper Dramsch
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2022 – 2023.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+Last updated on None.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  Maintained by <a href='https://dramsch.net'>Jesper Dramsch</a>, creator of <a href='https://pythondeadlin.es'>PythonDeadlin.es</a>.
+</div>
+  </div>
+  
+</div>
+          </div>
+        </footer>
+        
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
 
   </body>
 </html>
