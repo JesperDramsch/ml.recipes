@@ -95,6 +95,7 @@ sphinx:
     html_baseurl: 'https://ml.recipes/'
     bibtex_reference_style: author_year
     bibtex_bibfiles: ["references.bib"]
-    html_js_files: [ ['https://plausible.io/js/script.js', {'defer': 'defer', 'data-domain': 'ml.recipes'}] ]
+    html_js_files: [ ['https://plausible.io/js/script.js', {'defer': 'defer', 'data-domain': 'ml.recipes'}], 
+                     ['https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2158291969836277', {'async': 'async', 'crossorigin': 'anonymous'}]]
   extra_extensions:
     - sphinx_sitemap
