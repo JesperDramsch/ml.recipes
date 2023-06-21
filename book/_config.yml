@@ -57,7 +57,7 @@ html:
   comments:
     hypothesis              : false
     utterances              : false
-  announcement              : "It's finally launch day! Welcome 🎉🎉" # A banner announcement at the top of the site.
+  # announcement              : "It's finally launch day! Welcome 🎉🎉" # A banner announcement at the top of the site.
 
 #######################################################################################
 # LaTeX-specific settings
@@ -88,7 +88,6 @@ repository:
 #######################################################################################
 # Advanced and power-user settings
 sphinx:
-  extra_extensions          :   # A list of extra extensions to load by Sphinx (added to those already used by JB).
   local_extensions          :   # A list of local extensions to load by sphinx specified by "name: path" items
   recursive_update          : false # A boolean indicating whether to overwrite the Sphinx config (true) or recursively update (false)
   config:
