@@ -1,6 +1,6 @@
 #######################################################################################
 # A default configuration that will be loaded for all jupyter books
-# See the documentation for help and more options: 
+# See the documentation for help and more options:
 # https://jupyterbook.org/customize/config.html
 
 #######################################################################################
@@ -95,8 +95,6 @@ sphinx:
     sitemap_url_scheme      : "{link}"
     bibtex_reference_style  : author_year
     bibtex_bibfiles         : ["references.bib"]
-    html_extra_path         : ['_ads']
-    html_js_files           : [ ['https://plausible.io/js/script.js', {'defer': 'defer', 'data-domain': 'ml.recipes'}], 
-                                ['https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2158291969836277', {'async': 'async', 'crossorigin': 'anonymous'}]]
+    html_js_files           : [ ['https://plausible.io/js/script.js', {'defer': 'defer', 'data-domain': 'ml.recipes'}]]
   extra_extensions:
     - sphinx_sitemap
