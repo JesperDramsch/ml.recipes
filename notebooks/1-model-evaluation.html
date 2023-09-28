@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,8 +39,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -55,7 +56,6 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script data-domain="ml.recipes" defer="defer" src="https://plausible.io/js/script.js"></script>
-    <script async="async" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2158291969836277"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -81,6 +81,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -136,7 +145,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="../welcome.html">
+<a class="navbar-brand logo" href="../index.html">
   
   
   
@@ -156,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../welcome.html">
+                <a class="reference internal" href="../index.html">
                     Increase citations, ease review & foster collaboration
                 </a>
             </li>
@@ -394,10 +403,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -405,7 +414,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -693,7 +702,7 @@ And it means that we expect that we have a similar distribution of measurements 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f2055a726ed64829324309b58eded0344cfde0db39dc8961b89a5a244fc8a8f5.png" src="../_images/f2055a726ed64829324309b58eded0344cfde0db39dc8961b89a5a244fc8a8f5.png" />
+<img alt="../_images/9cc8d7334968dfd7c1c754721c51433618c5e2b37f4260b0a83e73bd22102e0b.png" src="../_images/9cc8d7334968dfd7c1c754721c51433618c5e2b37f4260b0a83e73bd22102e0b.png" />
 </div>
 </div>
 <p>In this case it’s not very extreme. We have around twice as many Adelie than Chinstrap penguins.</p>
@@ -769,7 +778,7 @@ And it means that we expect that we have a similar distribution of measurements 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d8f2a2e7c0002e5bd4d2fb5686f004c7a24fe329f6e553104603fa71a7fffdf8.png" src="../_images/d8f2a2e7c0002e5bd4d2fb5686f004c7a24fe329f6e553104603fa71a7fffdf8.png" />
+<img alt="../_images/2e53a102cae0b161a27c0f7db8b971fa0628cf57311f2039006cff45e03c981e.png" src="../_images/2e53a102cae0b161a27c0f7db8b971fa0628cf57311f2039006cff45e03c981e.png" />
 </div>
 </div>
 <p>Let’s quickly train a model to evaluate</p>
@@ -976,7 +985,7 @@ And we have a <em>candidate</em> as representative for these data: <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cf636eb8628c30f589166d1181ea2fbf63ad430fadc2d6901c1660ec5cd1308c.png" src="../_images/cf636eb8628c30f589166d1181ea2fbf63ad430fadc2d6901c1660ec5cd1308c.png" />
+<img alt="../_images/41cc53c104e87b988307850a1afb6d1c9259681f34ba4266ab9e2ff3c05396d9.png" src="../_images/41cc53c104e87b988307850a1afb6d1c9259681f34ba4266ab9e2ff3c05396d9.png" />
 </div>
 </div>
 <p>OK so if we get to choose, we could definitely say that in this dataset, the <code class="docutils literal notranslate"><span class="pre">Flipper</span> <span class="pre">Length</span></code> in combination with the <code class="docutils literal notranslate"><span class="pre">Culmen</span> <span class="pre">Depth</span></code> leads to the hardest classification task for our machine learning model.</p>
@@ -1133,8 +1142,8 @@ And we have a <em>candidate</em> as representative for these data: <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;fit_time&#39;: array([0.00918031, 0.00816202, 0.00850177, 0.00808477, 0.00803614]),
- &#39;score_time&#39;: array([0.00655198, 0.00712395, 0.0068202 , 0.00661635, 0.00677657]),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;fit_time&#39;: array([0.01026773, 0.00836587, 0.0099442 , 0.0080688 , 0.00825214]),
+ &#39;score_time&#39;: array([0.00708795, 0.0070138 , 0.00671482, 0.00699759, 0.00668931]),
  &#39;test_MCC&#39;: array([0.37796447, 0.27863911, 0.40824829, 0.02424643, 0.08625819]),
  &#39;test_ACC&#39;: array([0.73333333, 0.7       , 0.76666667, 0.66666667, 0.62068966])}
 </pre></div>
@@ -1184,7 +1193,7 @@ MCC:  0.29439815585406465
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/921a512e7b3f3764ad1ca4d7ebc6cc076032a0c7f84524d627b9229de54c0c6a.png" src="../_images/921a512e7b3f3764ad1ca4d7ebc6cc076032a0c7f84524d627b9229de54c0c6a.png" />
+<img alt="../_images/92a0b0448ae22147614c30101fd784b110af028e82b57fe55631fab87dc485df.png" src="../_images/92a0b0448ae22147614c30101fd784b110af028e82b57fe55631fab87dc485df.png" />
 </div>
 </div>
 <p>As expected, the model did a pretty bad job in classifying <em>Chinstrap Penguins</em> and the <code class="docutils literal notranslate"><span class="pre">MCC</span></code> was able to catch that, whilst <code class="docutils literal notranslate"><span class="pre">ACC</span></code> could not as it only considers correctly classified samples!</p>
@@ -1283,11 +1292,10 @@ MCC:  0.29439815585406465
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../tutorial/evaluation.html"
@@ -1307,10 +1315,7 @@ MCC:  0.29439815585406465
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1383,8 +1388,8 @@ By Jesper Dramsch
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
