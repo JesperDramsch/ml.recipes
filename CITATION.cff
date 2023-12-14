@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: 'If you use this ML.recipes, please cite it as below.'
+authors:
+    - family-names: Dramsch
+      given-names: Jesper Sören
+      orcid: https://orcid.org/0000-0001-8273-905X
+    - family-names: Maggio
+      given-names: Valerio
+      orcid: https://orcid.org/0000-0003-4824-893X
+title: 'ML Recipes – Increase citations, ease review & foster collaboration '
+version: PyData-Global-2022
+identifiers:
+    - type: doi
+      value: ###
+date-released: 2022-12-03
+url: 'https://github.com/JesperDramsch/ml-for-science-reproducibility-tutorial'
