@@ -11,6 +11,6 @@ title: 'ML Recipes – Increase citations, ease review & foster collaboration '
 version: PyData-Global-2022
 identifiers:
     - type: doi
-      value: ###
+      value: 10.5281/zenodo.10381234
 date-released: 2022-12-03
 url: 'https://github.com/JesperDramsch/ml-for-science-reproducibility-tutorial'
