@@ -466,14 +466,9 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="getting-to-know-the-data">
 <h1>Getting to know the data<a class="headerlink" href="#getting-to-know-the-data" title="Permalink to this heading">#</a></h1>
 <p>Understanding the data is a foundational step in any machine learning project and is crucial for achieving reproducibility in research.</p>
-<p>Comprehending the dataset lets us make informed decisions at every stage of the project, from preprocessing to model selection and evaluation.</p>
 <p>One of the primary reasons why getting to know the data is essential is its direct impact on the reliability and generalizability of the machine learning models. We can identify potential biases, anomalies, or inconsistencies that may affect model performance by exploring the data.</p>
-<p>This understanding enables us to apply appropriate preprocessing techniques, such as handling missing values, addressing class imbalances, or feature normalisation, to ensure that the model learns meaningful patterns from the data.</p>
-<p>Furthermore, understanding the data allows researchers to select appropriate evaluation metrics that align with the specific objectives and characteristics of the dataset.</p>
-<p>By choosing metrics that capture the nuances of the problem domain, researchers can accurately assess the performance of their models and make informed decisions about their suitability for real-world applications.</p>
+<p>This understanding enables us to apply appropriate preprocessing techniques, such as <span class="xref myst">handling missing values</span>, <span class="xref myst">addressing class imbalances</span>, or <span class="xref myst">feature normalisation</span>, to ensure that the model learns meaningful patterns from the data.</p>
 <p>Moreover, gaining insights into the data can guide us as researchers in selecting the most appropriate algorithms and architectures for these tasks. Understanding the distribution and relationships within the data allows us to choose well-suited models to capture complex patterns and make accurate predictions.</p>
-<p>Beyond improving the performance of individual models, understanding the data fosters transparency and reproducibility in research. By documenting the dataset’s characteristics and the rationale behind preprocessing decisions, researchers enable others to replicate their experiments and validate their findings.</p>
-<p>This transparency enhances the credibility of research outcomes and facilitates collaboration and knowledge sharing within the scientific community.</p>
 <p>This tutorial uses the <a class="reference external" href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset</a>. Data were collected and made available by <a class="reference external" href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a class="reference external" href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a class="reference external" href="https://lternet.edu/">Long Term Ecological Research Network</a>.</p>
 <p>Let’s dive into some quick exploration of the data!</p>
 <div class="cell docutils container">
@@ -989,39 +984,39 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>277</th>
+      <th>94</th>
+      <td>36.2</td>
+      <td>17.3</td>
+      <td>187.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>217</th>
+      <td>49.8</td>
+      <td>16.8</td>
+      <td>230.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>337</th>
+      <td>46.8</td>
+      <td>16.5</td>
+      <td>189.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>153</th>
       <td>50.0</td>
-      <td>19.5</td>
-      <td>196.0</td>
+      <td>16.3</td>
+      <td>230.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>21</th>
-      <td>37.7</td>
-      <td>18.7</td>
-      <td>180.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>285</th>
-      <td>51.3</td>
-      <td>19.9</td>
-      <td>198.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>107</th>
-      <td>38.2</td>
-      <td>20.0</td>
-      <td>190.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>42.3</td>
-      <td>21.2</td>
-      <td>191.0</td>
-      <td>MALE</td>
+      <th>246</th>
+      <td>44.5</td>
+      <td>14.7</td>
+      <td>214.0</td>
+      <td>FEMALE</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1031,39 +1026,39 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>338</th>
-      <td>45.7</td>
+      <th>240</th>
+      <td>47.5</td>
+      <td>14.0</td>
+      <td>212.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>212</th>
+      <td>45.3</td>
+      <td>13.8</td>
+      <td>208.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>36.4</td>
       <td>17.0</td>
       <td>195.0</td>
       <td>FEMALE</td>
     </tr>
     <tr>
-      <th>251</th>
-      <td>51.1</td>
-      <td>16.5</td>
-      <td>225.0</td>
+      <th>277</th>
+      <td>50.0</td>
+      <td>19.5</td>
+      <td>196.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>231</th>
-      <td>45.2</td>
-      <td>16.4</td>
-      <td>223.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>68</th>
-      <td>35.9</td>
-      <td>16.6</td>
-      <td>190.0</td>
+      <th>236</th>
+      <td>44.9</td>
+      <td>13.8</td>
+      <td>212.0</td>
       <td>FEMALE</td>
-    </tr>
-    <tr>
-      <th>257</th>
-      <td>46.8</td>
-      <td>16.1</td>
-      <td>215.0</td>
-      <td>MALE</td>
     </tr>
   </tbody>
 </table>
@@ -1100,47 +1095,47 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>277</th>
+      <th>94</th>
+      <td>Adelie Penguin (Pygoscelis adeliae)</td>
+    </tr>
+    <tr>
+      <th>217</th>
+      <td>Gentoo penguin (Pygoscelis papua)</td>
+    </tr>
+    <tr>
+      <th>337</th>
       <td>Chinstrap penguin (Pygoscelis antarctica)</td>
     </tr>
     <tr>
-      <th>21</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
+      <th>153</th>
+      <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>285</th>
-      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
-    </tr>
-    <tr>
-      <th>107</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
-    </tr>
-    <tr>
-      <th>49</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
+      <th>246</th>
+      <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
       <th>...</th>
       <td>...</td>
     </tr>
     <tr>
-      <th>338</th>
-      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
-    </tr>
-    <tr>
-      <th>251</th>
+      <th>240</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>231</th>
+      <th>212</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>68</th>
+      <th>34</th>
       <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
-      <th>257</th>
+      <th>277</th>
+      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+    </tr>
+    <tr>
+      <th>236</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
   </tbody>
