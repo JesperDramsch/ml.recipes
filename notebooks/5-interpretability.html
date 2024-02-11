@@ -445,7 +445,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-inspection">5.3.1. Scikit-Learn Inspection</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-dependence-for-machine-learning-interpretability">5.3.1. Partial Dependence for Machine Learning Interpretability</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">5.3.1.1. Tree importance vs Permutation importance</a></li>
 </ul>
 </li>
@@ -467,6 +467,7 @@ document.write(`
 <p>One way to probe the models we build is to test them against the established knowledge of domain experts. In this final section, we’ll explore how to build intuitions about our machine learning model and avoid pitfalls like spurious correlations. These methods for model interpretability increase our trust into models, but they can also serve as an additional level of reproducibility in our research and a valuable research artefact that can be discussed in a publication.</p>
 <p>This part of the tutorial will also go into some considerations why the feature importance of tree-based methods can serve as a start but often shouldn’t be used as the sole source of truth regarding feature interpretation of our applied research.</p>
 <p>This section will introduce tools like <code class="docutils literal notranslate"><span class="pre">shap</span></code>, discuss feature importance, and manual inspection of models.</p>
+<p>First we’ll split the data from <span class="xref myst">the Data notebook</span> and load the model from <a class="reference external" href="https://ml.recipes/notebooks/3-model-sharing.html">the Sharing notebook</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -591,326 +592,96 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="scikit-learn-inspection">
-<h2><span class="section-number">5.3.1. </span>Scikit-Learn Inspection<a class="headerlink" href="#scikit-learn-inspection" title="Permalink to this heading">#</a></h2>
+<p>With the model loaded correctly, we can start diving into explainable AI, interpretability and model inspection!</p>
+<section id="partial-dependence-for-machine-learning-interpretability">
+<h2><span class="section-number">5.3.1. </span>Partial Dependence for Machine Learning Interpretability<a class="headerlink" href="#partial-dependence-for-machine-learning-interpretability" title="Permalink to this heading">#</a></h2>
+<p>The scikit-learn library provides powerful tools for understanding the relationship between features and the target variable in machine learning models, including the <code class="docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code> and <code class="docutils literal notranslate"><span class="pre">partial_dependence</span></code> functions. These tools enable us as researchers to visualize and quantify the impact of individual features on model predictions, helping to uncover complex patterns and relationships within the data.</p>
+<p>The partial dependence plots attempt to show an “average response” of a model to a certain feature changing.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code> function offers an intuitive way to visualize the partial dependence of the target variable on one or two features, allowing researchers to assess how the model’s predictions change as the values of these features vary while marginalizing over the values of all other features.</p>
+<p>Similarly, the <code class="docutils literal notranslate"><span class="pre">partial_dependence</span></code> function computes the partial dependence of the target variable on one or more features, providing numerical values that quantify the magnitude and direction of the relationship between each feature and the target.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">PartialDependenceDisplay</span><span class="p">,</span> <span class="n">partial_dependence</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">pd_results</span> <span class="o">=</span> <span class="n">partial_dependence</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="n">num_features</span><span class="p">)</span>
-<span class="n">pd_results</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pf_results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Example Values: </span><span class="si">{</span><span class="n">pd_results</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, Average: </span><span class="si">{</span><span class="n">pd_results</span><span class="p">[</span><span class="s2">&quot;average&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;grid_values&#39;: [array([35. , 36. , 36.3, 37.6, 39.2, 39.7, 40.9, 42.5, 44.9, 46.5, 48.2,
-         48.5, 48.7, 49.9, 50.3, 50.7, 51.5, 52.1]),
-  array([13.3, 13.5, 15. , 15.6, 15.7, 16.1, 16.3, 17. , 17.3, 17.8, 17.9,
-         18.4, 18.9, 19.1, 19.5, 19.6, 19.7, 20. , 20.7]),
-  array([184., 187., 190., 192., 194., 195., 197., 203., 208., 210., 213.,
-         219., 221., 230.])],
- &#39;values&#39;: [array([35. , 36. , 36.3, 37.6, 39.2, 39.7, 40.9, 42.5, 44.9, 46.5, 48.2,
-         48.5, 48.7, 49.9, 50.3, 50.7, 51.5, 52.1]),
-  array([13.3, 13.5, 15. , 15.6, 15.7, 16.1, 16.3, 17. , 17.3, 17.8, 17.9,
-         18.4, 18.9, 19.1, 19.5, 19.6, 19.7, 20. , 20.7]),
-  array([184., 187., 190., 192., 194., 195., 197., 203., 208., 210., 213.,
-         219., 221., 230.])],
- &#39;average&#39;: array([[[[ 2.10384365,  2.10272531,  2.09866985, ...,  0.92688388,
-            0.92174457,  0.91558385],
-          [ 2.11623119,  2.11572266,  2.11236297, ...,  0.93206637,
-            0.92567451,  0.91615495],
-          [ 2.19118254,  2.19347878,  2.1936754 , ...,  1.02878767,
-            1.0042745 ,  0.93991762],
-          ...,
-          [ 2.23669609,  2.24004225,  2.24192415, ...,  2.16832331,
-            2.15451785,  2.07871103],
-          [ 2.23297501,  2.23642714,  2.23837857, ...,  2.1645352 ,
-            2.15087076,  2.07672722],
-          [ 2.2210958 ,  2.22485364,  2.22700199, ...,  2.15180573,
-            2.13842465,  2.06831499]],
- 
-         [[ 2.09854894,  2.09625593,  2.09071811, ...,  0.91181837,
-            0.9077347 ,  0.55538443],
-          [ 2.11158787,  2.11005048,  2.10539042, ...,  0.91601674,
-            0.91084587,  0.9055329 ],
-          [ 2.19060972,  2.19260282,  2.19242165, ...,  1.00547946,
-            0.98088882,  0.92605071],
-          ...,
-          [ 2.24000498,  2.24322404,  2.24500257, ...,  2.17025389,
-            2.15609917,  2.07762738],
-          [ 2.23647985,  2.23979707,  2.24163765, ...,  2.16663972,
-            2.15264268,  2.0760071 ],
-          [ 2.22509069,  2.2286946 ,  2.23071179, ...,  2.1541684 ,
-            2.14046553,  1.71813244]],
- 
-         [[ 2.09621897,  2.09349335,  2.08740774, ...,  0.90726492,
-            0.90350949,  0.55231719],
-          [ 2.10947399,  2.10755722,  2.10241584, ...,  0.9111517 ,
-            0.90636158,  0.90233266],
-          [ 2.18993572,  2.19182149,  2.19150271, ...,  0.99735353,
-            0.97310508,  0.9217446 ],
-          ...,
-          [ 2.2407109 ,  2.24389505,  2.24564299, ...,  2.17035044,
-            2.15606521,  2.07671808],
-          [ 2.23724085,  2.24052061,  2.24232821, ...,  2.16679522,
-            2.15267563,  2.07523361],
-          [ 2.22598739,  2.22954731,  2.23152491, ...,  2.15441392,
-            2.1405985 ,  1.71757702]],
- 
-         ...,
- 
-         [[-0.14818026, -0.15755043, -0.16586899, ..., -0.18295061,
-           -0.17965168, -0.15755126],
-          [-0.15257096, -0.16196917, -0.17027821, ..., -0.18738809,
-           -0.18414229, -0.16223448],
-          [-0.17439821, -0.18371188, -0.19179135, ..., -0.20986675,
-           -0.2071292 , -0.18764408],
-          ...,
-          [ 0.91278102,  0.89592699,  0.87948417, ..., -0.18669194,
-           -0.18493593, -0.16856983],
-          [ 0.92532457,  0.90764671,  0.89015691, ..., -0.18154966,
-           -0.17980222, -0.16329699],
-          [ 0.95305921,  0.93423441,  0.9149533 , ...,  0.83213847,
-           -0.16613227, -0.14941031]],
- 
-         [[-0.14707542, -0.15621325, -0.16431196, ..., -0.18030601,
-           -0.17703648, -0.15534536],
-          [-0.15172571, -0.160895  , -0.16898535, ..., -0.1849456 ,
-           -0.18172157, -0.16018283],
-          [-0.17625703, -0.18529951, -0.19309977, ..., -0.20917279,
-           -0.20639843, -0.18699901],
-          ...,
-          [ 0.88458674,  0.86989819,  0.85613239, ..., -0.19197285,
-           -0.18974371, -0.17186769],
-          [ 0.89486884,  0.8795363 ,  0.86499861, ..., -0.18702734,
-           -0.18477862, -0.16666249],
-          [ 0.91913537,  0.90279632,  0.88683643, ..., -0.17359337,
-           -0.17131086, -0.15278476]],
- 
-         [[-0.14553455, -0.15450941, -0.16246151, ..., -0.17793494,
-           -0.1747118 , -0.15344366],
-          [-0.15034501, -0.15935794, -0.1673065 , ..., -0.18271876,
-           -0.17953549, -0.15838928],
-          [-0.17659427, -0.18548011, -0.19312456, ..., -0.20819519,
-           -0.20542075, -0.18620544],
-          ...,
-          [ 0.87018816,  0.85666341,  0.84425517, ..., -0.19475309,
-           -0.19227339, -0.1736205 ],
-          [ 0.87931022,  0.86523782,  0.85219231, ..., -0.18992144,
-           -0.18740506, -0.16844917],
-          [ 0.90161351,  0.88663736,  0.8723735 , ..., -0.17663858,
-           -0.17405432, -0.15456119]]],
- 
- 
-        [[[ 0.28057667,  0.26755716, -0.09501931, ..., -0.13084322,
-           -0.1262481 , -0.09513536],
-          [ 0.27434915,  0.26132136, -0.10120139, ..., -0.13625869,
-           -0.13165078, -0.10032309],
-          [ 0.87939763,  0.86822964,  0.85790047, ..., -0.1646619 ,
-           -0.16002914, -0.12848131],
-          ...,
-          [ 0.83822246,  0.8351181 ,  0.83379304, ...,  0.24311449,
-            0.25023666, -0.0662365 ],
-          [ 0.84258945,  0.83972994,  0.83872925, ...,  0.25403037,
-            0.26135   , -0.05553506],
-          [ 0.8562591 ,  0.853881  ,  0.85352884, ...,  0.93092479,
-            0.93849909,  0.31963863]],
- 
-         [[ 0.28187111, -0.08283278, -0.09709786, ..., -0.14173037,
-           -0.13736386,  0.24343791],
-          [ 0.27605294,  0.26132163, -0.10291163, ..., -0.14704558,
-           -0.14269723, -0.1118553 ],
-          [ 0.88351471,  0.87085858,  0.85896384, ..., -0.17401159,
-           -0.16982874, -0.13983814],
-          ...,
-          [ 0.83875717,  0.83612229,  0.83527327, ...,  0.24425464,
-            0.25076857, -0.06855821],
-          [ 0.84265562,  0.84032023,  0.83986903, ...,  0.25625984,
-            0.26301897, -0.05669   ],
-          [ 0.85519683,  0.85343029,  0.85375402, ...,  0.93549491,
-            0.94266011,  0.67102393]],
- 
-         [[ 0.28277039, -0.08248914, -0.0973094 , ..., -0.14473255,
-           -0.14044271,  0.24020024],
-          [ 0.27711731,  0.26181821, -0.10298331, ..., -0.15000887,
-           -0.14574593, -0.11511298],
-          [ 0.88559108,  0.87240326,  0.20994869, ..., -0.17649935,
-           -0.17245671, -0.14297959],
-          ...,
-          [ 0.83966212,  0.83721491,  0.83655898, ...,  0.24544729,
-            0.25172064, -0.06874041],
-          [ 0.84339586,  0.84126715,  0.84103536, ...,  0.25784703,
-            0.26437603, -0.05648714],
-          [ 0.85554055,  0.85400926,  0.85459489, ...,  0.93790574,
-            0.94488162,  0.67199753]],
- 
-         ...,
- 
-         [[ 1.45205532,  1.0898614 ,  1.0708032 , ...,  0.84921292,
-            0.84827833,  0.85924282],
-          [ 1.46189051,  1.45063249,  1.08269433, ...,  0.84632698,
-            0.84493046,  0.85434101],
-          [ 2.17921239,  2.17600041,  1.51886345, ...,  0.8534088 ,
-            0.84563572,  0.836861  ],
-          ...,
-          [ 2.22239551,  2.23048245,  2.23686895, ...,  2.21190311,
-            2.20235119,  2.13871881],
-          [ 2.21761217,  2.22636642,  2.2333718 , ...,  2.21414331,
-            2.20539459,  2.14740935],
-          [ 2.20268205,  2.21310647,  2.22167488, ...,  2.21388195,
-            2.20641374,  2.15744697]],
- 
-         [[ 1.45381511,  1.09290535,  1.07581546, ...,  0.85523209,
-            0.8538781 ,  0.86313471],
-          [ 1.46360077,  1.4535678 ,  1.08751009, ...,  0.85239842,
-            0.85054781,  0.85817463],
-          [ 2.18072253,  2.1781506 ,  1.5219457 , ...,  0.86092547,
-            0.85211462,  0.84033878],
-          ...,
-          [ 2.22557738,  2.23328345,  2.23933724, ...,  2.21317597,
-            2.20359258,  1.4894745 ],
-          [ 2.22105404,  2.22936816,  2.23598584, ...,  2.21519783,
-            2.20639251,  2.14786854],
-          [ 2.2068102 ,  2.21665509,  2.22470347, ...,  2.21460352,
-            2.20704367,  2.1574971 ]],
- 
-         [[ 1.45453395,  1.44448631,  1.07870944, ...,  0.85997277,
-            0.85829746,  0.86622827],
-          [ 1.46425036,  1.45503106,  1.09021458, ...,  0.85716074,
-            0.85496408,  0.86121345],
-          [ 2.18112218,  2.1789433 ,  2.17330702, ...,  0.86645093,
-            0.85690417,  0.8429585 ],
-          ...,
-          [ 2.22708964,  2.23455895,  2.24040668, ...,  2.21322355,
-            2.20356318,  1.48881719],
-          [ 2.22272066,  2.2307611 ,  2.23713908, ...,  2.21513331,
-            2.20624196,  2.14710382],
-          [ 2.20888722,  2.21836898,  2.22609459, ...,  2.21436309,
-            2.2067074 ,  2.15660611]]],
- 
- 
-        [[[ 0.59684337,  0.6150235 ,  0.99265918, ...,  2.16029683,
-            2.15933725,  2.14157375],
-          [ 0.58512395,  0.60175003,  0.97742564, ...,  2.16212226,
-            2.1614546 ,  2.14464506],
-          [-0.1450141 , -0.13958446, -0.12929583, ...,  2.15604775,
-            2.15890431,  2.15310308],
-          ...,
-          [-0.19922336, -0.20368526, -0.20645069, ...,  0.53330234,
-            0.54995203,  0.98232193],
-          [-0.19491351, -0.19963738, -0.20267974, ...,  0.5298498 ,
-            0.54516946,  0.9709453 ],
-          [-0.18175825, -0.18705674, -0.1907012 , ..., -0.1214927 ,
-           -0.10857168,  0.60481439]],
- 
-         [[ 0.60364157,  0.97695109,  1.01080562, ...,  2.1745392 ,
-            2.17334466,  2.15472549],
-          [ 0.59079467,  0.61205878,  0.99495355, ...,  2.17657376,
-            2.17564862,  2.15797169],
-          [-0.14641274, -0.13946962, -0.12688055, ...,  2.17285254,
-            2.17507963,  2.16762507],
-          ...,
-          [-0.20527935, -0.20973009, -0.21249115, ...,  0.52957126,
-            0.5473241 ,  0.98794543],
-          [-0.20102954, -0.20576155, -0.20881663, ...,  0.52525485,
-            0.54143246,  0.9737819 ],
-          [-0.18791035, -0.19326729, -0.19696712, ..., -0.12724214,
-           -0.11379222,  0.60380041]],
- 
-         [[ 0.60620671,  0.98131348,  1.0167926 , ...,  2.17849661,
-            2.17724201,  2.15843394],
-          [ 0.59299777,  0.61588221,  1.00085437, ...,  2.18058333,
-            2.17959182,  2.16172303],
-          [-0.1465114 , -0.13906214,  0.52431178, ...,  2.17750513,
-            2.17956033,  2.17169072],
-          ...,
-          [-0.20689843, -0.21134902, -0.21411193, ...,  0.5285818 ,
-            0.54666361,  0.98986321],
-          [-0.20266983, -0.20740735, -0.21046937, ...,  0.52399065,
-            0.54041752,  0.97477349],
-          [-0.1895711 , -0.19494823, -0.19866764, ..., -0.12887438,
-           -0.11527914,  0.60354297]],
- 
-         ...,
- 
-         [[ 1.73329333,  2.11084442,  2.13592699, ...,  2.22406326,
-            2.22261574,  2.2065097 ],
-          [ 1.72842619,  1.75781191,  2.13444066, ...,  2.22747582,
-            2.22620903,  2.21103643],
-          [ 0.97468682,  1.01634764,  1.71311217, ...,  2.23857966,
-            2.23886723,  2.23077825],
-          ...,
-          [-0.20564907, -0.21170573, -0.21591304, ...,  0.89318252,
-            0.92333122,  1.07781019],
-          [-0.20256978, -0.20911091, -0.21382789, ...,  0.87513466,
-            0.89911217,  1.04734983],
-          [-0.19110885, -0.19871371, -0.20452967, ..., -0.14525382,
-            0.87103028,  0.97469164]],
- 
-         [[ 1.72940365,  2.10625631,  2.13094735, ...,  2.22043371,
-            2.219105  ,  2.20361451],
-          [ 1.72474726,  1.75335934,  2.12955795, ...,  2.22400382,
-            2.22285822,  2.20830044],
-          [ 0.97636126,  1.01623404,  1.71099986, ...,  2.23610207,
-            2.23653684,  2.22912296],
-          ...,
-          [-0.20193881, -0.20800245, -0.21220563, ...,  0.9020556 ,
-            0.9339079 ,  1.73458029],
-          [-0.19885923, -0.20541326, -0.21013629, ...,  0.88270652,
-            0.90783435,  1.05585732],
-          [-0.18736078, -0.19497955, -0.20081312, ...,  0.86055641,
-            0.87737441,  0.98467155]],
- 
-         [[ 1.72584487,  1.75217461,  2.1265836 , ...,  2.21738016,
-            2.21615899,  2.20120962],
-          [ 1.72130047,  1.74934401,  2.12524131, ...,  2.22107836,
-            2.22004208,  2.20602281],
-          [ 0.97660712,  1.0151613 ,  1.0583876 , ...,  2.23399732,
-            2.23456134,  2.22771882],
-          ...,
-          [-0.19891631, -0.204957  , -0.20912957, ...,  0.91001114,
-            0.943436  ,  1.73984762],
-          [-0.19582734, -0.20236271, -0.20706308, ...,  0.88949086,
-            0.91567575,  1.06249172],
-          [-0.18428477, -0.19188427, -0.19770363, ...,  0.86575937,
-            0.8830663 ,  0.99357581]]]])}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Example Values: </span><span class="si">{</span><span class="n">pd_results</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">, Average: </span><span class="si">{</span><span class="n">pd_results</span><span class="p">[</span><span class="s2">&quot;average&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                                         <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
 </pre></div>
 </div>
 </div>
 </div>
+<p>Luckily, we already have the plotting functionality available from scikit-learn directly and re-use the model we loaded earlier!</p>
+<p>We’ll create a partial dependence plot for each penguin class!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/987a726c97b6b05a5125873fe81280fb4b9424d7b281a9aca4ef3a3a2e57bda5.png" src="../_images/987a726c97b6b05a5125873fe81280fb4b9424d7b281a9aca4ef3a3a2e57bda5.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;PartialDependenceDisplay&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/21ae89ce19cf4f98e14503b87bc5ad82f58d9d5516a80e54aec18ea523c6e30c.png" src="../_images/21ae89ce19cf4f98e14503b87bc5ad82f58d9d5516a80e54aec18ea523c6e30c.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">1</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;PartialDependenceDisplay&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1870f0c0540de0329cf4873e16d4ef8793dd579d173c957fe282dbd364b03b46.png" src="../_images/1870f0c0540de0329cf4873e16d4ef8793dd579d173c957fe282dbd364b03b46.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">PartialDependenceDisplay</span><span class="o">.</span><span class="n">from_estimator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">target</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">())[</span><span class="mi">2</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Partial Dependence of SVC on Penguin Features for </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">unique</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;PartialDependenceDisplay&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 <section id="tree-importance-vs-permutation-importance">
@@ -951,7 +722,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a40884f54f9d5f2ba9e481538e141cb9e17c8d935c8c4a9f42000a330261745d.png" src="../_images/a40884f54f9d5f2ba9e481538e141cb9e17c8d935c8c4a9f42000a330261745d.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s2">&quot;classifier&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">num_features</span><span class="o">+</span><span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;plt&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/cf213ba4e80db83d36b93a97da74fbd0bd8969b4ec43dd2cfdf0ae3dc1da868a.png" src="../_images/cf213ba4e80db83d36b93a97da74fbd0bd8969b4ec43dd2cfdf0ae3dc1da868a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -968,7 +748,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d7d31ac41e5e48d5e2adc4c0a2bbc76d02aa8179377fc7cc6d8a9faf59babe2c.png" src="../_images/d7d31ac41e5e48d5e2adc4c0a2bbc76d02aa8179377fc7cc6d8a9faf59babe2c.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">rf</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">features</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;plt&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/458e9101d7e6eef301deb032e74af22b527ffcb9d2ed159d2990462745dfd5ed.png" src="../_images/458e9101d7e6eef301deb032e74af22b527ffcb9d2ed159d2990462745dfd5ed.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -983,6 +775,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">features</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;plt&#39; is not defined
+</pre></div>
+</div>
 <img alt="../_images/f408cd7c3d2fd283ba309ea8c13579567d53f9d44ec71b781d036709a32b4587.png" src="../_images/f408cd7c3d2fd283ba309ea8c13579567d53f9d44ec71b781d036709a32b4587.png" />
 </div>
 </div>
@@ -1003,7 +807,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;shap.explainers._tree.TreeExplainer at 0x7f87f2014fa0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;shap.explainers._tree.TreeExplainer at 0x7f08da7ea5e0&gt;
 </pre></div>
 </div>
 </div>
@@ -1034,7 +838,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id='iR9FDWF9Z41BHJ8HE729N'>
+<div id='iER8DTM96QH40QMDV14Y9'>
 <div style='color: #900; text-align: center;'>
   <b>Visualization omitted, Javascript library not loaded!</b><br>
   Have you run `initjs()` in this notebook? If this notebook was from another
@@ -1044,8 +848,8 @@ document.write(`
 </div></div>
  <script>
    if (window.SHAP) SHAP.ReactDom.render(
-    SHAP.React.createElement(SHAP.AdditiveForceVisualizer, {"outNames": ["f(x)"], "baseValue": 0.43952789699570827, "outValue": 0.1399999999999999, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "features": {"0": {"effect": -0.43792123207351963, "value": ""}, "1": {"effect": 0.030521278130211958, "value": ""}, "2": {"effect": 0.10787205694759935, "value": ""}}, "plot_cmap": "RdBu", "labelMargin": 20}),
-    document.getElementById('iR9FDWF9Z41BHJ8HE729N')
+    SHAP.React.createElement(SHAP.AdditiveForceVisualizer, {"outNames": ["f(x)"], "baseValue": 0.4386695278969957, "outValue": 0.07999999999999952, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "features": {"0": {"effect": -0.44879019634531153, "value": ""}, "1": {"effect": 0.03464524996192489, "value": ""}, "2": {"effect": 0.055475418486390406, "value": ""}}, "plot_cmap": "RdBu", "labelMargin": 20}),
+    document.getElementById('iER8DTM96QH40QMDV14Y9')
   );
 </script></div></div>
 </div>
@@ -1057,7 +861,7 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-<div id='iLW0MXB365OMX63RHZ04E'>
+<div id='iGFMWUT0ICQQZAW370SD1'>
 <div style='color: #900; text-align: center;'>
   <b>Visualization omitted, Javascript library not loaded!</b><br>
   Have you run `initjs()` in this notebook? If this notebook was from another
@@ -1067,8 +871,8 @@ document.write(`
 </div></div>
  <script>
    if (window.SHAP) SHAP.ReactDom.render(
-    SHAP.React.createElement(SHAP.AdditiveForceArrayVisualizer, {"outNames": ["f(x)"], "baseValue": 0.43952789699570827, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "explanations": [{"outValue": 0.1399999999999999, "simIndex": 15.0, "features": {"0": {"effect": -0.43792123207351963, "value": ""}, "1": {"effect": 0.030521278130211958, "value": ""}, "2": {"effect": 0.10787205694759935, "value": ""}}}, {"outValue": 0.0, "simIndex": 44.0, "features": {"0": {"effect": -0.24368020569971424, "value": ""}, "1": {"effect": -0.08259998776094095, "value": ""}, "2": {"effect": -0.11324770353505306, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 31.0, "features": {"0": {"effect": -0.2348218819451752, "value": ""}, "1": {"effect": -0.0887368043761537, "value": ""}, "2": {"effect": -0.1159692106743793, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 41.0, "features": {"0": {"effect": -0.23345391495910106, "value": ""}, "1": {"effect": -0.10455452198171201, "value": ""}, "2": {"effect": -0.10151946005489515, "value": ""}}}, {"outValue": 0.6299999999999999, "simIndex": 59.0, "features": {"0": {"effect": -0.006064434938224216, "value": ""}, "1": {"effect": 0.05171960351691467, "value": ""}, "2": {"effect": 0.14481693442560112, "value": ""}}}, {"outValue": 0.07, "simIndex": 23.0, "features": {"0": {"effect": -0.2172090276410968, "value": ""}, "1": {"effect": -0.12982917302755564, "value": ""}, "2": {"effect": -0.022489696327055806, "value": ""}}}, {"outValue": 0.18999999999999967, "simIndex": 2.0, "features": {"0": {"effect": -0.40602305796468935, "value": ""}, "1": {"effect": 0.14584567155677053, "value": ""}, "2": {"effect": 0.010649489412210233, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 85.0, "features": {"0": {"effect": 0.34316539238070304, "value": ""}, "1": {"effect": 0.07649786530363865, "value": ""}, "2": {"effect": 0.13080884531995043, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 77.0, "features": {"0": {"effect": 0.3208130506664447, "value": ""}, "1": {"effect": 0.1104106345231461, "value": ""}, "2": {"effect": 0.12924841781470126, "value": ""}}}, {"outValue": -1.1102230246251565e-16, "simIndex": 50.0, "features": {"0": {"effect": -0.25546392236028426, "value": ""}, "1": {"effect": -0.056573989447745394, "value": ""}, "2": {"effect": -0.12748998518767876, "value": ""}}}, {"outValue": 0.8299999999999998, "simIndex": 61.0, "features": {"0": {"effect": 0.07619963804626532, "value": ""}, "1": {"effect": 0.17474421858146405, "value": ""}, "2": {"effect": 0.13952824637656225, "value": ""}}}, {"outValue": 0.0799999999999999, "simIndex": 22.0, "features": {"0": {"effect": -0.2979248274747814, "value": ""}, "1": {"effect": -0.08249041189132698, "value": ""}, "2": {"effect": 0.0208873423704, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 82.0, "features": {"0": {"effect": 0.34354468693614043, "value": ""}, "1": {"effect": 0.08538979316302779, "value": ""}, "2": {"effect": 0.13153762290512408, "value": ""}}}, {"outValue": 0.12999999999999995, "simIndex": 12.0, "features": {"0": {"effect": -0.41090552197244, "value": ""}, "1": {"effect": 0.045659952955041695, "value": ""}, "2": {"effect": 0.05571767202168996, "value": ""}}}, {"outValue": 0.9999999999999999, "simIndex": 89.0, "features": {"0": {"effect": 0.3516533957932405, "value": ""}, "1": {"effect": 0.07039221550773633, "value": ""}, "2": {"effect": 0.13842649170331484, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 40.0, "features": {"0": {"effect": -0.2284676661748536, "value": ""}, "1": {"effect": -0.10722659965975459, "value": ""}, "2": {"effect": -0.10383363116110006, "value": ""}}}, {"outValue": 0.1399999999999998, "simIndex": 16.0, "features": {"0": {"effect": -0.45478084240096306, "value": ""}, "1": {"effect": 0.024484322887408858, "value": ""}, "2": {"effect": 0.1307686225178457, "value": ""}}}, {"outValue": 0.91, "simIndex": 99.0, "features": {"0": {"effect": 0.3800887883696816, "value": ""}, "1": {"effect": -0.03804935737826543, "value": ""}, "2": {"effect": 0.12843267201287561, "value": ""}}}, {"outValue": 0.03999999999999987, "simIndex": 10.0, "features": {"0": {"effect": -0.4672591987200312, "value": ""}, "1": {"effect": 0.03733400280329115, "value": ""}, "2": {"effect": 0.030397298921031643, "value": ""}}}, {"outValue": 0.9800000000000003, "simIndex": 84.0, "features": {"0": {"effect": 0.3348368808201234, "value": ""}, "1": {"effect": 0.07631073896711708, "value": ""}, "2": {"effect": 0.12932448321705153, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 86.0, "features": {"0": {"effect": 0.35033556714996134, "value": ""}, "1": {"effect": 0.07904501943320465, "value": ""}, "2": {"effect": 0.1310915164211263, "value": ""}}}, {"outValue": 0.02000000000000024, "simIndex": 8.0, "features": {"0": {"effect": -0.46001641716921904, "value": ""}, "1": {"effect": 0.022275519010131112, "value": ""}, "2": {"effect": 0.018213001163379858, "value": ""}}}, {"outValue": 1.0, "simIndex": 88.0, "features": {"0": {"effect": 0.34819201549479534, "value": ""}, "1": {"effect": 0.07317934931479464, "value": ""}, "2": {"effect": 0.13910073819470184, "value": ""}}}, {"outValue": 0.04999999999999949, "simIndex": 11.0, "features": {"0": {"effect": -0.4538782799946183, "value": ""}, "1": {"effect": 0.003898213777479219, "value": ""}, "2": {"effect": 0.060452169221430305, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 43.0, "features": {"0": {"effect": -0.24283716402078792, "value": ""}, "1": {"effect": -0.10163843232575988, "value": ""}, "2": {"effect": -0.0950523006491604, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 34.0, "features": {"0": {"effect": -0.2308763700500739, "value": ""}, "1": {"effect": -0.09323877105860405, "value": ""}, "2": {"effect": -0.11541275588703022, "value": ""}}}, {"outValue": 0.2, "simIndex": 20.0, "features": {"0": {"effect": -0.3286940711631255, "value": ""}, "1": {"effect": 0.014546953868853872, "value": ""}, "2": {"effect": 0.0746192202985634, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 75.0, "features": {"0": {"effect": 0.3102454136800263, "value": ""}, "1": {"effect": 0.1175257944563042, "value": ""}, "2": {"effect": 0.12270089486796167, "value": ""}}}, {"outValue": 0.7800000000000002, "simIndex": 63.0, "features": {"0": {"effect": 0.14383402697963807, "value": ""}, "1": {"effect": 0.13298624769344145, "value": ""}, "2": {"effect": 0.0636518283312124, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 66.0, "features": {"0": {"effect": 0.3648284656350234, "value": ""}, "1": {"effect": 0.10607959323618224, "value": ""}, "2": {"effect": 0.07956404413308651, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 94.0, "features": {"0": {"effect": 0.38619015257055084, "value": ""}, "1": {"effect": 0.08245016122010508, "value": ""}, "2": {"effect": 0.0918317892136361, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 58.0, "features": {"0": {"effect": -0.15447733073046335, "value": ""}, "1": {"effect": -0.14379023457094206, "value": ""}, "2": {"effect": -0.1412603316943027, "value": ""}}}, {"outValue": 0.9400000000000005, "simIndex": 72.0, "features": {"0": {"effect": 0.26497721410834885, "value": ""}, "1": {"effect": 0.127314821562617, "value": ""}, "2": {"effect": 0.1081800673333264, "value": ""}}}, {"outValue": 0.009999999999999787, "simIndex": 51.0, "features": {"0": {"effect": -0.29323495819917966, "value": ""}, "1": {"effect": -0.008737954499894573, "value": ""}, "2": {"effect": -0.12755498429663426, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 47.0, "features": {"0": {"effect": -0.2501858003019898, "value": ""}, "1": {"effect": -0.06645756466444333, "value": ""}, "2": {"effect": -0.12288453202927523, "value": ""}}}, {"outValue": 0.14000000000000024, "simIndex": 24.0, "features": {"0": {"effect": -0.18297920414575325, "value": ""}, "1": {"effect": -0.12090624047320393, "value": ""}, "2": {"effect": 0.004357547623249109, "value": ""}}}, {"outValue": 1.0, "simIndex": 93.0, "features": {"0": {"effect": 0.3784486048969656, "value": ""}, "1": {"effect": 0.09113114255128393, "value": ""}, "2": {"effect": 0.09089235555604239, "value": ""}}}, {"outValue": 0.9800000000000003, "simIndex": 80.0, "features": {"0": {"effect": 0.33563801351997885, "value": ""}, "1": {"effect": 0.0887005642551437, "value": ""}, "2": {"effect": 0.11613352522916952, "value": ""}}}, {"outValue": 0.009999999999999898, "simIndex": 56.0, "features": {"0": {"effect": -0.13039463752368938, "value": ""}, "1": {"effect": -0.19642821602172775, "value": ""}, "2": {"effect": -0.10270504345029124, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 83.0, "features": {"0": {"effect": 0.3406471277466327, "value": ""}, "1": {"effect": 0.08097655904490851, "value": ""}, "2": {"effect": 0.13884841621275087, "value": ""}}}, {"outValue": 0.0, "simIndex": 42.0, "features": {"0": {"effect": -0.23723573337005868, "value": ""}, "1": {"effect": -0.10705582690462175, "value": ""}, "2": {"effect": -0.0952363367210278, "value": ""}}}, {"outValue": 0.77, "simIndex": 60.0, "features": {"0": {"effect": 0.0727977187170537, "value": ""}, "1": {"effect": 0.11782536925307054, "value": ""}, "2": {"effect": 0.13984901503416758, "value": ""}}}, {"outValue": 0.9300000000000003, "simIndex": 64.0, "features": {"0": {"effect": 0.3578290651704341, "value": ""}, "1": {"effect": 0.11367459921575418, "value": ""}, "2": {"effect": 0.018968438618103687, "value": ""}}}, {"outValue": 0.019999999999999796, "simIndex": 52.0, "features": {"0": {"effect": -0.31998290502302434, "value": ""}, "1": {"effect": 0.05229158005748675, "value": ""}, "2": {"effect": -0.15183657203017084, "value": ""}}}, {"outValue": 0.9800000000000001, "simIndex": 91.0, "features": {"0": {"effect": 0.3582340774363342, "value": ""}, "1": {"effect": 0.0639052129196359, "value": ""}, "2": {"effect": 0.11833281264832168, "value": ""}}}, {"outValue": 0.9400000000000001, "simIndex": 68.0, "features": {"0": {"effect": 0.3098541798680796, "value": ""}, "1": {"effect": 0.12396870760459472, "value": ""}, "2": {"effect": 0.06664921553161743, "value": ""}}}, {"outValue": 0.0, "simIndex": 29.0, "features": {"0": {"effect": -0.23564159147077887, "value": ""}, "1": {"effect": -0.09233629206350988, "value": ""}, "2": {"effect": -0.11155001346141953, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 30.0, "features": {"0": {"effect": -0.23594815186317616, "value": ""}, "1": {"effect": -0.09057356980722536, "value": ""}, "2": {"effect": -0.1130061753253067, "value": ""}}}, {"outValue": 0.21999999999999958, "simIndex": 13.0, "features": {"0": {"effect": -0.39594880977602026, "value": ""}, "1": {"effect": 0.07045420803491922, "value": ""}, "2": {"effect": 0.10596670474539233, "value": ""}}}, {"outValue": 0.9700000000000006, "simIndex": 70.0, "features": {"0": {"effect": 0.31140707769698234, "value": ""}, "1": {"effect": 0.11784120608617597, "value": ""}, "2": {"effect": 0.10122381922113409, "value": ""}}}, {"outValue": 0.8599999999999999, "simIndex": 62.0, "features": {"0": {"effect": 0.10232965102110411, "value": ""}, "1": {"effect": 0.16776392785464794, "value": ""}, "2": {"effect": 0.15037852412853964, "value": ""}}}, {"outValue": 0.9799999999999998, "simIndex": 100.0, "features": {"0": {"effect": 0.4029486597530018, "value": ""}, "1": {"effect": -0.05722517782355246, "value": ""}, "2": {"effect": 0.19474862107484214, "value": ""}}}, {"outValue": 0.9200000000000002, "simIndex": 96.0, "features": {"0": {"effect": 0.33955910752162305, "value": ""}, "1": {"effect": 0.008231884900322492, "value": ""}, "2": {"effect": 0.13268111058234633, "value": ""}}}, {"outValue": 0.04999999999999993, "simIndex": 55.0, "features": {"0": {"effect": -0.037435388153250315, "value": ""}, "1": {"effect": -0.22286306966602024, "value": ""}, "2": {"effect": -0.1292294391764378, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 79.0, "features": {"0": {"effect": 0.33505494783171563, "value": ""}, "1": {"effect": 0.09522981218485914, "value": ""}, "2": {"effect": 0.12018734298771741, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 74.0, "features": {"0": {"effect": 0.28647624616707246, "value": ""}, "1": {"effect": 0.12955100962454177, "value": ""}, "2": {"effect": 0.14444484721267792, "value": ""}}}, {"outValue": 1.0, "simIndex": 90.0, "features": {"0": {"effect": 0.3457535373479039, "value": ""}, "1": {"effect": 0.06706053703761468, "value": ""}, "2": {"effect": 0.14765802861877322, "value": ""}}}, {"outValue": 1.0, "simIndex": 87.0, "features": {"0": {"effect": 0.3473502534274891, "value": ""}, "1": {"effect": 0.07601186229732795, "value": ""}, "2": {"effect": 0.1371099872794748, "value": ""}}}, {"outValue": 0.22999999999999965, "simIndex": 19.0, "features": {"0": {"effect": -0.33064484256704224, "value": ""}, "1": {"effect": 0.0012038648660867989, "value": ""}, "2": {"effect": 0.1199130807052468, "value": ""}}}, {"outValue": 0.019999999999999685, "simIndex": 3.0, "features": {"0": {"effect": -0.4280922787277349, "value": ""}, "1": {"effect": 0.05258112964288318, "value": ""}, "2": {"effect": -0.04401674791085684, "value": ""}}}, {"outValue": 0.35999999999999954, "simIndex": 1.0, "features": {"0": {"effect": -0.31779869166863317, "value": ""}, "1": {"effect": 0.2003696378737056, "value": ""}, "2": {"effect": 0.03790115679921882, "value": ""}}}, {"outValue": -1.6653345369377348e-16, "simIndex": 49.0, "features": {"0": {"effect": -0.251863444332575, "value": ""}, "1": {"effect": -0.06103944939338698, "value": ""}, "2": {"effect": -0.12662500326974646, "value": ""}}}, {"outValue": 0.03999999999999976, "simIndex": 7.0, "features": {"0": {"effect": -0.44889085480874796, "value": ""}, "1": {"effect": 0.03813086919501673, "value": ""}, "2": {"effect": 0.01123208861802273, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 78.0, "features": {"0": {"effect": 0.34012256564816307, "value": ""}, "1": {"effect": 0.1080178675532667, "value": ""}, "2": {"effect": 0.11233166980286245, "value": ""}}}, {"outValue": 0.019999999999999907, "simIndex": 6.0, "features": {"0": {"effect": -0.4484286204978551, "value": ""}, "1": {"effect": 0.027349534813651245, "value": ""}, "2": {"effect": 0.0015511886884954596, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 46.0, "features": {"0": {"effect": -0.24076268407629847, "value": ""}, "1": {"effect": -0.08281764646583846, "value": ""}, "2": {"effect": -0.11594756645357125, "value": ""}}}, {"outValue": -1.1102230246251565e-16, "simIndex": 48.0, "features": {"0": {"effect": -0.25042389554008504, "value": ""}, "1": {"effect": -0.06633851704539571, "value": ""}, "2": {"effect": -0.1227654844102276, "value": ""}}}, {"outValue": 0.1899999999999996, "simIndex": 14.0, "features": {"0": {"effect": -0.410730019916275, "value": ""}, "1": {"effect": 0.046304629491538386, "value": ""}, "2": {"effect": 0.11489749342902796, "value": ""}}}, {"outValue": 0.0, "simIndex": 37.0, "features": {"0": {"effect": -0.2201097882382522, "value": ""}, "1": {"effect": -0.10539246335826746, "value": ""}, "2": {"effect": -0.1140256453991886, "value": ""}}}, {"outValue": 0.9700000000000005, "simIndex": 69.0, "features": {"0": {"effect": 0.31854536948307727, "value": ""}, "1": {"effect": 0.12391114769616807, "value": ""}, "2": {"effect": 0.08801558582504687, "value": ""}}}, {"outValue": 0.0, "simIndex": 39.0, "features": {"0": {"effect": -0.22681328673212195, "value": ""}, "1": {"effect": -0.10719956420726208, "value": ""}, "2": {"effect": -0.10551504605632424, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 33.0, "features": {"0": {"effect": -0.23354295712745166, "value": ""}, "1": {"effect": -0.08950557712984304, "value": ""}, "2": {"effect": -0.11647936273841349, "value": ""}}}, {"outValue": 0.9800000000000004, "simIndex": 92.0, "features": {"0": {"effect": 0.35358183047525227, "value": ""}, "1": {"effect": 0.08486955269915325, "value": ""}, "2": {"effect": 0.10202071982988664, "value": ""}}}, {"outValue": 0.009999999999999898, "simIndex": 9.0, "features": {"0": {"effect": -0.4692238730848295, "value": ""}, "1": {"effect": 0.026357853755771952, "value": ""}, "2": {"effect": 0.013338122333349198, "value": ""}}}, {"outValue": 0.8400000000000001, "simIndex": 101.0, "features": {"0": {"effect": 0.3725875484057561, "value": ""}, "1": {"effect": -0.14694481255155023, "value": ""}, "2": {"effect": 0.17482936715008598, "value": ""}}}, {"outValue": 0.0, "simIndex": 45.0, "features": {"0": {"effect": -0.24308028064282208, "value": ""}, "1": {"effect": -0.08050004989931493, "value": ""}, "2": {"effect": -0.11594756645357125, "value": ""}}}, {"outValue": 1.0, "simIndex": 95.0, "features": {"0": {"effect": 0.3883789086806655, "value": ""}, "1": {"effect": 0.08276867802429541, "value": ""}, "2": {"effect": 0.08932451629933094, "value": ""}}}, {"outValue": 0.22999999999999968, "simIndex": 53.0, "features": {"0": {"effect": 0.19522786351279875, "value": ""}, "1": {"effect": -0.2595220189854843, "value": ""}, "2": {"effect": -0.145233741523023, "value": ""}}}, {"outValue": 0.1499999999999998, "simIndex": 54.0, "features": {"0": {"effect": 0.11639400305943082, "value": ""}, "1": {"effect": -0.26034442773564165, "value": ""}, "2": {"effect": -0.1455774723194976, "value": ""}}}, {"outValue": -2.220446049250313e-16, "simIndex": 4.0, "features": {"0": {"effect": -0.4186369685089165, "value": ""}, "1": {"effect": 0.029087275917559406, "value": ""}, "2": {"effect": -0.04997820440435137, "value": ""}}}, {"outValue": 0.0, "simIndex": 27.0, "features": {"0": {"effect": -0.22149004179750184, "value": ""}, "1": {"effect": -0.12867833386383676, "value": ""}, "2": {"effect": -0.08935952133436964, "value": ""}}}, {"outValue": 0.07999999999999957, "simIndex": 17.0, "features": {"0": {"effect": -0.43180072284469395, "value": ""}, "1": {"effect": -0.029398277730713945, "value": ""}, "2": {"effect": 0.1016711035796992, "value": ""}}}, {"outValue": 0.9900000000000004, "simIndex": 76.0, "features": {"0": {"effect": 0.31150012068393124, "value": ""}, "1": {"effect": 0.11294426726725539, "value": ""}, "2": {"effect": 0.12602771505310556, "value": ""}}}, {"outValue": 0.3100000000000003, "simIndex": 21.0, "features": {"0": {"effect": -0.31186221124274544, "value": ""}, "1": {"effect": 0.08556090425186398, "value": ""}, "2": {"effect": 0.09677340999517349, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 32.0, "features": {"0": {"effect": -0.23458378670707994, "value": ""}, "1": {"effect": -0.08885585199520132, "value": ""}, "2": {"effect": -0.11608825829342694, "value": ""}}}, {"outValue": 0.0, "simIndex": 25.0, "features": {"0": {"effect": -0.1992021624287175, "value": ""}, "1": {"effect": -0.11292007701653982, "value": ""}, "2": {"effect": -0.12740565755045097, "value": ""}}}, {"outValue": 0.009999999999999898, "simIndex": 57.0, "features": {"0": {"effect": -0.1333911891292152, "value": ""}, "1": {"effect": -0.19405673209068391, "value": ""}, "2": {"effect": -0.10207997577580927, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 36.0, "features": {"0": {"effect": -0.2253243748730299, "value": ""}, "1": {"effect": -0.09663058398540536, "value": ""}, "2": {"effect": -0.11757293813727292, "value": ""}}}, {"outValue": 0.8900000000000002, "simIndex": 97.0, "features": {"0": {"effect": 0.357364509371324, "value": ""}, "1": {"effect": -0.011310060615360133, "value": ""}, "2": {"effect": 0.10441765424832807, "value": ""}}}, {"outValue": 0.8900000000000001, "simIndex": 98.0, "features": {"0": {"effect": 0.3756832577761272, "value": ""}, "1": {"effect": -0.036911429078198665, "value": ""}, "2": {"effect": 0.11170027430636327, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 35.0, "features": {"0": {"effect": -0.2291495034066385, "value": ""}, "1": {"effect": -0.0915037706728761, "value": ""}, "2": {"effect": -0.1188746229161936, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 28.0, "features": {"0": {"effect": -0.23584657540045825, "value": ""}, "1": {"effect": -0.09455543520664338, "value": ""}, "2": {"effect": -0.10912588638860658, "value": ""}}}, {"outValue": 0.9700000000000003, "simIndex": 73.0, "features": {"0": {"effect": 0.2761441941871224, "value": ""}, "1": {"effect": 0.1354904733947552, "value": ""}, "2": {"effect": 0.11883743542241447, "value": ""}}}, {"outValue": 0.08999999999999986, "simIndex": 18.0, "features": {"0": {"effect": -0.3972622481421944, "value": ""}, "1": {"effect": -0.03954390702194654, "value": ""}, "2": {"effect": 0.08727825816843256, "value": ""}}}, {"outValue": 0.9900000000000001, "simIndex": 65.0, "features": {"0": {"effect": 0.3641430223645651, "value": ""}, "1": {"effect": 0.11070239549282045, "value": ""}, "2": {"effect": 0.07562668514690635, "value": ""}}}, {"outValue": 0.9700000000000003, "simIndex": 67.0, "features": {"0": {"effect": 0.3454337431888438, "value": ""}, "1": {"effect": 0.10567608410325459, "value": ""}, "2": {"effect": 0.07936227571219373, "value": ""}}}, {"outValue": 0.0, "simIndex": 38.0, "features": {"0": {"effect": -0.2198032278458549, "value": ""}, "1": {"effect": -0.10715518561455198, "value": ""}, "2": {"effect": -0.11256948353530141, "value": ""}}}, {"outValue": 0.010000000000000009, "simIndex": 5.0, "features": {"0": {"effect": -0.4299487595854408, "value": ""}, "1": {"effect": 0.029809279404301947, "value": ""}, "2": {"effect": -0.02938841681456941, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 81.0, "features": {"0": {"effect": 0.3404904753825095, "value": ""}, "1": {"effect": 0.08833556496351705, "value": ""}, "2": {"effect": 0.1316460626582657, "value": ""}}}, {"outValue": 0.9500000000000006, "simIndex": 71.0, "features": {"0": {"effect": 0.26480850463046485, "value": ""}, "1": {"effect": 0.11595984057379871, "value": ""}, "2": {"effect": 0.12970375780002877, "value": ""}}}, {"outValue": 0.0, "simIndex": 26.0, "features": {"0": {"effect": -0.2108052014260973, "value": ""}, "1": {"effect": -0.13359356946115802, "value": ""}, "2": {"effect": -0.09512912610845295, "value": ""}}}], "plot_cmap": "RdBu", "ordering_keys": null, "ordering_keys_time_format": null}),
-    document.getElementById('iLW0MXB365OMX63RHZ04E')
+    SHAP.React.createElement(SHAP.AdditiveForceArrayVisualizer, {"outNames": ["f(x)"], "baseValue": 0.4386695278969957, "link": "identity", "featureNames": ["Culmen Length (mm)", "Culmen Depth (mm)", "Flipper Length (mm)"], "explanations": [{"outValue": 0.07999999999999952, "simIndex": 11.0, "features": {"0": {"effect": -0.44879019634531153, "value": ""}, "1": {"effect": 0.03464524996192489, "value": ""}, "2": {"effect": 0.055475418486390406, "value": ""}}}, {"outValue": -2.7755575615628914e-16, "simIndex": 47.0, "features": {"0": {"effect": -0.2601023717778112, "value": ""}, "1": {"effect": -0.0915369234174257, "value": ""}, "2": {"effect": -0.08703023270175908, "value": ""}}}, {"outValue": 0.0, "simIndex": 31.0, "features": {"0": {"effect": -0.25272175848994605, "value": ""}, "1": {"effect": -0.09759613083744083, "value": ""}, "2": {"effect": -0.08835163856960881, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 43.0, "features": {"0": {"effect": -0.24440072035874216, "value": ""}, "1": {"effect": -0.11040094853579531, "value": ""}, "2": {"effect": -0.08386785900245829, "value": ""}}}, {"outValue": 0.49, "simIndex": 101.0, "features": {"0": {"effect": -0.07980028679646625, "value": ""}, "1": {"effect": 0.04776094422933339, "value": ""}, "2": {"effect": 0.08336981467013715, "value": ""}}}, {"outValue": 0.04999999999999982, "simIndex": 25.0, "features": {"0": {"effect": -0.22835783525923267, "value": ""}, "1": {"effect": -0.14249365196075578, "value": ""}, "2": {"effect": -0.017818040677007416, "value": ""}}}, {"outValue": 0.1100000000000001, "simIndex": 1.0, "features": {"0": {"effect": -0.4385256751615015, "value": ""}, "1": {"effect": 0.11103579082785897, "value": ""}, "2": {"effect": -0.0011796435633530807, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 75.0, "features": {"0": {"effect": 0.3972215362226655, "value": ""}, "1": {"effect": 0.06812328332245374, "value": ""}, "2": {"effect": 0.09598565255788481, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 79.0, "features": {"0": {"effect": 0.36762299059548087, "value": ""}, "1": {"effect": 0.1072168727381454, "value": ""}, "2": {"effect": 0.08649060876937818, "value": ""}}}, {"outValue": -5.551115123125783e-16, "simIndex": 52.0, "features": {"0": {"effect": -0.2717767338022631, "value": ""}, "1": {"effect": -0.07037749584283086, "value": ""}, "2": {"effect": -0.0965152982519023, "value": ""}}}, {"outValue": 0.8099999999999998, "simIndex": 99.0, "features": {"0": {"effect": 0.03506466325623115, "value": ""}, "1": {"effect": 0.20574613728192395, "value": ""}, "2": {"effect": 0.13051967156484906, "value": ""}}}, {"outValue": 0.03999999999999937, "simIndex": 24.0, "features": {"0": {"effect": -0.2999751436336195, "value": ""}, "1": {"effect": -0.10060717798895988, "value": ""}, "2": {"effect": 0.0019127937255829844, "value": ""}}}, {"outValue": 0.9900000000000002, "simIndex": 70.0, "features": {"0": {"effect": 0.37793935270874335, "value": ""}, "1": {"effect": 0.08511996970381482, "value": ""}, "2": {"effect": 0.08827114969044633, "value": ""}}}, {"outValue": 0.08999999999999958, "simIndex": 13.0, "features": {"0": {"effect": -0.4079973550636155, "value": ""}, "1": {"effect": 0.013879683664266219, "value": ""}, "2": {"effect": 0.04544814350235317, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 77.0, "features": {"0": {"effect": 0.4024911341586371, "value": ""}, "1": {"effect": 0.061735596444547576, "value": ""}, "2": {"effect": 0.09710374149981921, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 42.0, "features": {"0": {"effect": -0.24041003788052157, "value": ""}, "1": {"effect": -0.11413886153029178, "value": ""}, "2": {"effect": -0.0841206284861824, "value": ""}}}, {"outValue": 0.07999999999999935, "simIndex": 12.0, "features": {"0": {"effect": -0.46644097534140827, "value": ""}, "1": {"effect": 0.02569590350608948, "value": ""}, "2": {"effect": 0.08207554393832243, "value": ""}}}, {"outValue": 0.8299999999999997, "simIndex": 61.0, "features": {"0": {"effect": 0.3961579674477175, "value": ""}, "1": {"effect": -0.07527581894155062, "value": ""}, "2": {"effect": 0.07044832359683718, "value": ""}}}, {"outValue": 0.00999999999999962, "simIndex": 6.0, "features": {"0": {"effect": -0.4826230724564571, "value": ""}, "1": {"effect": 0.03258217796575092, "value": ""}, "2": {"effect": 0.021371366593710105, "value": ""}}}, {"outValue": 0.9899999999999995, "simIndex": 69.0, "features": {"0": {"effect": 0.37178321272043585, "value": ""}, "1": {"effect": 0.08380972375699958, "value": ""}, "2": {"effect": 0.09573753562556848, "value": ""}}}, {"outValue": 1.0, "simIndex": 73.0, "features": {"0": {"effect": 0.3932394283363808, "value": ""}, "1": {"effect": 0.08255878203852288, "value": ""}, "2": {"effect": 0.08553226172810063, "value": ""}}}, {"outValue": 0.009999999999999676, "simIndex": 7.0, "features": {"0": {"effect": -0.47271813739061525, "value": ""}, "1": {"effect": 0.022327095502795356, "value": ""}, "2": {"effect": 0.021721513990823824, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 72.0, "features": {"0": {"effect": 0.3864046405406037, "value": ""}, "1": {"effect": 0.0820050549941261, "value": ""}, "2": {"effect": 0.0929207765682743, "value": ""}}}, {"outValue": 0.09999999999999915, "simIndex": 10.0, "features": {"0": {"effect": -0.4313093860120527, "value": ""}, "1": {"effect": 0.029543680259279417, "value": ""}, "2": {"effect": 0.06309617785577677, "value": ""}}}, {"outValue": -2.220446049250313e-16, "simIndex": 44.0, "features": {"0": {"effect": -0.255443853352877, "value": ""}, "1": {"effect": -0.10792135428208026, "value": ""}, "2": {"effect": -0.07530432026203865, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 37.0, "features": {"0": {"effect": -0.24486937656054766, "value": ""}, "1": {"effect": -0.10379360118450044, "value": ""}, "2": {"effect": -0.09000655015194763, "value": ""}}}, {"outValue": 0.1399999999999994, "simIndex": 19.0, "features": {"0": {"effect": -0.3424039503341003, "value": ""}, "1": {"effect": -0.0021818597102758455, "value": ""}, "2": {"effect": 0.04591628214737989, "value": ""}}}, {"outValue": 0.99, "simIndex": 87.0, "features": {"0": {"effect": 0.3431894849226591, "value": ""}, "1": {"effect": 0.11660970856608688, "value": ""}, "2": {"effect": 0.09153127861425826, "value": ""}}}, {"outValue": 0.81, "simIndex": 97.0, "features": {"0": {"effect": 0.15658933057496588, "value": ""}, "1": {"effect": 0.15537632790015815, "value": ""}, "2": {"effect": 0.05936481362788027, "value": ""}}}, {"outValue": 0.99, "simIndex": 85.0, "features": {"0": {"effect": 0.3802644897001456, "value": ""}, "1": {"effect": 0.1083236206038206, "value": ""}, "2": {"effect": 0.06274236179903803, "value": ""}}}, {"outValue": 0.9799999999999998, "simIndex": 67.0, "features": {"0": {"effect": 0.3971596049613305, "value": ""}, "1": {"effect": 0.08710851408021382, "value": ""}, "2": {"effect": 0.05706235306145974, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 53.0, "features": {"0": {"effect": -0.17822872721296537, "value": ""}, "1": {"effect": -0.15183439015052347, "value": ""}, "2": {"effect": -0.10860641053350684, "value": ""}}}, {"outValue": 0.9900000000000002, "simIndex": 89.0, "features": {"0": {"effect": 0.32995955559315343, "value": ""}, "1": {"effect": 0.13221987289655357, "value": ""}, "2": {"effect": 0.08915104361329744, "value": ""}}}, {"outValue": -8.326672684688674e-16, "simIndex": 22.0, "features": {"0": {"effect": -0.33518568815136496, "value": ""}, "1": {"effect": -0.01008168649498447, "value": ""}, "2": {"effect": -0.09340215325064707, "value": ""}}}, {"outValue": -3.885780586188048e-16, "simIndex": 49.0, "features": {"0": {"effect": -0.26437971820506634, "value": ""}, "1": {"effect": -0.07859583757106066, "value": ""}, "2": {"effect": -0.09569397212086914, "value": ""}}}, {"outValue": 0.10000000000000026, "simIndex": 26.0, "features": {"0": {"effect": -0.20496926890369505, "value": ""}, "1": {"effect": -0.1272985781310007, "value": ""}, "2": {"effect": -0.006401680862299691, "value": ""}}}, {"outValue": 1.0, "simIndex": 84.0, "features": {"0": {"effect": 0.38456219857472984, "value": ""}, "1": {"effect": 0.10545154196038477, "value": ""}, "2": {"effect": 0.07131673156788965, "value": ""}}}, {"outValue": 1.0, "simIndex": 80.0, "features": {"0": {"effect": 0.36994505214037937, "value": ""}, "1": {"effect": 0.10533616296567343, "value": ""}, "2": {"effect": 0.08604925699695157, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 55.0, "features": {"0": {"effect": -0.14547337946111344, "value": ""}, "1": {"effect": -0.208493060644964, "value": ""}, "2": {"effect": -0.08470308779091812, "value": ""}}}, {"outValue": 1.0000000000000002, "simIndex": 71.0, "features": {"0": {"effect": 0.38535531888388586, "value": ""}, "1": {"effect": 0.08337944599123306, "value": ""}, "2": {"effect": 0.09259570722788553, "value": ""}}}, {"outValue": -2.220446049250313e-16, "simIndex": 45.0, "features": {"0": {"effect": -0.25527230846352034, "value": ""}, "1": {"effect": -0.11587537993026537, "value": ""}, "2": {"effect": -0.06752183950321022, "value": ""}}}, {"outValue": 0.6300000000000001, "simIndex": 100.0, "features": {"0": {"effect": -0.012504332896803678, "value": ""}, "1": {"effect": 0.12345359768555497, "value": ""}, "2": {"effect": 0.08038120731425318, "value": ""}}}, {"outValue": 0.97, "simIndex": 93.0, "features": {"0": {"effect": 0.3702754049903117, "value": ""}, "1": {"effect": 0.14040168236812112, "value": ""}, "2": {"effect": 0.020653384744571613, "value": ""}}}, {"outValue": -8.326672684688674e-16, "simIndex": 23.0, "features": {"0": {"effect": -0.3570201792417972, "value": ""}, "1": {"effect": 0.03286989120939795, "value": ""}, "2": {"effect": -0.11451923986459729, "value": ""}}}, {"outValue": 0.9699999999999995, "simIndex": 65.0, "features": {"0": {"effect": 0.40319859088034377, "value": ""}, "1": {"effect": 0.05032842924380143, "value": ""}, "2": {"effect": 0.07780345197885863, "value": ""}}}, {"outValue": 0.98, "simIndex": 91.0, "features": {"0": {"effect": 0.34162733425389896, "value": ""}, "1": {"effect": 0.13347177113948736, "value": ""}, "2": {"effect": 0.06623136670961789, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 29.0, "features": {"0": {"effect": -0.2533924044330064, "value": ""}, "1": {"effect": -0.09863512825463898, "value": ""}, "2": {"effect": -0.08664199520935036, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 30.0, "features": {"0": {"effect": -0.253215413282564, "value": ""}, "1": {"effect": -0.09872362382986023, "value": ""}, "2": {"effect": -0.0867304907845716, "value": ""}}}, {"outValue": 0.17999999999999966, "simIndex": 15.0, "features": {"0": {"effect": -0.38627373698685397, "value": ""}, "1": {"effect": 0.06440545888971952, "value": ""}, "2": {"effect": 0.06319875020013842, "value": ""}}}, {"outValue": 0.95, "simIndex": 95.0, "features": {"0": {"effect": 0.28177717099991145, "value": ""}, "1": {"effect": 0.1386739671563214, "value": ""}, "2": {"effect": 0.09087933394677133, "value": ""}}}, {"outValue": 0.8300000000000001, "simIndex": 98.0, "features": {"0": {"effect": 0.05102225488088994, "value": ""}, "1": {"effect": 0.2074776412090727, "value": ""}, "2": {"effect": 0.13283057601304163, "value": ""}}}, {"outValue": 0.9599999999999997, "simIndex": 60.0, "features": {"0": {"effect": 0.42539673609456063, "value": ""}, "1": {"effect": -0.07983185507075481, "value": ""}, "2": {"effect": 0.17576559107919817, "value": ""}}}, {"outValue": 0.9399999999999997, "simIndex": 64.0, "features": {"0": {"effect": 0.3866335840171688, "value": ""}, "1": {"effect": 0.028808508461527917, "value": ""}, "2": {"effect": 0.0858883796243073, "value": ""}}}, {"outValue": 0.04999999999999988, "simIndex": 56.0, "features": {"0": {"effect": -0.07701622382151899, "value": ""}, "1": {"effect": -0.22009789884512473, "value": ""}, "2": {"effect": -0.09155540523035213, "value": ""}}}, {"outValue": 0.9999999999999998, "simIndex": 82.0, "features": {"0": {"effect": 0.3815057349072291, "value": ""}, "1": {"effect": 0.09810274565279435, "value": ""}, "2": {"effect": 0.0817219915429807, "value": ""}}}, {"outValue": 1.0000000000000004, "simIndex": 88.0, "features": {"0": {"effect": 0.33413750739293785, "value": ""}, "1": {"effect": 0.12672262125104244, "value": ""}, "2": {"effect": 0.10047034345902438, "value": ""}}}, {"outValue": 1.0, "simIndex": 74.0, "features": {"0": {"effect": 0.39291423292293265, "value": ""}, "1": {"effect": 0.06969022047967652, "value": ""}, "2": {"effect": 0.09872601870039506, "value": ""}}}, {"outValue": 0.9999999999999996, "simIndex": 76.0, "features": {"0": {"effect": 0.4021281933114641, "value": ""}, "1": {"effect": 0.06209853729172057, "value": ""}, "2": {"effect": 0.09710374149981921, "value": ""}}}, {"outValue": 0.15999999999999914, "simIndex": 18.0, "features": {"0": {"effect": -0.32999662500451177, "value": ""}, "1": {"effect": -0.041233922703728165, "value": ""}, "2": {"effect": 0.09256101981124336, "value": ""}}}, {"outValue": 0.0500000000000001, "simIndex": 2.0, "features": {"0": {"effect": -0.44011764084956523, "value": ""}, "1": {"effect": 0.072388416202284, "value": ""}, "2": {"effect": -0.020940303249714434, "value": ""}}}, {"outValue": 0.29999999999999954, "simIndex": 20.0, "features": {"0": {"effect": -0.32527496553184654, "value": ""}, "1": {"effect": 0.16776865887097586, "value": ""}, "2": {"effect": 0.01883677876387451, "value": ""}}}, {"outValue": -4.440892098500626e-16, "simIndex": 51.0, "features": {"0": {"effect": -0.26610216544468096, "value": ""}, "1": {"effect": -0.0734326042520918, "value": ""}, "2": {"effect": -0.0991347582002234, "value": ""}}}, {"outValue": 0.07000000000000012, "simIndex": 9.0, "features": {"0": {"effect": -0.4568589400989648, "value": ""}, "1": {"effect": 0.05043877760683811, "value": ""}, "2": {"effect": 0.03775063459513114, "value": ""}}}, {"outValue": 0.99, "simIndex": 83.0, "features": {"0": {"effect": 0.3833035849852988, "value": ""}, "1": {"effect": 0.09415878744093632, "value": ""}, "2": {"effect": 0.07386809967676926, "value": ""}}}, {"outValue": 0.03999999999999987, "simIndex": 8.0, "features": {"0": {"effect": -0.4601302998286055, "value": ""}, "1": {"effect": 0.0363669068227056, "value": ""}, "2": {"effect": 0.02509386510890402, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 32.0, "features": {"0": {"effect": -0.25254476733950354, "value": ""}, "1": {"effect": -0.09768462641266208, "value": ""}, "2": {"effect": -0.08844013414483007, "value": ""}}}, {"outValue": -4.440892098500626e-16, "simIndex": 50.0, "features": {"0": {"effect": -0.26524220530717496, "value": ""}, "1": {"effect": -0.07782341044512715, "value": ""}, "2": {"effect": -0.09560391214469405, "value": ""}}}, {"outValue": 0.16999999999999943, "simIndex": 14.0, "features": {"0": {"effect": -0.38740481453217035, "value": ""}, "1": {"effect": 0.027384515542173117, "value": ""}, "2": {"effect": 0.09135077109300092, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 41.0, "features": {"0": {"effect": -0.23675025598243513, "value": ""}, "1": {"effect": -0.11256666164130928, "value": ""}, "2": {"effect": -0.08935261027325135, "value": ""}}}, {"outValue": 0.9399999999999997, "simIndex": 94.0, "features": {"0": {"effect": 0.29308307533760347, "value": ""}, "1": {"effect": 0.1480578398016918, "value": ""}, "2": {"effect": 0.06018955696370872, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 38.0, "features": {"0": {"effect": -0.2446540432437991, "value": ""}, "1": {"effect": -0.10468365601135156, "value": ""}, "2": {"effect": -0.08933182864184505, "value": ""}}}, {"outValue": 0.0, "simIndex": 34.0, "features": {"0": {"effect": -0.2505198149831688, "value": ""}, "1": {"effect": -0.09919651401380995, "value": ""}, "2": {"effect": -0.08895319890001696, "value": ""}}}, {"outValue": 0.9899999999999995, "simIndex": 68.0, "features": {"0": {"effect": 0.39694407362035206, "value": ""}, "1": {"effect": 0.0844745218317499, "value": ""}, "2": {"effect": 0.06991187665090198, "value": ""}}}, {"outValue": 0.02999999999999997, "simIndex": 5.0, "features": {"0": {"effect": -0.483895324784591, "value": ""}, "1": {"effect": 0.03581600512554677, "value": ""}, "2": {"effect": 0.039409791762048514, "value": ""}}}, {"outValue": 0.7899999999999998, "simIndex": 59.0, "features": {"0": {"effect": 0.4148424821013672, "value": ""}, "1": {"effect": -0.17885263688690148, "value": ""}, "2": {"effect": 0.11534062688853834, "value": ""}}}, {"outValue": -2.7755575615628914e-16, "simIndex": 48.0, "features": {"0": {"effect": -0.2610650541785043, "value": ""}, "1": {"effect": -0.08945408039939438, "value": ""}, "2": {"effect": -0.08815039331909733, "value": ""}}}, {"outValue": 0.9899999999999998, "simIndex": 66.0, "features": {"0": {"effect": 0.4109848401342195, "value": ""}, "1": {"effect": 0.07863999690524173, "value": ""}, "2": {"effect": 0.06170563506354288, "value": ""}}}, {"outValue": 0.2999999999999997, "simIndex": 58.0, "features": {"0": {"effect": 0.2438972343248729, "value": ""}, "1": {"effect": -0.2650356131047159, "value": ""}, "2": {"effect": -0.117531149117153, "value": ""}}}, {"outValue": 0.14999999999999952, "simIndex": 57.0, "features": {"0": {"effect": 0.09679579528423654, "value": ""}, "1": {"effect": -0.2699137216998466, "value": ""}, "2": {"effect": -0.11555160148138613, "value": ""}}}, {"outValue": 0.010000000000000009, "simIndex": 3.0, "features": {"0": {"effect": -0.43959557285429257, "value": ""}, "1": {"effect": 0.0416485654094409, "value": ""}, "2": {"effect": -0.03072252045214402, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 46.0, "features": {"0": {"effect": -0.24637711930957884, "value": ""}, "1": {"effect": -0.1255797846541411, "value": ""}, "2": {"effect": -0.06671262393327584, "value": ""}}}, {"outValue": 0.03999999999999937, "simIndex": 16.0, "features": {"0": {"effect": -0.44080412301116384, "value": ""}, "1": {"effect": -0.02222211397995075, "value": ""}, "2": {"effect": 0.06435670909411828, "value": ""}}}, {"outValue": 1.0, "simIndex": 86.0, "features": {"0": {"effect": 0.3488525221491849, "value": ""}, "1": {"effect": 0.12425097951918802, "value": ""}, "2": {"effect": 0.08822697043463144, "value": ""}}}, {"outValue": 0.2599999999999998, "simIndex": 21.0, "features": {"0": {"effect": -0.32759624940333937, "value": ""}, "1": {"effect": 0.0879599286895781, "value": ""}, "2": {"effect": 0.060966792816765356, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 33.0, "features": {"0": {"effect": -0.25233827766398736, "value": ""}, "1": {"effect": -0.0977878712504202, "value": ""}, "2": {"effect": -0.08854337898258817, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 28.0, "features": {"0": {"effect": -0.21784199888163785, "value": ""}, "1": {"effect": -0.12494090267392866, "value": ""}, "2": {"effect": -0.09588662634142923, "value": ""}}}, {"outValue": 1.6653345369377348e-16, "simIndex": 54.0, "features": {"0": {"effect": -0.15914426954770422, "value": ""}, "1": {"effect": -0.1943747713293187, "value": ""}, "2": {"effect": -0.08515048701997263, "value": ""}}}, {"outValue": -1.1102230246251565e-16, "simIndex": 39.0, "features": {"0": {"effect": -0.23929963552488723, "value": ""}, "1": {"effect": -0.1076611887254579, "value": ""}, "2": {"effect": -0.09170870364665067, "value": ""}}}, {"outValue": 0.9199999999999995, "simIndex": 63.0, "features": {"0": {"effect": 0.40255385427237034, "value": ""}, "1": {"effect": 0.010655035618470341, "value": ""}, "2": {"effect": 0.06812158221216308, "value": ""}}}, {"outValue": 0.8499999999999996, "simIndex": 62.0, "features": {"0": {"effect": 0.4002317091340523, "value": ""}, "1": {"effect": -0.057948985838392024, "value": ""}, "2": {"effect": 0.06904774880734364, "value": ""}}}, {"outValue": 5.551115123125783e-17, "simIndex": 36.0, "features": {"0": {"effect": -0.2451382357609199, "value": ""}, "1": {"effect": -0.10185100337628104, "value": ""}, "2": {"effect": -0.09168028875979473, "value": ""}}}, {"outValue": 0.0, "simIndex": 35.0, "features": {"0": {"effect": -0.24750655220102383, "value": ""}, "1": {"effect": -0.10228182730317935, "value": ""}, "2": {"effect": -0.08888114839279254, "value": ""}}}, {"outValue": 0.97, "simIndex": 90.0, "features": {"0": {"effect": 0.32152008212930067, "value": ""}, "1": {"effect": 0.13258643331468767, "value": ""}, "2": {"effect": 0.07722395665901605, "value": ""}}}, {"outValue": 0.049999999999999156, "simIndex": 17.0, "features": {"0": {"effect": -0.40746607495260545, "value": ""}, "1": {"effect": -0.05106601738920272, "value": ""}, "2": {"effect": 0.0698625644448116, "value": ""}}}, {"outValue": 0.9700000000000002, "simIndex": 92.0, "features": {"0": {"effect": 0.34992296806048007, "value": ""}, "1": {"effect": 0.12818713841391083, "value": ""}, "2": {"effect": 0.0532203656286136, "value": ""}}}, {"outValue": 0.9799999999999998, "simIndex": 78.0, "features": {"0": {"effect": 0.3564914910745575, "value": ""}, "1": {"effect": 0.11005576578952143, "value": ""}, "2": {"effect": 0.07478321523892519, "value": ""}}}, {"outValue": -5.551115123125783e-17, "simIndex": 40.0, "features": {"0": {"effect": -0.23675025598243513, "value": ""}, "1": {"effect": -0.11256666164130928, "value": ""}, "2": {"effect": -0.08935261027325135, "value": ""}}}, {"outValue": 1.1102230246251565e-16, "simIndex": 4.0, "features": {"0": {"effect": -0.4605331208574243, "value": ""}, "1": {"effect": 0.03755060286490903, "value": ""}, "2": {"effect": -0.015687009904480295, "value": ""}}}, {"outValue": 0.9900000000000002, "simIndex": 81.0, "features": {"0": {"effect": 0.3662298263855827, "value": ""}, "1": {"effect": 0.09684037220791752, "value": ""}, "2": {"effect": 0.08826027350950429, "value": ""}}}, {"outValue": 0.8999999999999999, "simIndex": 96.0, "features": {"0": {"effect": 0.2534258017492864, "value": ""}, "1": {"effect": 0.1182955411717698, "value": ""}, "2": {"effect": 0.08960912918194806, "value": ""}}}, {"outValue": -2.220446049250313e-16, "simIndex": 27.0, "features": {"0": {"effect": -0.2207417253984535, "value": ""}, "1": {"effect": -0.13836399361425328, "value": ""}, "2": {"effect": -0.07956380888428914, "value": ""}}}], "plot_cmap": "RdBu", "ordering_keys": null, "ordering_keys_time_format": null}),
+    document.getElementById('iGFMWUT0ICQQZAW370SD1')
   );
 </script></div></div>
 </div>
@@ -1122,7 +926,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.4090, 0.5525]], grad_fn=&lt;SigmoidBackward0&gt;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0.4604, 0.5629]], grad_fn=&lt;SigmoidBackward0&gt;)
 </pre></div>
 </div>
 </div>
@@ -1193,7 +997,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn-inspection">5.3.1. Scikit-Learn Inspection</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#partial-dependence-for-machine-learning-interpretability">5.3.1. Partial Dependence for Machine Learning Interpretability</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tree-importance-vs-permutation-importance">5.3.1.1. Tree importance vs Permutation importance</a></li>
 </ul>
 </li>

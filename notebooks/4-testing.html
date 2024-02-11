@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>4.4. Testing &#8212; Increase citations, ease review &amp; collaboration: Better ML in Science</title>
+    <title>4.4. Software Testing of Machine Learning Projects &#8212; Increase citations, ease review &amp; collaboration: Better ML in Science</title>
   
   
   
@@ -435,7 +435,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Testing</h1>
+    <h1>Software Testing of Machine Learning Projects</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -460,15 +460,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="testing">
-<h1><span class="section-number">4.4. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">#</a></h1>
-<p>Machine learning is very hard to test. Due to the nature of the our models, we often have soft failures in the model that are difficult to test against.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="software-testing-of-machine-learning-projects">
+<h1><span class="section-number">4.4. </span>Software Testing of Machine Learning Projects<a class="headerlink" href="#software-testing-of-machine-learning-projects" title="Permalink to this heading">#</a></h1>
+<p>Machine learning code is very hard to test.</p>
+<p>Due to the nature of the our models, we often have soft failures in the model that are difficult to test against. That basically means, they look like they’re doing what they’re supposed to, but secretly they’re not because of some bug.</p>
 <p>Writing software tests in science, is already incredibly hard, so in this section we’ll touch on</p>
 <ul class="simple">
 <li><p>some fairly simple tests we can implement to ensure consistency of our input data</p></li>
 <li><p>avoid bad bugs in data loading procedures</p></li>
 <li><p>some strategies to probe our models</p></li>
 </ul>
+<p>First we’ll split the data from <span class="xref myst">the Data notebook</span> and load the model from <a class="reference external" href="https://ml.recipes/notebooks/3-model-sharing.html">the Sharing notebook</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -603,7 +605,7 @@ document.write(`
 </section>
 <section id="data-tests-for-models">
 <h2><span class="section-number">4.4.2. </span>Data Tests for Models<a class="headerlink" href="#data-tests-for-models" title="Permalink to this heading">#</a></h2>
-<p>An even easier test is by essentially reusing the notebook from the Model Evaluation and writing a test function for it.</p>
+<p>An even easier test is by essentially reusing the notebook from the <a class="reference external" href="https://ml.recipes/notebooks/1-model-evaluation.html">Model Evaluation</a> and writing a test function for it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_penguins</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
@@ -629,6 +631,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>This means we have some samples in the data, where we clearly know they should be part of one class and we can use these to test the model.</p>
 </section>
 <section id="automated-testing-of-docstring-examples">
 <h2><span class="section-number">4.4.3. </span>Automated Testing of Docstring Examples<a class="headerlink" href="#automated-testing-of-docstring-examples" title="Permalink to this heading">#</a></h2>

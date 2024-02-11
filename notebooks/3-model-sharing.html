@@ -583,6 +583,7 @@ More information <a class="reference external" href="https://scikit-learn.org/st
 </div>
 </div>
 </div>
+<p>First we’ll build a quick model, like in <span class="xref myst">the Data notebook</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
@@ -614,6 +615,9 @@ More information <a class="reference external" href="https://scikit-learn.org/st
 </div>
 </div>
 </div>
+<p>Saving a trained scikit-learn model with Joblib is a straightforward and efficient process that ensures the <a class="reference external" href="https://scikit-learn.org/stable/model_persistence.html">preservation of model state</a> for future use.</p>
+<p>By employing the <code class="docutils literal notranslate"><span class="pre">joblib.dump()</span></code> function, users can serialize the trained model object to disk in a binary format, effectively storing its parameters, coefficients, and other essential attributes. This serialized representation allows for seamless retrieval and reuse of the trained model, enabling users to deploy it in production environments, share it with collaborators, or perform further analysis without the need to retrain the model from scratch.</p>
+<p>Additionally, Joblib’s serialization mechanism ensures minimal overhead in terms of file size and loading time, making it an ideal choice for saving scikit-learn models efficiently. Overall, leveraging Joblib to save scikit-learn models facilitates reproducibility, scalability, and ease of deployment in real-world.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">MODEL_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;model&quot;</span>
@@ -700,7 +704,7 @@ For example, below is the SVC model, if you put the cursor in the brackets, you 
 <div class="alert alert-block alert-info">
 <b>Tip:</b> Docstrings are an essential part in telling users what a function does and what input and outputs are expected.</div>
 I see docstrings as the minimum documentation one should provide when sharing code, and the auto-generators make it extremely easy to do so.
-<p>This docstrin was automatically generated. Just fill in the summary and description and people are happy!</p>
+<p>This docstring was automatically generated. Just fill in the summary and description and people are happy!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;_summary_</span>
 
@@ -709,7 +713,7 @@ I see docstrings as the minimum documentation one should provide when sharing co
 <span class="sd">    name : str</span>
 <span class="sd">        _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;&quot;)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -722,13 +726,15 @@ This looks like <code class="docutils literal notranslate"><span class="pre">pan
 <p>The conda <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> can be auto-exported from your conda environment:</p>
 <p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">--from-history</span> <span class="pre">&gt;</span> <span class="pre">environment.yml</span></code>
 The <code class="docutils literal notranslate"><span class="pre">--from-history</span></code> makes it cross-platform but eliminates the version numbers.</p>
+<p>For this project, we created a <a class="reference external" href="https://github.com/JesperDramsch/ml-for-science-reproducibility-tutorial/blob/main/requirements/tutorial.txt">pip requirements file</a> and an <a class="reference external" href="https://github.com/JesperDramsch/ml-for-science-reproducibility-tutorial/blob/main/requirements/tutorial.yml">conda environment yaml file</a>. They don’t necessarily contain versions, because this can be tricky across platforms like <code class="docutils literal notranslate"><span class="pre">MacOS</span></code>, <code class="docutils literal notranslate"><span class="pre">Windows</span></code>, and <code class="docutils literal notranslate"><span class="pre">Linux</span></code> unfortunately.</p>
+<p>One way to address this issue is to define ranges like <code class="docutils literal notranslate"><span class="pre">pandas&gt;=1.0</span></code>, which would install the latest pandas starting from pandas version 1.0, or limit to <code class="docutils literal notranslate"><span class="pre">pandas&lt;=1.0</span></code> below a certain version, where breaking changes were introduced.</p>
 </section>
 <section id="docker-for-ultimate-reproducibility">
 <h2><span class="section-number">3.3.5. </span>Docker for ultimate reproducibility<a class="headerlink" href="#docker-for-ultimate-reproducibility" title="Permalink to this heading">#</a></h2>
 <p>Docker is container that can ship an entire operating system with installed packages and data.</p>
 <p>It makes the environment you used for your computation almost entirely reproducible.</p>
 <p>(It’s also great practice for the business world)</p>
-<p>Docker containers are build using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> command using a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>, an example docker file for Python looks like this:</p>
+<p>Docker containers are built using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span></code> command using a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>, an example docker file for Python looks like this:</p>
 <div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="c"># syntax=docker/dockerfile:1</span>
 
 <span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8-slim-buster</span>
@@ -743,6 +749,7 @@ The <code class="docutils literal notranslate"><span class="pre">--from-history<
 <span class="k">CMD</span><span class="w"> </span>python<span class="w"> </span>train.py
 </pre></div>
 </div>
+<p>Then this built image can be shared with other researchers that have the exact same compute environment for this experiments.</p>
 </section>
 </section>
 
