@@ -465,8 +465,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="getting-to-know-the-data">
 <h1>Getting to know the data<a class="headerlink" href="#getting-to-know-the-data" title="Permalink to this heading">#</a></h1>
-<p>This tutorial uses the <a class="reference external" href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset</a>.</p>
-<p>Data were collected and made available by <a class="reference external" href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a class="reference external" href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a class="reference external" href="https://lternet.edu/">Long Term Ecological Research Network</a>.</p>
+<p>Understanding the data is a foundational step in any machine learning project and is crucial for achieving reproducibility in research.</p>
+<p>Comprehending the dataset lets us make informed decisions at every stage of the project, from preprocessing to model selection and evaluation.</p>
+<p>One of the primary reasons why getting to know the data is essential is its direct impact on the reliability and generalizability of the machine learning models. We can identify potential biases, anomalies, or inconsistencies that may affect model performance by exploring the data.</p>
+<p>This understanding enables us to apply appropriate preprocessing techniques, such as handling missing values, addressing class imbalances, or feature normalisation, to ensure that the model learns meaningful patterns from the data.</p>
+<p>Furthermore, understanding the data allows researchers to select appropriate evaluation metrics that align with the specific objectives and characteristics of the dataset.</p>
+<p>By choosing metrics that capture the nuances of the problem domain, researchers can accurately assess the performance of their models and make informed decisions about their suitability for real-world applications.</p>
+<p>Moreover, gaining insights into the data can guide us as researchers in selecting the most appropriate algorithms and architectures for these tasks. Understanding the distribution and relationships within the data allows us to choose well-suited models to capture complex patterns and make accurate predictions.</p>
+<p>Beyond improving the performance of individual models, understanding the data fosters transparency and reproducibility in research. By documenting the dataset’s characteristics and the rationale behind preprocessing decisions, researchers enable others to replicate their experiments and validate their findings.</p>
+<p>This transparency enhances the credibility of research outcomes and facilitates collaboration and knowledge sharing within the scientific community.</p>
+<p>This tutorial uses the <a class="reference external" href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset</a>. Data were collected and made available by <a class="reference external" href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a class="reference external" href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a class="reference external" href="https://lternet.edu/">Long Term Ecological Research Network</a>.</p>
 <p>Let’s dive into some quick exploration of the data!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -478,6 +486,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>We’ll use the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library to load an pre-process the data. It has quite a few convenience functions like loading CSVs or dropping columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -635,7 +644,9 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p>This looks like a lot. Let’s reduce this to some numerical columns and the species as our target column.</p>
+<p>We can see that this dataset has a lot more potential than your usual “toy dataset”. We get the full provenance of this data including the study a penguin was measured in, where it lives, and even comments by the researchers collecting the data!</p>
+<p>And honestly, this looks like a lot. Some of these variables might actually leak information, like the location or study number telling us what penguin colony was sampled.</p>
+<p>Let’s reduce this to some numerical columns <code class="docutils literal notranslate"><span class="pre">Culmen</span> <span class="pre">Length</span> <span class="pre">(mm)</span></code>, <code class="docutils literal notranslate"><span class="pre">Culmen</span> <span class="pre">Depth</span> <span class="pre">(mm)</span></code>, <code class="docutils literal notranslate"><span class="pre">Flipper</span> <span class="pre">Length</span> <span class="pre">(mm)</span></code>, then <code class="docutils literal notranslate"><span class="pre">Sex</span></code> as a categorical value in case penguins exhibit <a class="reference external" href="https://en.wikipedia.org/wiki/Sexual_dimorphism">sexual dimorphism</a> and the <code class="docutils literal notranslate"><span class="pre">species</span></code> as our target column to make it easier for us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Culmen Depth (mm)&quot;</span><span class="p">,</span> <span class="s2">&quot;Flipper Length (mm)&quot;</span><span class="p">]</span>
@@ -767,9 +778,14 @@ document.write(`
 <p>344 rows × 5 columns</p>
 </div></div></div>
 </div>
+<p>Much easier to deal with for a non-expert in Penguin studies!</p>
 <section id="data-visualization">
 <h2>Data Visualization<a class="headerlink" href="#data-visualization" title="Permalink to this heading">#</a></h2>
-<p>That’s much better. So now we can look at the data in detail.</p>
+<p>Data visualization is indispensable for effective data exploration in machine learning research.</p>
+<p>We can quickly grasp the datasets’ distribution, relationships, and anomalies through visual representations like scatter plots, histograms, and box plots. These visualizations provide invaluable insights into the underlying structure of the data, enabling researchers to identify patterns, trends, and outliers that may influence model performance.</p>
+<p>Moreover, visualizations facilitate collaboration and communication among team members, as they provide intuitive ways to convey complex insights and findings.</p>
+<p>In essence, data visualization is a cornerstone of data exploration, enhancing the reproducibility and reliability of machine learning research by enabling researchers to gain a deeper understanding of their datasets.</p>
+<p>For this visualization we’ll use <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> which is a statistical plotting library that makes our job much easier than the more granular <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -782,11 +798,15 @@ document.write(`
 <img alt="../_images/d8267852d3db8335bb0ff24b1785f0b94ea476bb1669f54cab352010c89727b3.png" src="../_images/d8267852d3db8335bb0ff24b1785f0b94ea476bb1669f54cab352010c89727b3.png" />
 </div>
 </div>
+<p>Looks like we’re getting some good separation of the clusters already!</p>
+<p>This promises to be a good dataset for fairly simple machine learning algorithms.</p>
 </section>
 <section id="data-cleaning">
 <h2>Data cleaning<a class="headerlink" href="#data-cleaning" title="Permalink to this heading">#</a></h2>
-<p>Looks like we’re getting some good separation of the clusters.</p>
-<p>So that means we can probably do some cleaning and get ready to build some good machine learning models.</p>
+<p>That means we can probably do some cleaning and get ready to build some good machine learning models.</p>
+<p>Dropping NaNs, or missing values, during the data cleaning process is the most basic form of cleaning data. Some machine learning algorithms can actually process NaNs, which is a great way to deal with missing data, but in our case we’re choosing the simplest way. Don’t take this as the best practice though!</p>
+<p>By removing rows or columns containing NaNs, researchers can prevent these issues and ensure that their models learn from complete and consistent data. While imputation techniques exist to fill in missing values, dropping NaNs is often preferred when the proportion of missing values is small relative to the dataset size or when imputation could introduce inaccuracies.</p>
+<p>Sometimes we can even gain information from NaNs, when they’re not “missing at random”. Then we can actually pre-process the data by adding a boolean feature that encodes the “missingness” of a variable and use mean imputation on the data column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;rows&#39;</span><span class="p">)</span>
@@ -923,14 +943,16 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Not too bad it looks like we lost two rows. That’s manageable, it’s a toy dataset after all.</p>
-<p>So let’s build a small model to classify penuins!</p>
+<p>Not too bad it looks like we lost ten rows. That’s manageable, it’s a toy dataset after all.</p>
+<p>So let’s build a small model to classify penguins!</p>
 </section>
 <section id="machine-learning">
 <h2>Machine Learning<a class="headerlink" href="#machine-learning" title="Permalink to this heading">#</a></h2>
-<p>First we need to split the data.</p>
-<p>This way we can test whether our model learned general rules about our data, or if it just memorized the training data.
-When a model does not learn the generalities, this is known as overfitting.</p>
+<p>First, it’s essential to split the data into separate sets for training and testing purposes.</p>
+<p>This split enables us to evaluate the performance of our machine learning model effectively. By training the model on a portion of the data and testing it on unseen data, we can assess whether the model has learned generalizable patterns or has simply memorized the training examples.</p>
+<p>When a model that fails to generalize to unseen data this is known as overfitting. Overfitting is a phenomenon where the model performs well on the training data but fails on non-training data. Overfitting leads to poor performance and unreliable predictions in real-world scenarios.</p>
+<p>Therefore, by splitting the data, we can detect and mitigate overfitting, ensuring that our model learns meaningful patterns that generalize to unseen data.</p>
+<p>We’ll choose 70% of the data as training data here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -967,38 +989,38 @@ When a model does not learn the generalities, this is known as overfitting.</p>
   </thead>
   <tbody>
     <tr>
-      <th>327</th>
-      <td>51.4</td>
-      <td>19.0</td>
-      <td>201.0</td>
+      <th>277</th>
+      <td>50.0</td>
+      <td>19.5</td>
+      <td>196.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>228</th>
-      <td>47.5</td>
-      <td>14.2</td>
-      <td>209.0</td>
-      <td>FEMALE</td>
-    </tr>
-    <tr>
-      <th>257</th>
-      <td>46.8</td>
-      <td>16.1</td>
-      <td>215.0</td>
+      <th>21</th>
+      <td>37.7</td>
+      <td>18.7</td>
+      <td>180.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>79</th>
-      <td>42.1</td>
-      <td>19.1</td>
-      <td>195.0</td>
+      <th>285</th>
+      <td>51.3</td>
+      <td>19.9</td>
+      <td>198.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>59</th>
-      <td>37.6</td>
-      <td>19.1</td>
-      <td>194.0</td>
+      <th>107</th>
+      <td>38.2</td>
+      <td>20.0</td>
+      <td>190.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>49</th>
+      <td>42.3</td>
+      <td>21.2</td>
+      <td>191.0</td>
       <td>MALE</td>
     </tr>
     <tr>
@@ -1009,39 +1031,39 @@ When a model does not learn the generalities, this is known as overfitting.</p>
       <td>...</td>
     </tr>
     <tr>
-      <th>295</th>
-      <td>49.2</td>
-      <td>18.2</td>
-      <td>195.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>169</th>
-      <td>49.2</td>
-      <td>15.2</td>
-      <td>221.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>227</th>
-      <td>48.6</td>
-      <td>16.0</td>
-      <td>230.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>331</th>
-      <td>52.2</td>
-      <td>18.8</td>
-      <td>197.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>312</th>
-      <td>47.6</td>
-      <td>18.3</td>
+      <th>338</th>
+      <td>45.7</td>
+      <td>17.0</td>
       <td>195.0</td>
       <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>251</th>
+      <td>51.1</td>
+      <td>16.5</td>
+      <td>225.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>231</th>
+      <td>45.2</td>
+      <td>16.4</td>
+      <td>223.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>35.9</td>
+      <td>16.6</td>
+      <td>190.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>257</th>
+      <td>46.8</td>
+      <td>16.1</td>
+      <td>215.0</td>
+      <td>MALE</td>
     </tr>
   </tbody>
 </table>
@@ -1078,23 +1100,23 @@ When a model does not learn the generalities, this is known as overfitting.</p>
   </thead>
   <tbody>
     <tr>
-      <th>327</th>
+      <th>277</th>
       <td>Chinstrap penguin (Pygoscelis antarctica)</td>
     </tr>
     <tr>
-      <th>228</th>
-      <td>Gentoo penguin (Pygoscelis papua)</td>
-    </tr>
-    <tr>
-      <th>257</th>
-      <td>Gentoo penguin (Pygoscelis papua)</td>
-    </tr>
-    <tr>
-      <th>79</th>
+      <th>21</th>
       <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
-      <th>59</th>
+      <th>285</th>
+      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>Adelie Penguin (Pygoscelis adeliae)</td>
+    </tr>
+    <tr>
+      <th>49</th>
       <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
@@ -1102,24 +1124,24 @@ When a model does not learn the generalities, this is known as overfitting.</p>
       <td>...</td>
     </tr>
     <tr>
-      <th>295</th>
+      <th>338</th>
       <td>Chinstrap penguin (Pygoscelis antarctica)</td>
     </tr>
     <tr>
-      <th>169</th>
+      <th>251</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>227</th>
+      <th>231</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>331</th>
-      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+      <th>68</th>
+      <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
-      <th>312</th>
-      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+      <th>257</th>
+      <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
   </tbody>
 </table>
@@ -1131,6 +1153,10 @@ When a model does not learn the generalities, this is known as overfitting.</p>
 This makes it really easy for us to train prepocessors and models on the training data alone and cleanly apply to the test data set without leakage.</p>
 <section id="pre-processing">
 <h3>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this heading">#</a></h3>
+<p>Pre-processing data is the next critical step in preparing it for machine learning models, and the scikit-learn library offers powerful tools like <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> and <code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code> to facilitate this process.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> is commonly used to standardize features by removing the mean and scaling them to unit variance, ensuring that each feature contributes equally to the model’s performance. This transformation is particularly beneficial for algorithms sensitive to feature scaling, such as support vector machines and k-nearest neighbours.</p>
+<p>On the other hand, OneHotEncoder is instrumental in handling categorical variables by converting them into a binary representation, where each category becomes a binary feature. This transformation prevents the model from interpreting categorical variables as ordinal, e.g. category <code class="docutils literal notranslate"><span class="pre">1</span></code> is “stronger” than category <code class="docutils literal notranslate"><span class="pre">0</span></code>, and ensures that all categories are treated equally.</p>
+<p>Together, these pre-processing techniques help enhance the performance and robustness of machine learning models, ready to be fed into the model for training and evaluation.</p>
 <div class="alert alert-block alert-info">
 <b>Tip:</b> In science, any type of feature selection, scaling, basically anything you do to the data, needs to be done <strong>after</strong> a split into training and test set.<br>Statistically and scientifically valid results come from proper treatment of our data. Unfortunately, we can overfit manually if we don't split out a test set before pre-processing.</div><div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1143,7 +1169,8 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code> is a neat tool that can apply your preprocessing steps to the right columns in your dataset.</p>
-<p>In fact, you could also use a Pipeline instead of “just” a <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> to use more sophisticated and complex preprocessing workflows that go beyond this toy project.</p>
+<p>This transformer is pretty efficient because it allows us to target individual subsets of data for transformation, ensuring that preprocessing techniques are applied only where necessary.</p>
+<p>Moreover, leveraging a Pipeline instead of a standalone <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> or <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code> offers even greater flexibility, enabling the integration of more intricate preprocessing workflows, which we’ll see further below. This versatility is particularly valuable when working on complex machine learning tasks that demand comprehensive preprocessing strategies beyond the scope of basic projects, enabling researchers to unleash the full potential of their data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
@@ -1156,6 +1183,7 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 </div>
 </div>
+<p>Ok now we’ll build a reproducible <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> including a support-vector machine as the classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
@@ -1194,10 +1222,15 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 <p>We can see a nice model representation here.</p>
 <p>You can click on the different modules that will tell you which arguments were passed into the pipeline. In our case, how we handle unknown values in the OneHotEncoder.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> offers a convenient solution to prevent unintentional leakage of information from test data during preprocessing. By encapsulating preprocessing steps within a pipeline, each transformation is applied sequentially and independently to the data, ensuring that normalizers and other preprocessing techniques are fitted solely on the training data.</p>
+<p>This prevents the inadvertent fitting of preprocessors to the test data, mitigating the risk of information leakage and preserving the integrity of the evaluation process. One way to avoid accidents in our research!</p>
 </section>
 <section id="model-training">
 <h3>Model Training<a class="headerlink" href="#model-training" title="Permalink to this heading">#</a></h3>
 <p>Now it’s time to fit our Support-Vector Machine to our training data.</p>
+<p>This process involves training the model on the provided training data to learn patterns and relationships within the features and their corresponding labels. During the fitting process, the model adjusts its parameters to minimize the difference between its predictions and the actual target values.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> method encapsulates this training process, allowing the model to learn from the training data and prepare for subsequent evaluation and prediction tasks.</p>
+<p>(And it’s all in the <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>, which makes sure our pre-processors get fitted to the same exact data!)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">[</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
@@ -1236,25 +1269,27 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9957081545064378
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9914163090128756
 </pre></div>
 </div>
 </div>
 </div>
 <p>To evaluate how well our model learned, we check the model against the test data one final time.</p>
 <div class="alert alert-block alert-info">
-<b>Tip:</b> It is possible to manually overfit a model to the test set, by tweaking the pipelines based on the test score.<br>This invalidates scientific results and must be avoided. Only evaluate on the test set once!</div><div class="cell docutils container">
+<b>Tip:</b> It is possible to manually overfit a model to the test set, by tweaking the pipelines based on the test score.<br>This invalidates scientific results and must be avoided. If you need to manually tweak the model, use a three-way `train-val-test` split.<br>Only evaluate on the test set once!</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9801980198019802
 </pre></div>
 </div>
 </div>
 </div>
+<p>That’s an extraordinary score!</p>
+<p>We can predict our penguins with 100%, so let’s evaluate these models in the following pages!</p>
 </section>
 </section>
 </section>
