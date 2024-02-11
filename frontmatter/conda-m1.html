@@ -403,12 +403,12 @@ document.write(`
 <p>If you’re using a Mac with the latest M1 chip, it is highly recommended to install the packages in
 your conda environment specifically tailored for your hardware architecture (i.e. <code class="docutils literal notranslate"><span class="pre">arm64</span></code>).
 To do so, please execute the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ CONDA_SUBDIR=osx-arm64 conda env create -f environment.yml
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ CONDA_SUBDIR=osx-arm64 conda env create -f requirements/tutorial.yml
 </pre></div>
 </div>
 <p>This will make sure that <code class="docutils literal notranslate"><span class="pre">conda</span></code> will automatically fetch the appropriate packages from channels, if required.</p>
 <p>To activate the environment, please run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate pydata-global-2022-ml-repro
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate ml-recipes
 </pre></div>
 </div>
 <p>Once the environment is activated, please set the <code class="docutils literal notranslate"><span class="pre">subdir</span></code> for future package installations:</p>

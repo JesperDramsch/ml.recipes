@@ -401,16 +401,16 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="using-conda">
 <h1>Using Conda<a class="headerlink" href="#using-conda" title="Permalink to this heading">#</a></h1>
 <p>⚠️ If you’re using Apple with M1 Chip, please follow these <span class="xref myst">instructions</span></p>
-<p>You can create an <code class="docutils literal notranslate"><span class="pre">pydata-global-2022-ml-repro</span></code> conda environment executing:</p>
+<p>You can create an <code class="docutils literal notranslate"><span class="pre">ml-recipes</span></code> conda environment executing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env create -f requirements/tutorial.yml
 </pre></div>
 </div>
 <p>and later activate the environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate pydata-global-2022-ml-repro
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda activate ml-recipes
 </pre></div>
 </div>
 <p>You might also only update your current environment using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env update --prefix ./env --file environment.yml  --prune
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conda env update --prefix ./env --file requirements/tutorial.yml  --prune
 </pre></div>
 </div>
 </section>

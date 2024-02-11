@@ -449,9 +449,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ablation-studies">
 <h1><span class="section-number">6.2. </span>Ablation Studies<a class="headerlink" href="#ablation-studies" title="Permalink to this heading">#</a></h1>
-<p>Finally, the gold standard in building complex machine learning models is proving that each constituent part of the model contributes something to the proposed solution.</p>
-<p>Ablation studies serve to dissect machine learning models and evaluate their impact.</p>
+<p>The gold standard in building complex machine learning models is proving that each constituent part of the model contributes something to the proposed solution.</p>
+<p>Ablation studies play a pivotal role in this process by systematically dissecting machine learning models and evaluating the impact of individual components. By selectively removing or disabling specific features, layers, or modules within the model and observing the resulting changes in performance, we can assess the significance of each component in achieving the desired outcome.</p>
+<p>Ablation studies offer invaluable insights into the inner workings of complex models, shedding light on which elements are essential for model performance and which may be redundant or less influential. This rigorous approach not only validates the effectiveness of the model architecture but also provides guidance for model refinement and optimization, ultimately advancing the field of machine learning and enhancing the reproducibility and reliability of research findings.</p>
 <p>In this section, we’ll finally discuss how to present complex machine learning models in publications and ensure the viability of each part we engineered to solve our particular problem set.</p>
+<p>(Granted on a toy problem, so there’s not too much we can ablate…)</p>
+<p>First we’ll build a quick model, as we did in <span class="xref myst">the Data notebook</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -582,7 +585,7 @@ document.write(`
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
 <span class="p">])</span>
 <span class="n">model</span>
 </pre></div>
@@ -597,7 +600,7 @@ document.write(`
                                                  (&#x27;cat&#x27;,
                                                   OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
                                                   [&#x27;Sex&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                (&#x27;classifier&#x27;, SVC(random_state=42))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;Culmen Length (mm)&#x27;,
                                                    &#x27;Culmen Depth (mm)&#x27;,
@@ -605,20 +608,26 @@ document.write(`
                                                  (&#x27;cat&#x27;,
                                                   OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
                                                   [&#x27;Sex&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
+                (&#x27;classifier&#x27;, SVC(random_state=42))])</pre></div></div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">preprocessor: ColumnTransformer</label><div class="sk-toggleable__content"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;, StandardScaler(),
                                  [&#x27;Culmen Length (mm)&#x27;, &#x27;Culmen Depth (mm)&#x27;,
                                   &#x27;Flipper Length (mm)&#x27;]),
                                 (&#x27;cat&#x27;, OneHotEncoder(handle_unknown=&#x27;ignore&#x27;),
-                                 [&#x27;Sex&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>[&#x27;Culmen Length (mm)&#x27;, &#x27;Culmen Depth (mm)&#x27;, &#x27;Flipper Length (mm)&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler()</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>[&#x27;Sex&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC()</pre></div></div></div></div></div></div></div></div></div>
+                                 [&#x27;Sex&#x27;])])</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">num</label><div class="sk-toggleable__content"><pre>[&#x27;Culmen Length (mm)&#x27;, &#x27;Culmen Depth (mm)&#x27;, &#x27;Flipper Length (mm)&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">StandardScaler</label><div class="sk-toggleable__content"><pre>StandardScaler()</pre></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label sk-toggleable__label-arrow">cat</label><div class="sk-toggleable__content"><pre>[&#x27;Sex&#x27;]</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label sk-toggleable__label-arrow">OneHotEncoder</label><div class="sk-toggleable__content"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">SVC</label><div class="sk-toggleable__content"><pre>SVC(random_state=42)</pre></div></div></div></div></div></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">scores</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s compare this to a model that doesn’t scale the numeric inputs.</p>
+<p>We can save those initial scores as <code class="docutils literal notranslate"><span class="pre">Full</span></code> in a scoring dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scoring</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Average&quot;</span><span class="p">,</span> <span class="s2">&quot;Deviation&quot;</span><span class="p">])</span>
@@ -660,6 +669,8 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+<p>Let’s compare this to a model that doesn’t scale the numeric inputs.</p>
+<p>Here using the pipelines comes in handy, because switching off certain components just changes those into a <code class="docutils literal notranslate"><span class="pre">noop</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># num_transformer = StandardScaler()</span>
@@ -671,21 +682,17 @@ document.write(`
 <span class="p">])</span>
 
 
-<span class="n">model2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
-    <span class="p">(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">()),</span>
-<span class="p">])</span>
+<span class="n">model2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+    <span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 
 <span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">scoring</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;No Standardisation&quot;</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scoring</span>
+<span class="n">scoring</span>
 </pre></div>
 </div>
 </div>
@@ -727,6 +734,8 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+<p>Those scores decrease significantly when we remove the standardisation step. This is because the SVM algorithm is sensitive to the scale of the features. The standardisation step is crucial to ensure that the model can learn from the data.</p>
+<p>Now we can evaluate if the model should use a singular column for <code class="docutils literal notranslate"><span class="pre">Sex</span></code>, since it is basically a binary column in our research data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_transformer</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
@@ -793,6 +802,8 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+<p>This seems to not affect the model, so we can actually encode the catergorical information as binary in this case, instead of adding a feature column for <code class="docutils literal notranslate"><span class="pre">Male</span></code> and <code class="docutils literal notranslate"><span class="pre">Female</span></code>.</p>
+<p>Clearly this is a toy example and we knew that switching off standardisation would have this effect. In the real world, we would, however, switch off entire components of neural networks to evaluate the impact they have on our model performance. This strengthens the claims we make in our research significantly and usually leads to easier reviews.</p>
 </section>
 
     <script type="text/x-thebe-config">

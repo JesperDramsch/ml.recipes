@@ -1,8 +1,8 @@
 # Using Conda
 
-⚠️ If you're using Apple with M1 Chip, please follow these [instructions](#note-for-conda-on-apple-m1-chip)
+⚠️ If you're using Apple with M1 Chip, please follow these [instructions](/frontmatter/conda-m1.html)
 
-You can create an `pydata-global-2022-ml-repro` conda environment executing:
+You can create an `ml-recipes` conda environment executing:
 
 ```
 $ conda env create -f requirements/tutorial.yml
@@ -11,11 +11,11 @@ $ conda env create -f requirements/tutorial.yml
 and later activate the environment:
 
 ```
-$ conda activate pydata-global-2022-ml-repro
+$ conda activate ml-recipes
 ```
 
 You might also only update your current environment using:
 
 ```
-$ conda env update --prefix ./env --file environment.yml  --prune
+$ conda env update --prefix ./env --file requirements/tutorial.yml  --prune
 ```
