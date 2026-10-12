@@ -473,7 +473,7 @@ document.write(`
 <p>Let’s dive into some quick exploration of the data!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="n">DATA_FOLDER</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span>
 <span class="n">DATA_FILEPATH</span> <span class="o">=</span> <span class="n">DATA_FOLDER</span> <span class="o">/</span> <span class="s2">&quot;penguins.csv&quot;</span>
@@ -484,7 +484,7 @@ document.write(`
 <p>We’ll use the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> library to load an pre-process the data. It has quite a few convenience functions like loading CSVs or dropping columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
@@ -783,7 +783,7 @@ document.write(`
 <p>For this visualization we’ll use <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> which is a statistical plotting library that makes our job much easier than the more granular <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="n">pairplot_figure</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">penguins</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
 </pre></div>
@@ -950,7 +950,7 @@ document.write(`
 <p>We’ll choose 70% of the data as training data here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">penguins</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">penguins</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">.7</span><span class="p">)</span>
 <span class="n">X_train</span>
@@ -984,38 +984,38 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>189</th>
-      <td>44.4</td>
-      <td>17.3</td>
-      <td>219.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>137</th>
-      <td>40.2</td>
-      <td>20.1</td>
-      <td>200.0</td>
-      <td>MALE</td>
-    </tr>
-    <tr>
-      <th>38</th>
-      <td>37.6</td>
-      <td>19.3</td>
-      <td>181.0</td>
+      <th>194</th>
+      <td>45.3</td>
+      <td>13.7</td>
+      <td>210.0</td>
       <td>FEMALE</td>
     </tr>
     <tr>
-      <th>22</th>
-      <td>35.9</td>
-      <td>19.2</td>
-      <td>189.0</td>
+      <th>332</th>
+      <td>45.2</td>
+      <td>16.6</td>
+      <td>191.0</td>
       <td>FEMALE</td>
     </tr>
     <tr>
-      <th>267</th>
-      <td>55.1</td>
+      <th>321</th>
+      <td>50.8</td>
+      <td>18.5</td>
+      <td>201.0</td>
+      <td>MALE</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>36.7</td>
+      <td>18.8</td>
+      <td>187.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>49.6</td>
       <td>16.0</td>
-      <td>230.0</td>
+      <td>225.0</td>
       <td>MALE</td>
     </tr>
     <tr>
@@ -1026,38 +1026,38 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>148</th>
-      <td>36.0</td>
-      <td>17.8</td>
-      <td>195.0</td>
+      <th>250</th>
+      <td>48.4</td>
+      <td>14.4</td>
+      <td>203.0</td>
       <td>FEMALE</td>
     </tr>
     <tr>
-      <th>231</th>
-      <td>45.2</td>
-      <td>16.4</td>
-      <td>223.0</td>
+      <th>89</th>
+      <td>38.9</td>
+      <td>18.8</td>
+      <td>190.0</td>
+      <td>FEMALE</td>
+    </tr>
+    <tr>
+      <th>291</th>
+      <td>50.5</td>
+      <td>19.6</td>
+      <td>201.0</td>
       <td>MALE</td>
     </tr>
     <tr>
-      <th>140</th>
-      <td>40.2</td>
-      <td>17.1</td>
-      <td>193.0</td>
+      <th>142</th>
+      <td>32.1</td>
+      <td>15.5</td>
+      <td>188.0</td>
       <td>FEMALE</td>
     </tr>
     <tr>
-      <th>319</th>
-      <td>45.5</td>
-      <td>17.0</td>
-      <td>196.0</td>
-      <td>FEMALE</td>
-    </tr>
-    <tr>
-      <th>287</th>
-      <td>51.7</td>
-      <td>20.3</td>
-      <td>194.0</td>
+      <th>71</th>
+      <td>39.7</td>
+      <td>18.4</td>
+      <td>190.0</td>
       <td>MALE</td>
     </tr>
   </tbody>
@@ -1095,23 +1095,23 @@ document.write(`
   </thead>
   <tbody>
     <tr>
-      <th>189</th>
+      <th>194</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>137</th>
+      <th>332</th>
+      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+    </tr>
+    <tr>
+      <th>321</th>
+      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+    </tr>
+    <tr>
+      <th>82</th>
       <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
-      <th>38</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
-    </tr>
-    <tr>
-      <th>267</th>
+      <th>193</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
@@ -1119,24 +1119,24 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>148</th>
-      <td>Adelie Penguin (Pygoscelis adeliae)</td>
-    </tr>
-    <tr>
-      <th>231</th>
+      <th>250</th>
       <td>Gentoo penguin (Pygoscelis papua)</td>
     </tr>
     <tr>
-      <th>140</th>
+      <th>89</th>
       <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
     <tr>
-      <th>319</th>
+      <th>291</th>
       <td>Chinstrap penguin (Pygoscelis antarctica)</td>
     </tr>
     <tr>
-      <th>287</th>
-      <td>Chinstrap penguin (Pygoscelis antarctica)</td>
+      <th>142</th>
+      <td>Adelie Penguin (Pygoscelis adeliae)</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>Adelie Penguin (Pygoscelis adeliae)</td>
     </tr>
   </tbody>
 </table>
@@ -1155,7 +1155,7 @@ This makes it really easy for us to train prepocessors and models on the trainin
 <div class="alert alert-block alert-info">
 <b>Tip:</b> In science, any type of feature selection, scaling, basically anything you do to the data, needs to be done <strong>after</strong> a split into training and test set.<br>Statistically and scientifically valid results come from proper treatment of our data. Unfortunately, we can overfit manually if we don't split out a test set before pre-processing.</div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
 
 <span class="n">num_transformer</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 <span class="n">cat_transformer</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
@@ -1168,7 +1168,7 @@ This makes it really easy for us to train prepocessors and models on the trainin
 <p>Moreover, leveraging a Pipeline instead of a standalone <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> or <code class="docutils literal notranslate"><span class="pre">ColumnTransformer</span></code> offers even greater flexibility, enabling the integration of more intricate preprocessing workflows, which we’ll see further below. This versatility is particularly valuable when working on complex machine learning tasks that demand comprehensive preprocessing strategies beyond the scope of basic projects, enabling researchers to unleash the full potential of their data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
 
 <span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span><span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;num&#39;</span><span class="p">,</span> <span class="n">num_transformer</span><span class="p">,</span> <span class="n">num_features</span><span class="p">),</span>
@@ -1181,8 +1181,8 @@ This makes it really easy for us to train prepocessors and models on the trainin
 <p>Ok now we’ll build a reproducible <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> including a support-vector machine as the classifier!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;preprocessor&#39;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
@@ -1264,7 +1264,7 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9957081545064378
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9914163090128756
 </pre></div>
 </div>
 </div>
@@ -1278,7 +1278,7 @@ This makes it really easy for us to train prepocessors and models on the trainin
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9801980198019802
 </pre></div>
 </div>
 </div>
