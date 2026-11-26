@@ -85,7 +85,7 @@ penguins.to_csv(DATA_CLEAN_FILEPATH, index=False)
 # %%
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target], train_size=.7)
+X_train, X_test, y_train, y_test = train_test_split(penguins[features], penguins[target], train_size=.7, random_state=39)
 X_train
 
 # %%
