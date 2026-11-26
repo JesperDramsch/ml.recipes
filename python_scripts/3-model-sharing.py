@@ -67,7 +67,7 @@ preprocessor = ColumnTransformer(transformers=[
 
 model = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('classifier', SVC()),
+    ('classifier', SVC(random_state=42)),
 ])
 
 model.fit(X_train, y_train)
