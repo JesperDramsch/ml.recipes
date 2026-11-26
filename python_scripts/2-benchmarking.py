@@ -52,7 +52,7 @@ X_train
 y_train.reset_index().groupby(["Species"]).count()
 
 # %% [markdown]
-# We can use the `DummyClassifier` and `DummyRegressor` to show what a random model would predict.
+# We can use the `DummyClassifier` and `DummyRegressor` as simple baselines. The default `DummyClassifier` strategy ("prior") always predicts the most frequent class.
 
 # %%
 from sklearn.dummy import DummyClassifier
