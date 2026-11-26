@@ -59,7 +59,7 @@ model.score(X_test, y_test)
 #
 
 # %%
-from sklearn.inspection import PartialDependenceDisplay, partial_dependence, plot_partial_dependence
+from sklearn.inspection import PartialDependenceDisplay, partial_dependence
 
 pd_results = partial_dependence(model, X_train.sample(20), num_features)
 pd_results
