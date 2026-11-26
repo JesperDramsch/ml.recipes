@@ -61,7 +61,7 @@ model.score(X_test, y_test)
 # %%
 from sklearn.inspection import PartialDependenceDisplay, partial_dependence
 
-pd_results = partial_dependence(model, X_train.sample(20), num_features)
+pd_results = partial_dependence(model, X_train.sample(20, random_state=42), num_features)
 pd_results
 
 
@@ -95,7 +95,7 @@ preprocessor = ColumnTransformer(transformers=[
 
 rf = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('classifier', RandomForestClassifier()),
+    ('classifier', RandomForestClassifier(random_state=42)),
 ])
 
 rf.fit(X_train, y_train)
@@ -130,7 +130,7 @@ plt.show()
 # %%
 import shap
 
-rf = RandomForestClassifier()
+rf = RandomForestClassifier(random_state=42)
 rf.fit(X_train[num_features], y_train)
 
 explainer = shap.Explainer(rf)
