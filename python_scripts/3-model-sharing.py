@@ -91,7 +91,9 @@ clf.score(X_test, y_test)
 # ## Sources of Randomness
 # You may have noticed that I used `random_state` in some arguments.
 #
-# This fixes all sources of random initialization in a model or method to this particular random seed.
+# This fixes the random parts of a model or method, such as the random forest's bootstrap samples and feature choices, to this particular random seed.
+#
+# Deterministic models, like SVC without `probability=True`, give the same result with or without the seed.
 #
 # <div class="alert alert-block alert-info">
 # <b>Tip:</b> Always Google the latest way to fix randomness in machine learning code. It differs from library to library and version to version.<br>It's easy to forget one, which defeats the entire purpose.</div>
@@ -100,10 +102,11 @@ clf.score(X_test, y_test)
 
 # %%
 from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
 
 clf = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('classifier', SVC(random_state=42)),
+    ('classifier', RandomForestClassifier(random_state=42)),
 ])
 scores = cross_val_score(clf, X_train, y_train, cv=5)
 scores
